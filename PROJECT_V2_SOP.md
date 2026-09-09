@@ -78,14 +78,20 @@ flowchart TD
   - **24-Hour Time Format & Kerning Protection**: Format timestamp jam **WAJIB** menggunakan sistem 24 jam (`HH:MM:SS WIB`). Untuk string bawaan biner yang memiliki kerning X terkunci untuk 1-digit jam (seperti `1:20:13 WIB` pada Baris 5 atau `3:59:00 WIB` pada Baris 17), panjang string asli **WAJIB dipertahankan** (`1:20:13 WI` / `3:59:00 WIB`) agar penambahan digit tidak menggeser bounding box ke kiri dan tidak terjadi overlap secara visual.
   - **Pengujian Baris Spesifik**: Pengubahan baris tertentu (contoh: Baris 10 `25 Dec 2026 04:00:00`) dilakukan langsung pada record date & time pasangan baris tersebut tanpa merusak kerning baris lain.
 
-### **TAHAP 7: Perubahan Ringkasan & Tabel Transaksi Utama**
-* **Target**: Mengubah data angka dan saldo secara utuh berdasarkan tabel input yang diberikan user:
-  1. **Saldo Awal / Initial Balance**
-  2. **Dana Masuk / Incoming Transactions**
-  3. **Dana Keluar / Outgoing Transactions**
-  4. **Saldo Akhir / Closing Balance**
+### **TAHAP 7: Perubahan Ringkasan & Tabel Transaksi Utama (FINAL)**
+* **Target**: Mengubah data angka ringkasan header dan tabel transaksi secara utuh berdasarkan data input tabel user:
+  1. **Saldo Awal / Initial Balance** (Rec 01148)
+  2. **Dana Masuk / Incoming Transactions** (Rec 01158)
+  3. **Dana Keluar / Outgoing Transactions** (Rec 01176)
+  4. **Saldo Akhir / Closing Balance** (Rec 01195)
   5. **Nominal Kredit (`+`) / Debit (`-`) tiap baris**
   6. **Saldo Akhir Berjalan (*Running Balance*) tiap baris**
+* **Standar Pewarnaan Jenis Transaksi (Color Rule)**:
+  - **Kredit (`+` / Dana Masuk)**: Nominal diawali tanda `+` dan `Tag 150` di-set ke **HIJAU** (`b'\xcf\x03\x00\x00'`, #00A651).
+  - **Debit (`-` / Dana Keluar)**: Nominal diawali tanda `-` dan `Tag 150` di-set ke **HITAM** (`b'\x1e\x02\x00\x00'`, #000000).
+* **Font Protection & Fix Angka 9**:
+  - `Tag 2907` pada node definisi font **WAJIB terkunci** (pantang diubah).
+  - Payload teks di-encode dengan `UTF-16LE` / `Latin1` murni sehingga font TTInterphases bawaan dokumen terjaga konsistensinya dan **angka 9 terbebas 100% dari error/kerusakan font**.
 
 ---
 
