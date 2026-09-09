@@ -37,7 +37,15 @@ flowchart TD
 * **Aturan**: Eksekusi khusus nama saja, tanpa menyentuh field lain.
 
 ### **TAHAP 2: Perubahan Periode**
-* **Target**: Mengubah rentang tanggal laporan (`Periode/Period`) pada seluruh halaman header (contoh: `01 Jan 2026 - 31 Jan 2026`).
+* **Target**: Mengubah rentang tanggal laporan (`Periode/Period`) pada seluruh halaman header (contoh: `01 Dec 2026 - 31 Dec 2026`).
+* **Standar Layout & Node Structure**:
+  - String periode header terpisah menjadi 4 record node biner per halaman:
+    1. **Bulan/Tahun Awal + Separator**: `"[MMM YYYY] - "` (Halaman 1: Rec 01022, Halaman 2: Rec 03988)
+    2. **Digit Puluhan Tanggal Akhir**: `"[D]"` (Halaman 1: Rec 01023, Halaman 2: Rec 03989)
+    3. **Digit Satuan Tanggal Akhir + Spasi**: `"[D] "` (Halaman 1: Rec 01028, Halaman 2: Rec 03994)
+    4. **Bulan/Tahun Akhir**: `"[MMM YYYY]"` (Halaman 1: Rec 01033, Halaman 2: Rec 03999)
+  - **Sinkronisasi Otomatis**: Pengubahan bulan wajib menghitung otomatis jumlah hari dalam bulan tersebut (contoh: Dec = 31 hari) dan memperbarui ke-8 record node tersebut secara bersamaan.
+* **Aturan**: Eksekusi khusus periode header saja, tanggal transaksi tabel dikerjakan di Tahap 6.
 
 ### **TAHAP 3: Perubahan Dicetak Pada**
 * **Target**: Mengubah tanggal penerbitan dokumen (`Dicetak pada/Issued on`).
