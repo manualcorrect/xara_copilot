@@ -30,6 +30,14 @@
       "new_dicetak_pada": "19 Jan 2027",
       "records_updated_count": 4,
       "status": "PASS"
+    },
+    {
+      "stage": "Tahap 4 - Perubahan Nomor Rekening",
+      "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap3.xar",
+      "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap4.xar",
+      "new_account_number": "1630000000000",
+      "records_updated_count": 1,
+      "status": "PASS"
     }
   ]
 }
