@@ -44,10 +44,11 @@
       "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap4.xar",
       "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap5.xar",
       "total_pages": 3,
+      "page_1_header": "1 dari 3",
       "page_1_footer": "1 of 3",
       "page_2_header": "2 dari 3",
       "page_2_footer": "2 of 3",
-      "records_updated_count": 3,
+      "records_updated_count": 4,
       "status": "PASS"
     }
   ]
