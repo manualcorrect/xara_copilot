@@ -6,12 +6,14 @@
   "training_stages": [
     {
       "stage": "Tahap 1 - Perubahan Nama",
-      "input_file": "C:\\Users\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1.xar",
+      "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1.xar",
       "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap1.xar",
       "new_name": "ASEP ISKANDAR",
       "records_updated_count": 2,
       "layout_rule": "Nama (Baris 1 Atas) & Cabang (Baris 2 Bawah) dipisahkan secara presisi via Kerning Y Tag 2206",
-      "status": "PASS"
+      "status": "PASS",
+      "formatted_payload": "ASEP ISKANDAR \\r\\n",
+      "pattern_note": "Added trailing space and newline (enter) after name string to trigger internal Xara story line break to top line"
     }
   ]
 }
