@@ -127,4 +127,7 @@ flowchart TD
 
 Saat melakukan pengubahan teks pada setiap tahap di atas:
 * **Auto-Size Sync**: Nilai header record biner `rec["size"]` **WAJIB selalu disinkronkan** dengan `len(rec["payload"])` agar tidak memicu `A read error occurred (streaming error)` di Xara.
+* **Tag 2202 Atomic Character Node Rule (Pembersihan Split Record)**: Tag 2202 (`TAG_TEXT_CHAR` / `TAG_TEXT_EOL`) dan Tag 2201 **DILARANG bernilai 0 byte (`b''`)**. Pembersihan node split sekunder **WAJIB menggunakan payload 2-byte null character `b'\x00\x00'`** (`rec["size"] = 2`). Payload 0 byte akan menyebabkan Xara crash dengan pesan `Failed to handle record [rec] 2202 (This file is corrupted and unreadable)`.
 * **Font Definition Lock**: `Tag 2907` pada node definisi font dilarang diubah agar embedded font bawaan dokumen tidak ter-reset.
+* **Zero-Shift Pointer Mandate**: Dilarang menambah atau menghapus record. Total record dokumen wajib terkunci konstan (6.908 pada test 2 halaman, 14.392 pada test 5 halaman).
+

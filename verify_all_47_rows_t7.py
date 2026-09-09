@@ -16,7 +16,7 @@ while i < len(doc.records):
             if doc.records[j]['tag'] in (2201, 2202):
                 story_recs.append((j, doc.records[j]['tag'], doc.records[j]['payload'].decode('utf-16le', errors='replace')))
             j += 1
-        story_text = "".join(sr[2] for sr in story_recs).strip()
+        story_text = "".join(sr[2] for sr in story_recs).replace('\x00', '').strip()
         if (story_text.startswith('+') or story_text.startswith('-')) and any(c.isdigit() for c in story_text) and not ('Dec' in story_text or 'e-Statement' in story_text):
             found_pairs.append(('NOMINAL', i, j, story_text, story_recs))
         elif any(c in story_text for c in [',00', ',0', ',']) and any(c.isdigit() for c in story_text) and not any(w in story_text for w in ['Dec', 'Jan', 'Kav', '12190', 'Saldo', 'Dana', '163000', 'e-Statement']):
