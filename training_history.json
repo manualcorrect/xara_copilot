@@ -181,6 +181,41 @@
         ],
         "total_records_locked": 14392,
         "status": "PASS"
+      },
+      {
+        "stage": "Tahap 5 - Perubahan Nomor Halaman",
+        "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap4.xar",
+        "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap5.xar",
+        "total_pages": 5,
+        "page_sequence": [
+          {
+            "page": 1,
+            "header": "1 dari 5",
+            "footer": "1 of 5"
+          },
+          {
+            "page": 2,
+            "header": "2 dari 5",
+            "footer": "2 of 5"
+          },
+          {
+            "page": 3,
+            "header": "3 dari 5",
+            "footer": "3 of 5"
+          },
+          {
+            "page": 4,
+            "header": "4 dari 5",
+            "footer": "4 of 5"
+          },
+          {
+            "page": 5,
+            "header": "5 dari 5",
+            "footer": "5 of 5"
+          }
+        ],
+        "total_records_locked": 14392,
+        "status": "PASS"
       }
     ]
   }
