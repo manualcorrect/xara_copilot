@@ -3,5 +3,30 @@
   "target_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1.xar",
   "total_records": 6908,
   "total_text_strings": 427,
-  "training_stages": []
+  "training_stages": [
+    {
+      "stage": "Tahap 1 - Perubahan Nama",
+      "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1.xar",
+      "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap1.xar",
+      "new_name": "ASEP ISKANDAR",
+      "records_updated_count": 2,
+      "records_updated_details": [
+        {
+          "rec_idx": 976,
+          "tag": 2201,
+          "old_text": "KHODIJAH",
+          "new_text": "ASEP ISKANDAR",
+          "new_size": 28
+        },
+        {
+          "rec_idx": 3930,
+          "tag": 2201,
+          "old_text": "KHODIJAH",
+          "new_text": "ASEP ISKANDAR",
+          "new_size": 28
+        }
+      ],
+      "status": "PASS"
+    }
+  ]
 }
