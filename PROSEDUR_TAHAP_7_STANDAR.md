@@ -94,9 +94,32 @@ Setiap penyuntingan angka tabel wajib menyinkronkan `Tag 2100` ($X_{\text{left}}
 
 ---
 
-## ⚙️ 6. ARSITEKTUR SCRIPT RESMI
+## 🔤 6. STANDAR BENTUK FONT ANGKA 0-9 & ZERO-SHIFT REPLACEMENT
+
+* **Font Standar**: Seluruh angka tabel dan ringkasan wajib berbobot tebal (**`TTInterphases-Bold`**, Font ID 13, `Tag 2907 = 444`).
+* **Angka 0 s.d. 8**: Menggunakan kurva vektor tebal bawaan murni dari Font ID 13.
+* **Angka 9 Bold Sempurna**: Menggunakan definisi kurva vektor 826 bytes yang diekstrak dari acuan `test_3.1.xar`.
+* **Aturan Mutlak Zero-Shift (*In-Place Replacement*)**:
+  - Dilarang keras menyisipkan (*insert*) record baru karena format biner Xara menggunakan nomor urutan indeks absolut untuk pointer warna (`Tag 150`) dan font (`Tag 2907`). Injeksi record akan menggeser ribuan record setelahnya dan membuat semua warna menjadi hitam serta mereset font.
+  - Penyesuaian angka 9 dilakukan secara *in-place replace* pada **Record 343** (menimpa glyph `'A'` yang tidak terpakai pada font bold).
+  - Dengan metode ini, total record dokumen **terkunci stabil persis 6.908 record**, seluruh angka 0–9 tebal sempurna, dan pointer warna tetap utuh 100%.
+
+---
+
+## 🎨 7. STANDAR WARNA TRANSAKSI (TAG 150 COLOR RULES)
+
+| Kategori Transaksi | Atribut Tag 150 | Nilai Biner Record | Record Target di Dokumen | Warna Tampilan |
+| :--- | :---: | :---: | :---: | :---: |
+| **Kredit (`+` / Masuk)** | `Tag 150` | `b'\xcf\x03\x00\x00'` | `Record 975` | **Hijau (`#00A651`)** |
+| **Debit (`-` / Keluar)** | `Tag 150` | `b'\x1e\x02\x00\x00'` | `Record 542` | **Hitam (`#000000`)** |
+| **Saldo Berjalan** | `Tag 150` | `b'\x1a\x05\x00\x00'` | `Record 1306` | **Biru (`#005B9C`)** |
+| **Saldo Awal** | `Tag 150` | `b'\x57\x03\x00\x00'` | `Record 855` | **Dark Gray (`#333333`)** |
+
+---
+
+## ⚙️ 8. ARSITEKTUR SCRIPT RESMI
 
 Eksekusi permanen Tahap 7 diotomatisasi melalui skrip resmi:
 * **Script Eksekusi**: `apply_tahap_7_tabel_ringkasan.py`
 * **Log Verifikasi**: `training_history.json`
-* **File Output Master**: `C:\Users\Lenovo\Downloads\rekening\Antigravity\test\Copilot_v2\test_v2.1_tahap7.xar` (Total record persis 6908 records).
+* **File Output Master**: `C:\Users\Lenovo\Downloads\rekening\Antigravity\test\Copilot_v2\test_v2.1_tahap7.xar` (Total record persis 6.908 records, terkunci aman).

@@ -108,9 +108,18 @@ flowchart TD
     - Digit: `'0'`: 5438 mp, `'1'`: 3160 mp, `'2'`: 4762 mp, `'3'`: 4840 mp, `'4'`: 5039 mp, `'5'`: 4840 mp, `'6'`: 4878 mp, `'7'`: 4402 mp, `'8'`: 4962 mp, `'9'`: 4878 mp.
     - Simbol & Tanda Baca: `'.'`: 1840 mp, `','`: 1243 mp, `'-'`: 3198 mp, `'+'`: 4399 mp, `' '`: 2200 mp.
   - Setiap perubahan nominal dan saldo wajib meng-update pasangan `Tag 2100` ($X_{\text{left}}$) dan `Tag 2206` ($W$) secara serempak.
-* **Preservasi Font Asli (Native Typography Preservation)**:
-  - Definisi font biner (Rec 0 hingga 1100, termasuk Tag 2000, Tag 4350, Tag 4351) **DILARANG DIUBAH / DISISIPKAN RECORD BARU**.
-  - Tipe font teks (huruf a-z, uraian transaksi, judul dokumen, dan metadata) **WAJIB 100% mempertahankan font bawaan murni dari Tahap 6** agar tidak memicu reset font fallback (`PDF-PDF-PDF...`) di Xara.
+* **Standar Bentuk Font Angka 0-9 & Zero-Shift Glyph Replacement**:
+  - **Font Utama Angka**: Seluruh angka Nominal, Saldo, dan Ringkasan menggunakan **`TTInterphases-Bold`** (Font ID 13, `Tag 2907 = 444`).
+  - **Bentuk Angka 0 s.d. 8**: Menggunakan kurva vektor tebal bawaan murni dari Font ID 13.
+  - **Bentuk Angka 9 Bold Sempurna**: Disesuaikan persis mengikuti kurva vektor tebal pada `test_3.1.xar` (826 bytes).
+  - **Zero-Shift In-Place Replacement Rule (Aturan Mutlak Tanpa Injeksi Record)**:
+    - Format biner Xara menggunakan sistem pointer indeks record absolut untuk memanggil atribut warna (`Tag 150`) dan font (`Tag 2907`).
+    - **Dilarang keras menyisipkan (*insert*) record baru** ke dalam stream karena akan menggeser ribuan record setelahnya dan merusak seluruh pointer warna menjadi hitam serta mereset font dokumen.
+    - Penyesuaian angka 9 dilakukan dengan menimpa (*in-place replace*) Record 343 (`Tag 4350`, glyph `'A'` yang tidak digunakan pada font bold) dengan payload kurva angka 9 bold (826 bytes).
+    - Dengan metode ini, total record dokumen **terkunci stabil persis 6.908 record**, seluruh angka 0–9 berbobot tebal sempurna, dan pointer warna/font tidak bergeser satu angka pun.
+* **Preservasi Tipografi Teks Non-Angka**:
+  - Tipe font teks (huruf a-z, uraian transaksi, nama nasabah, judul dokumen, dan metadata) **WAJIB 100% mempertahankan font bawaan murni dari Tahap 6**.
+  - Nilai `Tag 2907` pada cerita teks deskripsi dilarang disentuh agar tidak memicu dialog reset fallback (`PDF-PDF-PDF...`).
 
 ---
 

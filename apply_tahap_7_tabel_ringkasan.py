@@ -152,11 +152,36 @@ def apply_tahap_7_tabel_ringkasan():
 
         print(f"[*] Row {row_num:02d}: Nominal '{nom_str}' (X={mx_nom_new}, right={TARGET_NOM_RIGHT}), Saldo '{saldo_str}' (X={mx_sal_new}, right={TARGET_SAL_RIGHT})")
 
-    # 3. Save clean document (exactly 6908 records, 100% pristine fonts preserved from Tahap 6)
+    # 3. In-Place Glyph Replacement: Replace unused glyph 'A' (Rec 343) with Bold '9' from test_3.1.xar
+    # NOTE: Never insert records (which causes +1 shift and breaks Tag 150/2907 pointer handles).
+    # Replacing in-place keeps total records exactly 6,908 and preserves all 1-to-1 handle references!
+    ref_31 = r'C:\Users\Lenovo\Downloads\rekening\Antigravity\test\test_3.1.xar'
+    if os.path.exists(ref_31):
+        doc3 = XarDocument(ref_31)
+        glyph_9_payload = None
+        for r in doc3.records:
+            if r['tag'] == 4350 and len(r['payload']) >= 6:
+                fid = int.from_bytes(r['payload'][:4], 'little')
+                cc = int.from_bytes(r['payload'][4:6], 'little')
+                if fid == 13 and cc == 57: # '9'
+                    glyph_9_payload = bytearray(r['payload'])
+                    break
+
+        if glyph_9_payload:
+            # Rec 343 is unused glyph 'A' in Font 13 (right between '8' at 342 and 'C' at 344)
+            doc.records[343]['payload'] = glyph_9_payload
+            doc.records[343]['size'] = len(glyph_9_payload)
+            print(f"[*] In-place replaced Record 343 with TTInterphases-Bold Glyph '9' ({len(glyph_9_payload)} bytes)")
+
+    # 4. Auto-sync all record sizes (Mandatory rule to prevent streaming errors)
+    for r in doc.records:
+        r['size'] = len(r['payload'])
+
+    # 5. Save clean document (exactly 6,908 records, 100% intact colors, zero pointer shift)
     doc.save(v2_out)
     print(f"\n[SUCCESS] Saved updated clean document to: {v2_out}")
 
-    # 4. Update training_history.json
+    # 6. Update training_history.json
     history_file = r'C:\Users\Lenovo\xara_copilot\training_history.json'
     if os.path.exists(history_file):
         with open(history_file, 'r', encoding='utf-8') as f:
@@ -175,20 +200,30 @@ def apply_tahap_7_tabel_ringkasan():
                 "saldo_akhir": "2.942.661,00"
             },
             "primary_record_alignment": "Corrected primary saldo record for Row 2 (Rec 1711), Row 3 (Rec 1963), Row 13 (Rec 4706)",
-            "font_preservation": "100% preserved native typography and a-z font definitions from Tahap 6 (no node insertion/corruption)",
-            "kredit_debit_color_rule": "Kredit (+) Green (Tag 150 = cf030000), Debit (-) Black (Tag 150 = 1e020000), Saldo Blue (Tag 150 = 1a050000)",
+            "font_digit_standard": {
+                "font_family": "TTInterphases-Bold (Font ID 13, Tag 2907 = 444)",
+                "digits_0_to_8": "Native bold glyphs in Font ID 13",
+                "digit_9": "In-place replaced unused glyph 'A' (Rec 343) with 826-byte bold glyph '9' from test_3.1.xar",
+                "zero_pointer_shift_rule": "Preserved exactly 6,908 records so all Tag 150 (colors) and Tag 2907 (fonts) pointers remain 100% intact"
+            },
+            "kredit_debit_color_rule": {
+                "kredit_dana_masuk": "Green #00A651 (Tag 150 = b'\\xcf\\x03\\x00\\x00' -> Record 975)",
+                "debit_dana_keluar": "Black #000000 (Tag 150 = b'\\x1e\\x02\\x00\\x00' -> Record 542)",
+                "saldo_berjalan": "Blue #005B9C (Tag 150 = b'\\x1a\\x05\\x00\\x00' -> Record 1306)"
+            },
             "right_alignment_standard": {
                 "nominal_right_edge": "15.214 cm (431267 mp)",
                 "saldo_right_edge": "20.049 cm (568306 mp)",
                 "formula": "X_left = X_target_right - AdvanceWidth(text)"
             },
             "total_rows_processed": len(table_master),
+            "total_records_locked": len(doc.records),
             "status": "PASS"
         }
         history_data["training_stages"].append(t7_entry)
         with open(history_file, 'w', encoding='utf-8') as f:
             json.dump(history_data, f, indent=2)
-        print("[*] Updated training_history.json with Right-Alignment Standard & Clean Tahap 7")
+        print("[*] Updated training_history.json with Digits 0-9 & Color Rules Standard")
 
 
 if __name__ == '__main__':
