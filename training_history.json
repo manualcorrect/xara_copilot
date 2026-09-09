@@ -97,6 +97,18 @@
       "total_rows_processed": 17,
       "total_records_locked": 6908,
       "status": "PASS"
+    },
+    {
+      "stage": "Tahap 6 - Perubahan Tanggal Sesuai Periode & Jam (Stress Test 2)",
+      "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap5.xar",
+      "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap6.xar",
+      "period": "Dec 2026",
+      "total_transaction_rows": 47,
+      "primary_date_records_updated": 47,
+      "trailing_digit_records_updated": 25,
+      "total_records_updated_count": 72,
+      "total_records_locked": 14392,
+      "status": "PASS"
     }
   ],
   "stress_test_2": {
