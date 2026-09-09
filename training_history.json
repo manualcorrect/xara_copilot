@@ -109,6 +109,40 @@
       "total_records_updated_count": 72,
       "total_records_locked": 14392,
       "status": "PASS"
+    },
+    {
+      "stage": "Tahap 7 - Perubahan Ringkasan & Tabel Transaksi Utama (Stress Test 2 FINAL)",
+      "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap6.xar",
+      "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap7.xar",
+      "summary_header": {
+        "saldo_awal": "26.683,00",
+        "dana_masuk": "+ 5.315.920,00",
+        "dana_keluar": "- 4.210.600,00",
+        "saldo_akhir": "1.132.003,00"
+      },
+      "total_transaction_rows_verified": 47,
+      "modified_rows_count": 8,
+      "modified_rows": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "right_alignment_target": {
+        "nominal_x_right_mp": 431320,
+        "saldo_x_right_mp": 570450
+      },
+      "color_rules": {
+        "credit_nominal": "Green (#00A651 / Tag 150)",
+        "debit_nominal": "Black (#000000 / Tag 150)",
+        "running_saldo": "Blue (#005B9C / Tag 150)"
+      },
+      "total_records_locked": 14392,
+      "status": "PASS"
     }
   ],
   "stress_test_2": {
