@@ -86,15 +86,19 @@ flowchart TD
   4. **Saldo Akhir / Closing Balance** (Rec 01195)
   5. **Nominal Kredit (`+`) / Debit (`-`) tiap baris**
   6. **Saldo Akhir Berjalan (*Running Balance*) tiap baris**
-* **Standar Pewarnaan Jenis Transaksi (Color Rule)**:
+* **Standar Pewarnaan Jenis Transaksi & Saldo (Color Rule)**:
   - **Kredit (`+` / Dana Masuk)**: Nominal diawali tanda `+` dan `Tag 150` di-set ke **HIJAU** (`b'\xcf\x03\x00\x00'`, #00A651).
   - **Debit (`-` / Dana Keluar)**: Nominal diawali tanda `-` dan `Tag 150` di-set ke **HITAM** (`b'\x1e\x02\x00\x00'`, #000000).
-* **Split Record Cleanup Rule (Pembersihan Overlap)**:
-  - Pada dokumen biner Xara, string nominal dan saldo berjalan yang awalnya panjang terpecah menjadi *primary record* dan beberapa *secondary split records*.
-  - **Rule Mandatory**: Nilai string baru dimasukkan ke *primary record*, dan seluruh *secondary split records* (seperti `Rec 1720`, `Rec 1729`, `Rec 4385`, `Rec 4389`, `Rec 4398`, dll) **WAJIB dibersihkan ke string kosong `""`** (`b'\x00\x00'`) agar sisa angka lama tidak bertumpuk/overlap secara visual.
-* **Standar Font Angka (TTInterphases-Bold & Embedded Glyph '9')**:
-  - Kolom Nominal dan Saldo Berjalan (serta Ringkasan Header) **WAJIB** menggunakan font **`TTInterphases-Bold`** (`Tag 2907 = b'\xbc\x01\x00\x00'`, Font ID 13).
-  - Untuk dokumen di mana glyph digit 9 belum tersimpan dalam stream biner bawaan, **WAJIB menyematkan Tag 4350 untuk digit '9'** (826 bytes dari referensi `test_3.1.xar`) pada deretan glyph Font ID 13 (tepat setelah digit '8'). Ini menjamin ke-10 karakter angka (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) tampil 100% konsisten, tebal/bold, tajam, dan identik dengan referensi `test_3.1.xar`.
+  - **Saldo Berjalan (*Running Balance*)**: `Tag 150` wajib mempertahankan warna **BIRU** (`b'\x1a\x05\x00\x00'`, #005B9C).
+  - **Ringkasan Header**: Saldo Awal (Dark Gray `b'\x57\x03\x00\x00'`), Dana Masuk (Hijau `b'\xcf\x03\x00\x00'`), Dana Keluar (Hitam `b'\x1e\x02\x00\x00'`), Saldo Akhir (Biru `b'\x1a\x05\x00\x00'`).
+* **Split Record Cleanup Rule (Pembersihan Overlap & Ghost Digits)**:
+  - Pada dokumen biner Xara, string nominal, saldo berjalan, serta ringkasan dana masuk/keluar terpecah menjadi *primary record* dan *secondary split records*.
+  - **Rule Mandatory**: Nilai string baru dimasukkan ke *primary record*, dan seluruh *secondary split records* **WAJIB dibersihkan ke string kosong `""` (`b'\x00\x00'`)**:
+    - **Tabel Transaksi**: `Rec 1720`, `Rec 1729`, `Rec 4385`, `Rec 4389`, `Rec 4398`, dll.
+    - **Ringkasan Header**: Secondary Dana Masuk (`Rec 1163`) dan Secondary Dana Keluar (`Rec 1177`, `Rec 1182`) wajib di-clear agar tidak muncul digit '0' berlebih (seperti `6.360.206,000` atau `-4.072.500,0000`).
+* **Preservasi Font Asli (Native Typography Preservation)**:
+  - Definisi font biner (Rec 0 hingga 1100, termasuk Tag 2000, Tag 4350, Tag 4351) **DILARANG DIUBAH / DISISIPKAN RECORD BARU**.
+  - Tipe font teks (huruf a-z, uraian transaksi, judul dokumen, dan metadata) **WAJIB 100% mempertahankan font bawaan murni dari Tahap 6** agar tidak memicu reset font fallback (`PDF-PDF-PDF...`) di Xara.
 
 ---
 
