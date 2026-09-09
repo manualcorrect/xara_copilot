@@ -66,6 +66,21 @@
       "total_transaction_rows_updated": 17,
       "records_updated_count": 20,
       "status": "PASS"
+    },
+    {
+      "stage": "Tahap 7 - Perubahan Ringkasan & Tabel Transaksi Utama (FINAL)",
+      "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap6.xar",
+      "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap7.xar",
+      "summary_header": {
+        "saldo_awal": "654.955,00",
+        "dana_masuk": "+ 6.360.206,00",
+        "dana_keluar": "- 4.072.500,00",
+        "saldo_akhir": "2.942.661,00"
+      },
+      "kredit_debit_color_rule": "Kredit (+) set Tag 150 to Green (975), Debit (-) set Tag 150 to Black (542)",
+      "digit_9_font_preservation": "Tag 2907 locked, font TTInterphases preserved for all digits including 9",
+      "total_rows_processed": 17,
+      "status": "PASS"
     }
   ]
 }
