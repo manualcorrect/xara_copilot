@@ -699,6 +699,7 @@ class XarDocument:
         
         new_decomp = bytearray()
         for rec in self.records:
+            rec["size"] = len(rec["payload"])
             header = struct.pack("<II", rec["tag"], rec["size"])
             new_decomp.extend(header)
             new_decomp.extend(rec["payload"])
