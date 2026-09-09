@@ -22,6 +22,14 @@
       "new_period": "01 Dec 2026 - 31 Dec 2026",
       "records_updated_count": 8,
       "status": "PASS"
+    },
+    {
+      "stage": "Tahap 3 - Perubahan Tanggal Cetak",
+      "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap2.xar",
+      "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap3.xar",
+      "new_dicetak_pada": "19 Jan 2027",
+      "records_updated_count": 4,
+      "status": "PASS"
     }
   ]
 }
