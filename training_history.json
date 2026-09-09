@@ -120,6 +120,27 @@
         ],
         "total_records_locked": 14392,
         "status": "PASS"
+      },
+      {
+        "stage": "Tahap 2 - Perubahan Periode",
+        "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap1.xar",
+        "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap2.xar",
+        "new_period": "01 Dec 2026 - 31 Dec 2026",
+        "pages_updated": 5,
+        "updated_records": [
+          1078,
+          1084,
+          3878,
+          3884,
+          6884,
+          6890,
+          9827,
+          9833,
+          12711,
+          12717
+        ],
+        "total_records_locked": 14392,
+        "status": "PASS"
       }
     ]
   }
