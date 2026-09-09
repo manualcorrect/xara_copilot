@@ -77,6 +77,7 @@
         "dana_keluar": "- 4.072.500,00",
         "saldo_akhir": "2.942.661,00"
       },
+      "split_record_cleanup": "Cleared all secondary split records to prevent text overlapping",
       "kredit_debit_color_rule": "Kredit (+) set Tag 150 to Green (975), Debit (-) set Tag 150 to Black (542)",
       "digit_9_font_preservation": "Tag 2907 locked, font TTInterphases preserved for all digits including 9",
       "total_rows_processed": 17,
