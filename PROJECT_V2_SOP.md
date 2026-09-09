@@ -48,7 +48,12 @@ flowchart TD
 * **Aturan**: Eksekusi khusus periode header saja, tanggal transaksi tabel dikerjakan di Tahap 6.
 
 ### **TAHAP 3: Perubahan Dicetak Pada**
-* **Target**: Mengubah tanggal penerbitan dokumen (`Dicetak pada/Issued on`).
+* **Target**: Mengubah tanggal penerbitan dokumen (`Dicetak pada/Issued on`) pada seluruh halaman.
+* **Standar Layout & Node Structure**:
+  - String tanggal cetak terpisah menjadi 2 record node biner per halaman:
+    1. **Tanggal & Bulan + Trailing Space**: `"[DD MMM ]"` (Halaman 1: Rec 03222, Halaman 2: Rec 06281)
+    2. **Tahun 4 Digit**: `"[YYYY]"` (Halaman 1: Rec 03227, Halaman 2: Rec 06286)
+  - **Sinkronisasi**: Pengubahan tanggal cetak wajib meng-update ke-4 node tersebut secara bersamaan pada seluruh halaman.
 
 ### **TAHAP 4: Perubahan Nomor Rekening**
 * **Target**: Mengubah nomor rekening nasabah (`Nomor Rekening/Account Number`).
