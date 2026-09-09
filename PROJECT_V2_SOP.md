@@ -30,6 +30,10 @@ flowchart TD
 
 ### **TAHAP 1: Perubahan Nama**
 * **Target**: Mengubah nama nasabah/pemilik rekening (`Nama/Name`) pada seluruh halaman.
+* **Standar Layout & Format**:
+  - String Nama **WAJIB** diakhiri dengan spasi dan newline `\r\n` (contoh: `f"{NAMA_BARU} \r\n"`).
+  - Mekanisme ini mengaktifkan line-break internal pada text story container Xara, memindahkan **Nama ke Baris 1 (Atas)** dan **Cabang ke Baris 2 (Bawah)**.
+  - Tag Kerning 2206 setelah record Nama di-set `Kern X = 0` agar alignment Cabang di baris 2 pas dan konsisten.
 * **Aturan**: Eksekusi khusus nama saja, tanpa menyentuh field lain.
 
 ### **TAHAP 2: Perubahan Periode**
