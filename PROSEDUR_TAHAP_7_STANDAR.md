@@ -1,57 +1,66 @@
-# 📜 PROSEDUR STANDAR TAHAP 7 & SISTEM PENANGANAN ERROR (SOP)
+# 📜 MASTER PROSEDUR STANDAR TAHAP 7: PERUBAHAN RINGKASAN & TABEL TRANSAKSI UTAMA
+
+Document Version: 2.0 (Project V2 Official Permanent Standard)  
+Status: **PERMANENT MASTER STANDARD**  
+Environment: Xara Designer Pro+ Binary Format (`.xar`)  
+Target Output: `test_v2.1_tahap7.xar` (dari input `test_v2.1_tahap6.xar`)
+
+---
 
 ## 📌 1. DEFINISI & TUJUAN TAHAP 7
-**Tahap 7** adalah tahap akhir dari proses penyuntingan laporan keuangan rekening koran (*e-Statement*) berbasis file biner Xara (`.xar`). 
-Tujuan utamanya adalah memperbarui seluruh data keuangan secara presisi, konsisten, dan 100% bebas dari error visual maupun korupsi berkas biner.
+**Tahap 7** adalah tahap pengubahan seluruh angka keuangan utama dokumen rekening koran (*e-Statement*), meliputi:
+1. **Ringkasan Header**:
+   - Saldo Awal (`Rec 1148`)
+   - Dana Masuk (`Rec 1158`)
+   - Dana Keluar (`Rec 1176`)
+   - Saldo Akhir (`Rec 1195`)
+2. **Tabel Transaksi Utama (17 Baris)**:
+   - Nominal Transaksi (Kredit `+` / Debit `-`)
+   - Saldo Akhir Berjalan (*Running Balance*)
 
 ---
 
-## 🔄 2. SUB-PROSEDUR EKSEKUSI TAHAP 7
+## 🎨 2. STANDAR PEWARNAAN AKURAT (`TAG 150`)
 
-### A. Prosedur Tahap 7 Pertama (Single Row Alignment & Sample Test)
-1. **Uji Coba Sampel**: Menguji pembaruan pada 1 baris transaksi sampel (misalnya Baris 2 `+1.500.000,00`) untuk memverifikasi keselarasan visual (pola rata kanan/*right-alignment*), lebar karakter, dan warna dasar.
-2. **Validasi Grid Visual**: Memastikan teks nominal dan saldo mengikuti pola grid dan ruler Xara tanpa merusak kolom `Keterangan`.
+Setiap angka memiliki atribut warna `Tag 150` yang **wajib mengunci** palet resmi dokumen:
 
-### B. Prosedur Tahap 7 Kedua (Full Batch Automation & Story Unwrap)
-1. **Eksekusi Batch Otomatis**: Memperbarui ke-17 baris transaksi (Halaman 1 dan Halaman 2) serta 4 *Header Summary Totals* (Saldo Awal, Dana Masuk, Dana Keluar, Saldo Akhir) secara simultan melalui `xar_dom_engine.py`.
-2. **Intelligent Story Un-wrapping**: Mengosongkan seluruh record pecahan sekunder sisa template bawaan menggunakan mekanisme proteksi biner.
-
----
-
-## 🛠️ 3. PROSEDUR BAKU PENANGANAN ERROR (ERROR RESOLUTION SOP)
-
-### 🔴 Error 1: Berkas Rusak (`Failed to handle record 1722 2201`)
-* **Penyebab**: Mengosongkan record teks pecahan sekunder dengan payload `0-byte` (`b""`). Parser biner Xara menganggap record `2201` berukuran 0 byte di dalam *Text Story* sebagai bentuk korupsi file.
-* **Solusi Baku**:
-  * Seluruh record pecahan sekunder WAJIB disuntikkan **Zero-Width Space (`\u200B` / `b'\x0b\x20'`)**.
-  * Karakter 2-byte ini menjaga ukuran record tetap valid sehingga struktur *Text Story* Xara terbaca 100% utuh tanpa error.
-
-### 🔴 Error 2: Angka Buntut / Fragmentasi Teks (`5.047.661,009`)
-* **Penyebab**: Template asli Xara memecah angka ke dalam beberapa record `TAG_TEXT_CHAR` (2202) dan `TAG_TEXT_STRING` (2201). Mengganti teks utama tanpa meng-unwrap record sekunder menyebabkan Xara menyambung teks baru dengan angka sisa template.
-* **Solusi Baku**:
-  * Terapkan **Auto-Unwrap Story Biner** yang memetakan kontainer `TAG_TEXT_STORY_SIMPLE` (2200) hingga `TAG_TEXT_STORY_END` (2203).
-  * Teks baru ditulis pada record utama (`matched_primary`), sedangkan SELURUH record `2201/2202` sekunder di dalam story tersebut di-unwrap menjadi `\u200B`.
-
-### 🔴 Error 3: Font Berubah / Rusak (`PDF-PDF-PDF-PDF-PD`)
-* **Penyebab**: Mengubah Tag `2907` atau menyapu record warna di luar kontainer objek nominal secara acak dapat merusak *Font Definition Nodes*, sehingga Xara mereset nama font ke font fallback (`PDF-PDF...`).
-* **Solusi Baku**:
-  * Tag `2907` (`b7010000`) adalah index acuan palet warna dan TIDAK BOLEH diubah pada node font.
-  * Pembaruan warna HANYA dilakukan pada Record **Tag `150` (`TAG_WEBCOLOR`)** presisi milik objek nominal terkait:
-    * 🟢 **Transaksi Kredit (`+`)**: Set Record Tag `150` ke **Hijau Mandiri (`f0030000` / `#00a651`)**.
-    * ⬛ **Transaksi Debit (`-`)**: Set Record Tag `150` ke **Teks Gelap (`61020000` / `#333333`)**.
+| Objek | Nilai Warna Biner (`Tag 150`) | Kode Hex | Tampilan Visual |
+| :--- | :---: | :---: | :---: |
+| **Nominal Kredit (`+`)** | `b'\xcf\x03\x00\x00'` | `#00A651` | **Hijau** |
+| **Nominal Debit (`-`)** | `b'\x1e\x02\x00\x00'` | `#000000` | **Hitam** |
+| **Saldo Berjalan (*Running Balance*)** | `b'\x1a\x05\x00\x00'` | `#005B9C` | **Biru** |
+| **Header Saldo Awal** | `b'\x57\x03\x00\x00'` | `#333333` | **Abu Gelap / Hitam** |
+| **Header Dana Masuk** | `b'\xcf\x03\x00\x00'` | `#00A651` | **Hijau** |
+| **Header Dana Keluar** | `b'\x1e\x02\x00\x00'` | `#000000` | **Hitam** |
+| **Header Saldo Akhir** | `b'\x1a\x05\x00\x00'` | `#005B9C` | **Biru** |
 
 ---
 
-## 📋 4. VERIFIKASI DOM & KONTROL KUALITAS (CHECKLIST)
+## 🛡️ 3. PRESERVASI TYPOGRAPHY & FONT NATIVE TAHAP 6
 
-Setiap kali Tahap 7 dieksekusi, skrip verifikasi otomatis wajib memastikan:
-
-1. **Text Matching**: 100% dari 17 Nominal dan 17 Saldo cocok persis dengan tabel keuangan ground truth.
-2. **Summary Totals**: Saldo Awal, Dana Masuk (Hijau), Dana Keluar, dan Saldo Akhir 100% cocok secara matematis.
-3. **Zero Residual Fragments**: Tidak ada karakter pecahan sisa (`9`, `00`, `100`, dll.) yang tertinggal.
-4. **Color Integrity**: Transaksi Kredit (`+`) berwarna Hijau (`f0030000`) dan Debit (`-`) berwarna Gelap (`61020000`).
-5. **Font Integrity**: Nama font tetap konsisten pada `TT Interphases Bold` / `TT Interphases Regular`.
+* **Proteksi Mutlak Font Definition**: Blok record biner definisi font dokumen (Record 0 s.d. 1100, termasuk `Tag 2000`, `Tag 4350`, `Tag 4351`, `Tag 4352`) **DILARANG DISISIPI MAUPUN DIUBAH**.
+* **Keutuhan Huruf a-z**: Seluruh huruf a-z, uraian transaksi, teks disclaimer, header tabel, dan metadata dipertahankan 100% dari basis dokumen `test_v2.1_tahap6.xar` yang murni. Hal ini mencegah Xara memicu reset font fallback (`PDF-PDF-PDF-PDF-PD`).
+* **Kerapian Ukuran Record**: Setiap record teks yang diubah wajib selalu disinkronkan `rec["size"] = len(rec["payload"])` guna mencegah *streaming read error*.
 
 ---
 
-> **Status Prosedur**: RESMI & TERINTEGRASI PADA SISTEM XARA COPILOT
+## 🧹 4. PEMBERSIHAN PECAHAN SEKUNDER (*SPLIT RECORD CLEANUP*)
+
+Untuk mencegah angka sisa bertumpuk (*ghost digits*):
+
+1. **Pembersihan Ringkasan Header**:
+   - Secondary Dana Masuk (`Rec 1163`): Wajib di-set ke `b'\x00\x00'` (mencegah munculnya `.000`).
+   - Secondary Dana Keluar (`Rec 1177` & `Rec 1182`): Wajib di-set ke `b'\x00\x00'` (mencegah munculnya `.0000`).
+   - Saldo Awal: String `"654.955,00 "` dikunci bersih tanpa karakter `-` atau `+`.
+
+2. **Pembersihan Tabel Transaksi (17 Baris)**:
+   - Seluruh record sekunder pada kolom Nominal dan Saldo (misalnya `Rec 1715`, `Rec 1720`, `Rec 1729`, `Rec 4385`, `Rec 4389`, `Rec 4398`, dll.) wajib di-set ke `b'\x00\x00'` (`size = 2`).
+
+---
+
+## ⚙️ 5. ARSITEKTUR SCRIPT RESMI
+
+Eksekusi permanen Tahap 7 diotomatisasi melalui skrip resmi:
+* **Script Eksekusi**: `apply_tahap_7_tabel_ringkasan.py`
+* **Log Verifikasi**: `training_history.json`
+* **File Output Master**: `C:\Users\Lenovo\Downloads\rekening\Antigravity\test\Copilot_v2\test_v2.1_tahap7.xar` (Total record persis 6908 records).
