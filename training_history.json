@@ -56,7 +56,7 @@
       "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap5.xar",
       "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap6.xar",
       "period": "Dec 2026",
-      "time_format": "24-Hour (HH:MM:SS)",
+      "layout_fix": "Preserved exact template kerning string length for single-digit hours to prevent text overlapping",
       "row_10_test": {
         "date_rec": 3106,
         "new_date": "25 Dec 2026",
