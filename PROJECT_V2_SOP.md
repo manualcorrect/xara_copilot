@@ -89,9 +89,9 @@ flowchart TD
 * **Standar Pewarnaan Jenis Transaksi (Color Rule)**:
   - **Kredit (`+` / Dana Masuk)**: Nominal diawali tanda `+` dan `Tag 150` di-set ke **HIJAU** (`b'\xcf\x03\x00\x00'`, #00A651).
   - **Debit (`-` / Dana Keluar)**: Nominal diawali tanda `-` dan `Tag 150` di-set ke **HITAM** (`b'\x1e\x02\x00\x00'`, #000000).
-* **Font Protection & Fix Angka 9**:
-  - `Tag 2907` pada node definisi font **WAJIB terkunci** (pantang diubah).
-  - Payload teks di-encode dengan `UTF-16LE` / `Latin1` murni sehingga font TTInterphases bawaan dokumen terjaga konsistensinya dan **angka 9 terbebas 100% dari error/kerusakan font**.
+* **Split Record Cleanup Rule (Pembersihan Overlap)**:
+  - Pada dokumen biner Xara, string nominal dan saldo berjalan yang awalnya panjang terpecah menjadi *primary record* dan beberapa *secondary split records*.
+  - **Rule Mandatory**: Nilai string baru dimasukkan ke *primary record*, dan seluruh *secondary split records* (seperti `Rec 1720`, `Rec 1729`, `Rec 4385`, `Rec 4389`, `Rec 4398`, dll) **WAJIB dibersihkan ke string kosong `""`** (`b'\x00\x00'`) agar sisa angka lama tidak bertumpuk/overlap secara visual.
 
 ---
 
