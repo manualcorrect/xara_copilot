@@ -56,7 +56,11 @@ flowchart TD
   - **Sinkronisasi**: Pengubahan tanggal cetak wajib meng-update ke-4 node tersebut secara bersamaan pada seluruh halaman.
 
 ### **TAHAP 4: Perubahan Nomor Rekening**
-* **Target**: Mengubah nomor rekening nasabah (`Nomor Rekening/Account Number`).
+* **Target**: Mengubah nomor rekening nasabah (`Nomor Rekening/Account Number`) pada header dokumen.
+* **Standar Layout & Node Structure**:
+  - Nomor Rekening berada secara eksklusif pada Header Halaman 1 (`Rec 01054`).
+  - **Trailing Space Mandatory**: String nomor rekening **WAJIB** mempertahankan spasi penutup `f"{NOMOR_REKENING} "` agar kerning dan spacing header tetap presisi.
+* **Aturan**: Eksekusi khusus nomor rekening saja.
 
 ### **TAHAP 5: Perubahan Nomor Halaman**
 * **Target**: Mengubah penomoran halaman dinamis (`Page X of Y` / `X dari Y`).
