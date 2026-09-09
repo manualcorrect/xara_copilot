@@ -98,5 +98,29 @@
       "total_records_locked": 6908,
       "status": "PASS"
     }
-  ]
+  ],
+  "stress_test_2": {
+    "project": "StressTest_Test2_5Pages",
+    "base_template": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1.xar",
+    "total_pages": 5,
+    "total_records": 14392,
+    "stages": [
+      {
+        "stage": "Tahap 1 - Perubahan Nama Nasabah",
+        "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1.xar",
+        "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap1.xar",
+        "new_name": "ASEP ISKANDAR",
+        "pages_updated": 5,
+        "updated_records": [
+          1023,
+          3823,
+          6829,
+          9772,
+          12656
+        ],
+        "total_records_locked": 14392,
+        "status": "PASS"
+      }
+    ]
+  }
 }
