@@ -72,7 +72,11 @@ flowchart TD
 * **Rule Mandatory**: Perubahan total halaman **WAJIB** meng-update ke-4 node tersebut sekaligus agar Header (`X dari Y`) dan Footer (`X of Y`) 100% sinkron secara visual.
 
 ### **TAHAP 6: Perubahan Tanggal Sesuai Periode & Jam**
-* **Target**: Mengubah tanggal transaksi (disesuaikan dengan periode) dan timestamp jam (`HH:MM:SS WIB`) pada setiap baris transaksi.
+* **Target**: Mengubah tanggal transaksi (disesuaikan dengan periode header) dan timestamp jam (`HH:MM:SS WIB`) pada setiap baris transaksi tabel.
+* **Standar Layout & Format**:
+  - **Period Matching Mandatory**: Seluruh tanggal baris transaksi **WAJIB** berada dalam rentang bulan & tahun periode yang dikunci di Tahap 2 (contoh: `Dec 2026`).
+  - **24-Hour Time Format Mandatory**: Format timestamp jam **WAJIB** menggunakan sistem 24 jam dengan 2-digit jam (`HH:MM:SS WIB`, contoh: `04:00:00 WIB` atau `01:20:13 WIB`). Jam 1-digit dilarang (`1:20:13` ➡️ `01:20:13`).
+  - **Pengujian Baris Spesifik**: Pengubahan baris tertentu (contoh: Baris 10 `25 Dec 2026 04:00:00`) dilakukan langsung pada record date & time pasangan baris tersebut tanpa merusak kerning baris lain.
 
 ### **TAHAP 7: Perubahan Ringkasan & Tabel Transaksi Utama**
 * **Target**: Mengubah data angka dan saldo secara utuh berdasarkan tabel input yang diberikan user:
