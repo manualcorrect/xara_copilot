@@ -78,7 +78,8 @@
         "saldo_akhir": "2.942.661,00"
       },
       "primary_record_alignment": "Corrected primary saldo record for Row 2 (Rec 1711), Row 3 (Rec 1963), Row 13 (Rec 4706)",
-      "font_reference_fix": "Applied Tag 2907 = b'\\xc8\\x01\\x00\\x00' (test_3.1.xar reference) for exact digit 9 TTInterphases font style",
+      "font_reference": "TTInterphases-Bold (Font ID 13, Tag 2907 = b'\\xbc\\x01\\x00\\x00' = ID 444) matching test_3.1.xar",
+      "glyph_embedded": "Injected Tag 4350 glyph '9' into Font ID 13 (826 bytes) from test_3.1.xar reference",
       "kredit_debit_color_rule": "Kredit (+) set Tag 150 to Green (975), Debit (-) set Tag 150 to Black (542)",
       "total_rows_processed": 17,
       "status": "PASS"

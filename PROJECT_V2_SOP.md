@@ -92,6 +92,9 @@ flowchart TD
 * **Split Record Cleanup Rule (Pembersihan Overlap)**:
   - Pada dokumen biner Xara, string nominal dan saldo berjalan yang awalnya panjang terpecah menjadi *primary record* dan beberapa *secondary split records*.
   - **Rule Mandatory**: Nilai string baru dimasukkan ke *primary record*, dan seluruh *secondary split records* (seperti `Rec 1720`, `Rec 1729`, `Rec 4385`, `Rec 4389`, `Rec 4398`, dll) **WAJIB dibersihkan ke string kosong `""`** (`b'\x00\x00'`) agar sisa angka lama tidak bertumpuk/overlap secara visual.
+* **Standar Font Angka (TTInterphases-Bold & Embedded Glyph '9')**:
+  - Kolom Nominal dan Saldo Berjalan (serta Ringkasan Header) **WAJIB** menggunakan font **`TTInterphases-Bold`** (`Tag 2907 = b'\xbc\x01\x00\x00'`, Font ID 13).
+  - Untuk dokumen di mana glyph digit 9 belum tersimpan dalam stream biner bawaan, **WAJIB menyematkan Tag 4350 untuk digit '9'** (826 bytes dari referensi `test_3.1.xar`) pada deretan glyph Font ID 13 (tepat setelah digit '8'). Ini menjamin ke-10 karakter angka (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) tampil 100% konsisten, tebal/bold, tajam, dan identik dengan referensi `test_3.1.xar`.
 
 ---
 
