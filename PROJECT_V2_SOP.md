@@ -63,7 +63,13 @@ flowchart TD
 * **Aturan**: Eksekusi khusus nomor rekening saja.
 
 ### **TAHAP 5: Perubahan Nomor Halaman**
-* **Target**: Mengubah penomoran halaman dinamis (`Page X of Y` / `X dari Y`).
+* **Target**: Mengubah penomoran halaman dinamis (`Page X of Y` / `X dari Y`) pada Header dan Footer seluruh halaman.
+* **Standar Layout & Node Structure (Sinkronisasi 4 Node Wajib)**:
+  1. **Page 1 Header**: `Rec 01278` -> `f"ari {TOTAL_PAGES}"` (membentuk `1 dari Y`)
+  2. **Page 1 Footer**: `Rec 01125` -> `f"1 of {TOTAL_PAGES}"` (membentuk `1 of Y`)
+  3. **Page 2 Header**: `Rec 04080` -> `f"ari {TOTAL_PAGES}"` (membentuk `2 dari Y`)
+  4. **Page 2 Footer**: `Rec 04033` -> `f"of {TOTAL_PAGES}"` (membentuk `2 of Y` dipasangkan dengan `Rec 04025`)
+* **Rule Mandatory**: Perubahan total halaman **WAJIB** meng-update ke-4 node tersebut sekaligus agar Header (`X dari Y`) dan Footer (`X of Y`) 100% sinkron secara visual.
 
 ### **TAHAP 6: Perubahan Tanggal Sesuai Periode & Jam**
 * **Target**: Mengubah tanggal transaksi (disesuaikan dengan periode) dan timestamp jam (`HH:MM:SS WIB`) pada setiap baris transaksi.
