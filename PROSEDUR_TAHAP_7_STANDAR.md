@@ -58,7 +58,43 @@ Untuk mencegah angka sisa bertumpuk (*ghost digits*):
 
 ---
 
-## ⚙️ 5. ARSITEKTUR SCRIPT RESMI
+## 📐 5. STANDAR RATA KANAN TABEL (*RIGHT-ALIGNMENT STANDARD*)
+
+Kolom **Nominal** dan **Saldo** wajib mengunci koordinat sisi kanan (*right-aligned*) berdasarkan grid dan ruler resmi:
+
+### **A. Nilai Koordinat Acuan Sisi Kanan**
+* **Kolom Nominal ($X_{\text{right}}$)**: **`15.214 cm`** (`431.267 millipoints`)
+* **Kolom Saldo ($X_{\text{right}}$)**: **`20.049 cm`** (`568.306 millipoints`)
+
+### **B. Formula Perhitungan Sumbu X Kiri ($X_{\text{left}}$)**
+Karena sistem koordinat biner Xara (`Tag 2100 Matrix X`) memposisikan objek dari kiri:
+$$X_{\text{left}} = X_{\text{target\_right}} - W(\text{teks})$$
+$$\text{Line Advance Width (Tag 2206)} = W(\text{teks})$$
+
+### **C. Tabel Metrik Advance Width Karakter Resmi (H = 6559 mp)**
+| Karakter | Advance Width (mp) | Lebar dalam cm |
+| :---: | :---: | :---: |
+| `'0'` | `5438` | $0.192\text{ cm}$ |
+| `'1'` | `3160` | $0.111\text{ cm}$ |
+| `'2'` | `4762` | $0.168\text{ cm}$ |
+| `'3'` | `4840` | $0.171\text{ cm}$ |
+| `'4'` | `5039` | $0.173\text{ cm}$ |
+| `'5'` | `4840` | $0.171\text{ cm}$ |
+| `'6'` | `4878` | $0.172\text{ cm}$ |
+| `'7'` | `4402` | $0.155\text{ cm}$ |
+| `'8'` | `4962` | $0.175\text{ cm}$ |
+| `'9'` | `4878` | $0.172\text{ cm}$ |
+| `'.'` | `1840` | $0.065\text{ cm}$ |
+| `','` | `1243` | $0.044\text{ cm}$ |
+| `'-'` | `3198` | $0.113\text{ cm}$ |
+| `'+'` | `4399` | $0.155\text{ cm}$ |
+| `' '` | `2200` | $0.078\text{ cm}$ |
+
+Setiap penyuntingan angka tabel wajib menyinkronkan `Tag 2100` ($X_{\text{left}}$) dan `Tag 2206` ($W$) menggunakan metrik di atas sehingga seluruh baris memiliki garis vertikal kanan yang persis 100% rata.
+
+---
+
+## ⚙️ 6. ARSITEKTUR SCRIPT RESMI
 
 Eksekusi permanen Tahap 7 diotomatisasi melalui skrip resmi:
 * **Script Eksekusi**: `apply_tahap_7_tabel_ringkasan.py`

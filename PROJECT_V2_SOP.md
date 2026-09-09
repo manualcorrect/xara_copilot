@@ -96,6 +96,18 @@ flowchart TD
   - **Rule Mandatory**: Nilai string baru dimasukkan ke *primary record*, dan seluruh *secondary split records* **WAJIB dibersihkan ke string kosong `""` (`b'\x00\x00'`)**:
     - **Tabel Transaksi**: `Rec 1720`, `Rec 1729`, `Rec 4385`, `Rec 4389`, `Rec 4398`, dll.
     - **Ringkasan Header**: Secondary Dana Masuk (`Rec 1163`) dan Secondary Dana Keluar (`Rec 1177`, `Rec 1182`) wajib di-clear agar tidak muncul digit '0' berlebih (seperti `6.360.206,000` atau `-4.072.500,0000`).
+* **Standar Rata Kanan Kolom (Right-Alignment Rule on Ruler & Grid)**:
+  - **Koordinat Acuan Sisi Kanan Resmi**:
+    - **Kolom Nominal ($X_{\text{right}}$)**: **`15.214 cm`** (`431.267 millipoints`).
+    - **Kolom Saldo ($X_{\text{right}}$)**: **`20.049 cm`** (`568.306 millipoints`).
+  - **Mekanisme Perhitungan Dinamis Sumbu X Xara**:
+    Sistem teks Xara memposisikan teks dari sisi kiri ($X_{\text{left}}$ / `Tag 2100 Matrix X`), sedangkan kolom tabel akuntansi menganut rata kanan ($X_{\text{right}}$). Agar sisi kanan seluruh baris transaksi sejajar tegak lurus sempurna, nilai $X_{\text{left}}$ wajib dihitung mundur:
+    $$X_{\text{left}} = X_{\text{target\_right}} - W(\text{teks})$$
+    $$\text{Line Advance Width (Tag 2206)} = W(\text{teks})$$
+  - **Tabel Metrik Lebar Font Biner Resmi (*Glyph Advance Widths*)**:
+    - Digit: `'0'`: 5438 mp, `'1'`: 3160 mp, `'2'`: 4762 mp, `'3'`: 4840 mp, `'4'`: 5039 mp, `'5'`: 4840 mp, `'6'`: 4878 mp, `'7'`: 4402 mp, `'8'`: 4962 mp, `'9'`: 4878 mp.
+    - Simbol & Tanda Baca: `'.'`: 1840 mp, `','`: 1243 mp, `'-'`: 3198 mp, `'+'`: 4399 mp, `' '`: 2200 mp.
+  - Setiap perubahan nominal dan saldo wajib meng-update pasangan `Tag 2100` ($X_{\text{left}}$) dan `Tag 2206` ($W$) secara serempak.
 * **Preservasi Font Asli (Native Typography Preservation)**:
   - Definisi font biner (Rec 0 hingga 1100, termasuk Tag 2000, Tag 4350, Tag 4351) **DILARANG DIUBAH / DISISIPKAN RECORD BARU**.
   - Tipe font teks (huruf a-z, uraian transaksi, judul dokumen, dan metadata) **WAJIB 100% mempertahankan font bawaan murni dari Tahap 6** agar tidak memicu reset font fallback (`PDF-PDF-PDF...`) di Xara.

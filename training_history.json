@@ -80,6 +80,11 @@
       "primary_record_alignment": "Corrected primary saldo record for Row 2 (Rec 1711), Row 3 (Rec 1963), Row 13 (Rec 4706)",
       "font_preservation": "100% preserved native typography and a-z font definitions from Tahap 6 (no node insertion/corruption)",
       "kredit_debit_color_rule": "Kredit (+) Green (Tag 150 = cf030000), Debit (-) Black (Tag 150 = 1e020000), Saldo Blue (Tag 150 = 1a050000)",
+      "right_alignment_standard": {
+        "nominal_right_edge": "15.214 cm (431267 mp)",
+        "saldo_right_edge": "20.049 cm (568306 mp)",
+        "formula": "X_left = X_target_right - AdvanceWidth(text)"
+      },
       "total_rows_processed": 17,
       "status": "PASS"
     }

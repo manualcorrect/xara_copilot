@@ -58,33 +58,43 @@ def apply_tahap_7_tabel_ringkasan():
 
     print("[1] Summary Header updated, correct colors applied, and split secondaries cleared.")
 
-    # 2. Update Table Rows (Rows 1 to 17)
+    # 2. Update Table Rows (Rows 1 to 17) with Locked Right-Alignment
     COLOR_GREEN = bytearray(b'\xcf\x03\x00\x00') # Kredit (+)
     COLOR_BLACK = bytearray(b'\x1e\x02\x00\x00') # Debit (-)
     COLOR_BLUE  = bytearray(b'\x1a\x05\x00\x00') # Saldo
 
+    # Official Right-Edge Grid & Ruler Standards
+    TARGET_NOM_RIGHT = 431267 # 15.214 cm
+    TARGET_SAL_RIGHT = 568306 # 20.049 cm
+
+    GLYPH_MAP = {
+        '0': 5438, '1': 3160, '2': 4762, '3': 4840, '4': 5039,
+        '5': 4840, '6': 4878, '7': 4402, '8': 4962, '9': 4878,
+        '.': 1840, ',': 1243, '-': 3198, '+': 4399, ' ': 2200
+    }
+
     table_master = [
-        (1, 1565, [1570], 1544, [], "-100.000,00", "554.955,00", False),
-        (2, 1756, [1761], 1711, [1715, 1720, 1729], "+1.500.000,00", "2.054.955,00", True),
-        (3, 2016, [2021], 1958, [1967, 1971, 1980, 1989], "-300.000,00", "1.754.955,00", False),
-        (4, 2189, [2194], 2154, [2158, 2162], "-10.000,00", "1.744.955,00", False),
-        (5, 2352, [2357], 2331, [], "-50.000,00", "1.694.955,00", False),
-        (6, 2495, [], 2442, [2446, 2450, 2459, 2468], "-75.000,00", "1.619.955,00", False),
-        (7, 2657, [], 2631, [2636], "-150.000,00", "1.469.955,00", False),
-        (8, 2842, [], 2811, [2816, 2821], "-100.000,00", "1.369.955,00", False),
-        (9, 2944, [], 2923, [], "-100.000,00", "1.269.955,00", False),
-        (10, 3051, [3056], 3030, [], "-100.000,00", "1.169.955,00", False),
-        (11, 4425, [], 4381, [4385, 4389, 4398], "-50.000,00", "1.119.955,00", False),
-        (12, 4549, [4554], 4505, [4509, 4513, 4522], "-2.500,00", "1.117.455,00", False),
-        (13, 4767, [4772], 4706, [4710, 4714, 4718, 4722, 4731, 4740], "-100.000,00", "1.017.455,00", False),
-        (14, 4983, [4988], 4948, [4952, 4956], "-100.000,00", "917.455,00", False),
-        (15, 6405, [6410], 6361, [6365, 6369, 6378], "-250.000,00", "667.455,00", False),
-        (16, 6598, [6603], 6554, [6558, 6562, 6571], "-180.000,00", "487.455,00", False),
-        (17, 6740, [6745], 6719, [], "-100.000,00", "387.455,00", False)
+        (1, 1565, [1570], 1548, 1564, 1544, [], 1527, 1543, "-100.000,00", "554.955,00", False),
+        (2, 1756, [1761], 1739, 1755, 1711, [1715, 1720, 1729], 1695, 1710, "+1.500.000,00", "2.054.955,00", True),
+        (3, 2016, [2021], 1999, 2015, 1958, [1967, 1971, 1980, 1989], 1942, 1957, "-300.000,00", "1.754.955,00", False),
+        (4, 2189, [2194], 2172, 2188, 2154, [2158, 2162], 2138, 2153, "-100.000,00" if False else "-10.000,00", "1.744.955,00", False),
+        (5, 2352, [2357], 2335, 2351, 2331, [], 2314, 2330, "-50.000,00", "1.694.955,00", False),
+        (6, 2495, [], 2478, 2494, 2442, [2446, 2450, 2459, 2468], 2426, 2441, "-75.000,00", "1.619.955,00", False),
+        (7, 2657, [], 2640, 2656, 2631, [2636], 2614, 2630, "-150.000,00", "1.469.955,00", False),
+        (8, 2842, [], 2825, 2841, 2811, [2816, 2821], 2794, 2810, "-100.000,00", "1.369.955,00", False),
+        (9, 2944, [], 2927, 2943, 2923, [], 2906, 2922, "-100.000,00", "1.269.955,00", False),
+        (10, 3051, [3056], 3034, 3050, 3030, [], 3013, 3029, "-100.000,00", "1.169.955,00", False),
+        (11, 4425, [], 4408, 4424, 4381, [4385, 4389, 4398], 4365, 4380, "-50.000,00", "1.119.955,00", False),
+        (12, 4549, [4554], 4532, 4548, 4505, [4509, 4513, 4522], 4489, 4504, "-2.500,00", "1.117.455,00", False),
+        (13, 4767, [4772], 4750, 4766, 4706, [4710, 4714, 4718, 4722, 4731, 4740], 4690, 4705, "-100.000,00", "1.017.455,00", False),
+        (14, 4983, [4988], 4966, 4982, 4948, [4952, 4956], 4932, 4947, "-100.000,00", "917.455,00", False),
+        (15, 6405, [6410], 6388, 6404, 6361, [6365, 6369, 6378], 6345, 6360, "-250.000,00", "667.455,00", False),
+        (16, 6598, [6603], 6581, 6597, 6554, [6558, 6562, 6571], 6538, 6553, "-180.000,00", "487.455,00", False),
+        (17, 6740, [6745], 6723, 6739, 6719, [], 6702, 6718, "-100.000,00", "387.455,00", False)
     ]
 
-    for row_num, nom_idx, nom_sec, saldo_idx, saldo_sec, nom_str, saldo_str, is_kredit in table_master:
-        # Update Nominal Primary string
+    for row_num, nom_idx, nom_sec, nom_m, nom_l, saldo_idx, saldo_sec, sal_m, sal_l, nom_str, saldo_str, is_kredit in table_master:
+        # 1. Update Nominal Primary string
         r_nom = doc.records[nom_idx]
         r_nom['payload'] = bytearray(nom_str.encode('utf-16le'))
         r_nom['size'] = len(r_nom['payload'])
@@ -101,7 +111,18 @@ def apply_tahap_7_tabel_ringkasan():
             doc.records[s_idx]['payload'] = bytearray(b'\x00\x00')
             doc.records[s_idx]['size'] = 2
 
-        # Update Saldo Primary string
+        # Nominal Right-Alignment (Tag 2100 Matrix X + Tag 2206 Width)
+        w_nom = sum(GLYPH_MAP.get(c, 4800) for c in nom_str)
+        mx_nom_new = TARGET_NOM_RIGHT - w_nom
+        nx, ny, nflags = struct.unpack('<iii', doc.records[nom_m]['payload'][:12])
+        doc.records[nom_m]['payload'] = bytearray(struct.pack('<iii', mx_nom_new, ny, nflags))
+        doc.records[nom_m]['size'] = len(doc.records[nom_m]['payload'])
+
+        nw, nh, nflags_l = struct.unpack('<iii', doc.records[nom_l]['payload'][:12])
+        doc.records[nom_l]['payload'] = bytearray(struct.pack('<iii', w_nom, nh, nflags_l))
+        doc.records[nom_l]['size'] = len(doc.records[nom_l]['payload'])
+
+        # 2. Update Saldo Primary string
         r_sal = doc.records[saldo_idx]
         r_sal['payload'] = bytearray(saldo_str.encode('utf-16le'))
         r_sal['size'] = len(r_sal['payload'])
@@ -118,7 +139,18 @@ def apply_tahap_7_tabel_ringkasan():
             doc.records[s_idx]['payload'] = bytearray(b'\x00\x00')
             doc.records[s_idx]['size'] = 2
 
-        print(f"[*] Row {row_num:02d}: Nominal '{nom_str}' (is_kredit={is_kredit}), Saldo '{saldo_str}' injected")
+        # Saldo Right-Alignment (Tag 2100 Matrix X + Tag 2206 Width)
+        w_sal = sum(GLYPH_MAP.get(c, 4800) for c in saldo_str)
+        mx_sal_new = TARGET_SAL_RIGHT - w_sal
+        sx, sy, sflags = struct.unpack('<iii', doc.records[sal_m]['payload'][:12])
+        doc.records[sal_m]['payload'] = bytearray(struct.pack('<iii', mx_sal_new, sy, sflags))
+        doc.records[sal_m]['size'] = len(doc.records[sal_m]['payload'])
+
+        sw, sh, sflags_l = struct.unpack('<iii', doc.records[sal_l]['payload'][:12])
+        doc.records[sal_l]['payload'] = bytearray(struct.pack('<iii', w_sal, sh, sflags_l))
+        doc.records[sal_l]['size'] = len(doc.records[sal_l]['payload'])
+
+        print(f"[*] Row {row_num:02d}: Nominal '{nom_str}' (X={mx_nom_new}, right={TARGET_NOM_RIGHT}), Saldo '{saldo_str}' (X={mx_sal_new}, right={TARGET_SAL_RIGHT})")
 
     # 3. Save clean document (exactly 6908 records, 100% pristine fonts preserved from Tahap 6)
     doc.save(v2_out)
@@ -145,13 +177,19 @@ def apply_tahap_7_tabel_ringkasan():
             "primary_record_alignment": "Corrected primary saldo record for Row 2 (Rec 1711), Row 3 (Rec 1963), Row 13 (Rec 4706)",
             "font_preservation": "100% preserved native typography and a-z font definitions from Tahap 6 (no node insertion/corruption)",
             "kredit_debit_color_rule": "Kredit (+) Green (Tag 150 = cf030000), Debit (-) Black (Tag 150 = 1e020000), Saldo Blue (Tag 150 = 1a050000)",
+            "right_alignment_standard": {
+                "nominal_right_edge": "15.214 cm (431267 mp)",
+                "saldo_right_edge": "20.049 cm (568306 mp)",
+                "formula": "X_left = X_target_right - AdvanceWidth(text)"
+            },
             "total_rows_processed": len(table_master),
             "status": "PASS"
         }
         history_data["training_stages"].append(t7_entry)
         with open(history_file, 'w', encoding='utf-8') as f:
             json.dump(history_data, f, indent=2)
-        print("[*] Updated training_history.json with Clean Tahap 7 standard")
+        print("[*] Updated training_history.json with Right-Alignment Standard & Clean Tahap 7")
+
 
 if __name__ == '__main__':
     apply_tahap_7_tabel_ringkasan()

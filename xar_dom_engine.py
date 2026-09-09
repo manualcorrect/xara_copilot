@@ -454,21 +454,12 @@ class XarDocument:
 
     def _calc_amount_width(self, text):
         """Estimate text advance width in millipoints for the bank document font."""
-        w = 0
-        for c in text:
-            if c.isdigit():
-                w += 5050
-            elif c in '.,':
-                w += 1400
-            elif c == '+':
-                w += 4800
-            elif c == '-':
-                w += 4000
-            elif c == ' ':
-                w += 2200
-            else:
-                w += 4500
-        return max(w, len(text) * 4200)
+        glyph_map = {
+            '0': 5438, '1': 3160, '2': 4762, '3': 4840, '4': 5039,
+            '5': 4840, '6': 4878, '7': 4402, '8': 4962, '9': 4878,
+            '.': 1840, ',': 1243, '-': 3198, '+': 4399, ' ': 2200
+        }
+        return sum(glyph_map.get(c, 4800) for c in text)
 
     def update_nominal(self, row_no, new_nominal, auto_format_sen=True):
         """Update transaction nominal with locked right-edge alignment, split-string handling, and sign-based coloring."""
@@ -484,7 +475,7 @@ class XarDocument:
             raise ValueError(f"Nominal object not found for row {row_no}")
         
         story = trans["nom_story"]
-        right_edge = 430500  # Locked right edge for Nominal column
+        right_edge = 431267  # Official locked right edge for Nominal column (15.214 cm)
         new_w = self._calc_amount_width(new_nominal)
         new_x = right_edge - new_w
 
@@ -549,7 +540,7 @@ class XarDocument:
             raise ValueError(f"Balance object not found for row {row_no}")
         
         story = trans["bal_story"]
-        right_edge = 569400  # Locked right edge for Balance column
+        right_edge = 568306  # Official locked right edge for Balance column (20.049 cm)
         new_w = self._calc_amount_width(new_balance)
         new_x = right_edge - new_w
 
