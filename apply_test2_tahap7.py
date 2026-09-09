@@ -36,7 +36,7 @@ def update_entry(text_rec, new_text, t2206_rec, t2100_rec, target_xr, split_rec=
     # 2. Update split if present
     if split_rec:
         r_spl = doc.records[split_rec]
-        r_spl['payload'] = "".encode('utf-16le')
+        r_spl['payload'] = b'\x00\x00'
         r_spl['size'] = len(r_spl['payload'])
         
     # 3. Calculate width
