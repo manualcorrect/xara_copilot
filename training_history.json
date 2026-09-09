@@ -141,6 +141,32 @@
         ],
         "total_records_locked": 14392,
         "status": "PASS"
+      },
+      {
+        "stage": "Tahap 3 - Perubahan Tanggal Cetak",
+        "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap2.xar",
+        "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Test_2\\test_3.1_tahap3.xar",
+        "new_dicetak_pada": "19 Jan 2027",
+        "pages_updated": 5,
+        "updated_records": [
+          1112,
+          1122,
+          1126,
+          3903,
+          3913,
+          3917,
+          6909,
+          6919,
+          6923,
+          9852,
+          9862,
+          9866,
+          12736,
+          12746,
+          12750
+        ],
+        "total_records_locked": 14392,
+        "status": "PASS"
       }
     ]
   }
