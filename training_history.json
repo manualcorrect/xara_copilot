@@ -14,6 +14,14 @@
       "status": "PASS",
       "formatted_payload": "ASEP ISKANDAR \\r\\n",
       "pattern_note": "Added trailing space and newline (enter) after name string to trigger internal Xara story line break to top line"
+    },
+    {
+      "stage": "Tahap 2 - Perubahan Periode",
+      "input_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap1.xar",
+      "output_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\Antigravity\\test\\Copilot_v2\\test_v2.1_tahap2.xar",
+      "new_period": "01 Dec 2026 - 31 Dec 2026",
+      "records_updated_count": 8,
+      "status": "PASS"
     }
   ]
 }
