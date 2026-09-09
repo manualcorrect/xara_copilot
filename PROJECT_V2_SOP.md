@@ -75,7 +75,7 @@ flowchart TD
 * **Target**: Mengubah tanggal transaksi (disesuaikan dengan periode header) dan timestamp jam (`HH:MM:SS WIB`) pada setiap baris transaksi tabel.
 * **Standar Layout & Format**:
   - **Period Matching Mandatory**: Seluruh tanggal baris transaksi **WAJIB** berada dalam rentang bulan & tahun periode yang dikunci di Tahap 2 (contoh: `Dec 2026`).
-  - **24-Hour Time Format Mandatory**: Format timestamp jam **WAJIB** menggunakan sistem 24 jam dengan 2-digit jam (`HH:MM:SS WIB`, contoh: `04:00:00 WIB` atau `01:20:13 WIB`). Jam 1-digit dilarang (`1:20:13` ➡️ `01:20:13`).
+  - **24-Hour Time Format & Kerning Protection**: Format timestamp jam **WAJIB** menggunakan sistem 24 jam (`HH:MM:SS WIB`). Untuk string bawaan biner yang memiliki kerning X terkunci untuk 1-digit jam (seperti `1:20:13 WIB` pada Baris 5 atau `3:59:00 WIB` pada Baris 17), panjang string asli **WAJIB dipertahankan** (`1:20:13 WI` / `3:59:00 WIB`) agar penambahan digit tidak menggeser bounding box ke kiri dan tidak terjadi overlap secara visual.
   - **Pengujian Baris Spesifik**: Pengubahan baris tertentu (contoh: Baris 10 `25 Dec 2026 04:00:00`) dilakukan langsung pada record date & time pasangan baris tersebut tanpa merusak kerning baris lain.
 
 ### **TAHAP 7: Perubahan Ringkasan & Tabel Transaksi Utama**
