@@ -508,6 +508,12 @@
       "Tahap 6: Perubahan Tanggal (Jun 2026) & Jam Transaksi (Smart Scheduling 06:00 - 23:00 WIB) pada 73 Baris",
       "Tahap 7: Perubahan Ringkasan Header & Tabel Transaksi Utama (Deposit +6.355.000 Row 56 & Running Saldos)"
     ],
+    "calibration_and_alignment_rules": {
+      "tag_2204_saldo_kern": "Tag 2204 dx and dy=round(dx*72) calibrated per row: delta of -610 on dx for million digits (e.g. 6.502.335,81) to guarantee 100% right-alignment matching the column ruler",
+      "table_nominal_formatting": "Enforced '+6.355.000,00' without space in tables vs '+ 11.055.000,00' with space in Financial Summary Header",
+      "chronological_sorting": "Enforced strictly ascending transaction timestamps for multiple rows on the same date (e.g. 25 Jun 2026: 08:39:33 -> 10:15:30 -> 12:56:29)",
+      "nominal_right_alignment": "Tag 2100 mp=373800, Tag 2206 advance=57601 locked to constant right-edge anchor at 431,400 millipoints"
+    },
     "status": "PASS"
   }
 }
