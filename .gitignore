@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary images and screencaps
+*.png
+*.bmp
+
+# Temporary test outputs
+admin_test_log.txt
+stream5_records.txt

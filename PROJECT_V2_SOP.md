@@ -86,16 +86,18 @@ flowchart TD
   4. **Saldo Akhir / Closing Balance** (Rec 01195)
   5. **Nominal Kredit (`+`) / Debit (`-`) tiap baris**
   6. **Saldo Akhir Berjalan (*Running Balance*) tiap baris**
-* **Standar Pewarnaan Jenis Transaksi & Saldo (Color Rule)**:
-  - **Kredit (`+` / Dana Masuk)**: Nominal diawali tanda `+` dan `Tag 150` di-set ke **HIJAU** (`b'\xcf\x03\x00\x00'`, #00A651).
-  - **Debit (`-` / Dana Keluar)**: Nominal diawali tanda `-` dan `Tag 150` di-set ke **HITAM** (`b'\x1e\x02\x00\x00'`, #000000).
-  - **Saldo Berjalan (*Running Balance*)**: `Tag 150` wajib mempertahankan warna **BIRU** (`b'\x1a\x05\x00\x00'`, #005B9C).
-  - **Ringkasan Header**: Saldo Awal (Dark Gray `b'\x57\x03\x00\x00'`), Dana Masuk (Hijau `b'\xcf\x03\x00\x00'`), Dana Keluar (Hitam `b'\x1e\x02\x00\x00'`), Saldo Akhir (Biru `b'\x1a\x05\x00\x00'`).
-* **Split Record Cleanup Rule (Pembersihan Overlap & Ghost Digits)**:
-  - Pada dokumen biner Xara, string nominal, saldo berjalan, serta ringkasan dana masuk/keluar terpecah menjadi *primary record* dan *secondary split records*.
-  - **Rule Mandatory**: Nilai string baru dimasukkan ke *primary record*, dan seluruh *secondary split records* **WAJIB dibersihkan ke string kosong `""` (`b'\x00\x00'`)**:
-    - **Tabel Transaksi**: `Rec 1720`, `Rec 1729`, `Rec 4385`, `Rec 4389`, `Rec 4398`, dll.
-    - **Ringkasan Header**: Secondary Dana Masuk (`Rec 1163`) dan Secondary Dana Keluar (`Rec 1177`, `Rec 1182`) wajib di-clear agar tidak muncul digit '0' berlebih (seperti `6.360.206,000` atau `-4.072.500,0000`).
+* **Standar Pewarnaan Jenis Transaksi & Saldo (Color Rule & Universal Parsing)**:
+  - **Kredit (`+` / Dana Masuk)**: Nominal diawali tanda `+` dan `Tag 150` di-set ke **HIJAU** (`b'\xba\x03\x00\x00'` / `b'\xcf\x03\x00\x00'`, #00A651).
+  - **Debit (`-` / Dana Keluar)**: Nominal diawali tanda `-` dan `Tag 150` di-set ke **HITAM** (`b'\x87\x01\x00\x00'` / `b'\x1e\x02\x00\x00'`, #000000).
+  - **Saldo Berjalan (*Running Balance*)**: `Tag 150` wajib mempertahankan warna **BIRU** (`b'\x0d\x05\x00\x00'` / `b'\x1a\x05\x00\x00'`, #005B9C).
+  - **Ringkasan Header**: Saldo Awal (Dark Gray), Dana Masuk (Hijau), Dana Keluar (Hitam), Saldo Akhir (Biru).
+  - **Universal Numeric Evaluation Mandate**: Evaluasi nilai numerik murni! Jika nilai nominal positif ($> 0$ dan tidak diawali minus), sistem **WAJIB otomatis menetapkannya sebagai Kredit (`+`) berbobot Hijau**, meskipun user tidak menyertakan karakter `+` dan mengosongkan kolom `Tipe (CR/DB)` di Excel.
+* **Split Record Cleanup Rule (Pembersihan Overlap & Ghost Digits / Ekor Desimal)**:
+  - Pada dokumen biner Xara, string nominal, saldo berjalan, serta ringkasan dana masuk/keluar terpecah menjadi *primary record* dan *secondary split records* (termasuk pecahan desimal seperti `704,00` atau `67,00`).
+  - **Rule Mandatory**: Nilai string baru dimasukkan secara utuh ke *primary record*, dan **SELURUH *secondary split records* (baik bilangan bulat maupun pecahan desimal) WAJIB dibersihkan ke string kosong 2-byte null character `b'\x00\x00'` (`size = 2`)**:
+    - **Tabel Transaksi**: Seluruh node pemecah nominal dan desimal saldo (seperti node 2848 `704,00`, node 4778/4954/5325/6019/6185 `67,00`, dll.) wajib di-blanking total agar tidak menghasilkan angka dobel/menempel di belakang saldo baru.
+    - **Ringkasan Header**: Secondary Dana Masuk (`Rec 1163`/`1473`) dan Secondary Dana Keluar (`Rec 1164`, `Rec 1169`) wajib di-clear agar tidak muncul digit '0' berlebih (seperti `6.360.206,000` atau `-4.072.500,0000`).
+    - Dilarang keras menggunakan payload 0 byte `b''` karena akan menyebabkan crash pada Tag 2202. Gunakan selalu `b'\x00\x00'`.
 * **Standar Rata Kanan Kolom (Right-Alignment Rule on Ruler & Grid)**:
   - **Koordinat Acuan Sisi Kanan Resmi**:
     - **Kolom Nominal ($X_{\text{right}}$)**: **`15.214 cm`** (`431.267 millipoints`).
@@ -123,11 +125,68 @@ flowchart TD
 
 ---
 
-## III. ATURAN PENERAPAN BINER & UKURAN PAYLOAD
+---
+
+## IV. PROSEDUR NORMALISASI CERDAS (SMART NORMALIZATION & MULTI-PAGE ADAPTATION)
+
+Untuk menangani dokumen dengan struktur bervariasi (nomor awal acak, transaksi bernilai 0 / hilang di tengah periode, serta jumlah halaman dinamis 3, 7, hingga 10+ lembar), agen dan sistem wajib menerapkan 3 prosedur normalisasi standar berikut:
+
+### 1. Prosedur Normalisasi Nomor Transaksi (Sequential 1-to-N Reindexing)
+* **Masalah Lapangan**: Data sumber sering kali memulai nomor transaksi dari angka acak/lanjutan (misal No. 23 atau 47), atau memiliki baris transaksi kosong bernilai Rp 0 (seperti No. 33–34 atau 57–58) yang tidak ada slot fisiknya pada file `.xar` atau melompati halaman.
+* **Aturan Eksekusi Wajib**:
+  1. **Auto-Filter Transaksi Nol**: Seluruh baris transaksi dengan nominal Rp 0 atau bertanda '-' **WAJIB difilter keluar**. Karena nilai transaksinya Rp 0, eliminasi ini terbukti 100% aman dan tidak mempengaruhi perhitungan neraca saldo akhir.
+  2. **Sequential Reindexing**: Seluruh baris aktif yang tersisa **WAJIB dinomori ulang secara berurutan mulai dari 1 sampai N** (`1, 2, 3, ... N`).
+  3. **Hasil Standar Bank**: Tampilan rekening koran resmi selalu rapi, tidak ada nomor yang melompat (misal dari 32 langsung ke 35), dan tidak ada baris kosong janggal bernilai Rp 0 di tengah dokumen.
+
+### 2. Prosedur Normalisasi Halaman Multi-Lembar (Multi-Page Normalization)
+* **Masalah Lapangan**: File `.xar` yang dijadikan template sering kali membawa nomor halaman lama (misal tertulis `4 dari 7` atau `4 of 7` padahal dokumen hanya terdiri dari 3 lembar).
+* **Aturan Eksekusi Wajib**:
+  1. **Deteksi Total Lembar Aktual**: Sistem wajib mendeteksi total halaman fisik riil dokumen target ($K$ lembar, misal 3, 7, atau 10 lembar).
+  2. **Pembaruan Menyeluruh Mulai dari Halaman 1**: Seluruh Header (`X dari K`) dan Footer (`X of K`) **WAJIB selalu dimulai dari 1 sampai K**:
+     - Lembar 1: `1 dari K` (`1 of K`)
+     - Lembar $p$: `p dari K` (`p of K`)
+     - Lembar $K$: `K dari K` (`K of K`)
+  3. Dilarang membiarkan nomor halaman melebihi total lembar fisik dokumen.
+
+### 3. Prosedur Kecocokan Kapasitas Slot Baris (Slot Capacity Matching & Blanking)
+* **Pre-Flight Slot Check**: Sebelum memodifikasi biner, sistem wajib mencocokkan jumlah transaksi aktif ($M$) dengan kapasitas slot baris fisik ($S$) pada file `.xar`.
+* **Penanganan Sisa Slot (Blanking)**: Jika $M < S$ (misal data 22 baris tetapi template memiliki 24 slot fisik):
+  - Slot sisa pada lembar terakhir **WAJIB di-blanking** menggunakan null character 2-byte `b'\x00\x00'` (`rec["size"] = 2`).
+  - Dilarang menghapus record biner (*Zero-Shift Mandate*). Teks lama pada slot sisa menjadi transparan dan tidak bocor ke output.
+* **Alert Kurang Slot**: Jika $M > S$, sistem wajib menolak eksekusi dan memberi tahu operator bahwa template `.xar` kekurangan halaman.
+
+---
+
+## V. ATURAN PENERAPAN BINER & UKURAN PAYLOAD
 
 Saat melakukan pengubahan teks pada setiap tahap di atas:
 * **Auto-Size Sync**: Nilai header record biner `rec["size"]` **WAJIB selalu disinkronkan** dengan `len(rec["payload"])` agar tidak memicu `A read error occurred (streaming error)` di Xara.
 * **Tag 2202 Atomic Character Node Rule (Pembersihan Split Record)**: Tag 2202 (`TAG_TEXT_CHAR` / `TAG_TEXT_EOL`) dan Tag 2201 **DILARANG bernilai 0 byte (`b''`)**. Pembersihan node split sekunder **WAJIB menggunakan payload 2-byte null character `b'\x00\x00'`** (`rec["size"] = 2`). Payload 0 byte akan menyebabkan Xara crash dengan pesan `Failed to handle record [rec] 2202 (This file is corrupted and unreadable)`.
 * **Font Definition Lock**: `Tag 2907` pada node definisi font dilarang diubah agar embedded font bawaan dokumen tidak ter-reset.
-* **Zero-Shift Pointer Mandate**: Dilarang menambah atau menghapus record. Total record dokumen wajib terkunci konstan (6.908 pada test 2 halaman, 14.392 pada test 5 halaman).
+* **Zero-Shift Pointer Mandate**: Dilarang menambah atau menghapus record. Total record dokumen wajib terkunci konstan (6.908 pada test 2 halaman, 6.775 pada test 3 halaman, 14.392 pada test 5 halaman, 7.395 pada dokumen Juli 3 halaman, 13.664 pada dokumen Agustus 3 halaman).
+* **Native Color Dictionary Mandate (Anti-Warning Pop-up)**: Setiap profil dokumen Xara memiliki kamus palet internal tersendiri. Dilarang menginjeksikan kode warna Tag 150 asing dari profil lain (contoh: profil 13.664 wajib menggunakan Hijau `44050000`, Hitam `87010000`, Biru `5f070000`, Abu-abu `20050000`).
+* **Tag 2202 Atomic Character Slot Mandate**: Node Tag 2202 (`TAG_TEXT_CHAR`) secara biner hanya menampung 1 karakter UTF-16 (2 bytes). Dilarang menyuntikkan teks panjang ke dalam Tag 2202 dan menghapus node saudara berikutnya karena akan memotong teks menjadi 1 karakter saja. Teks panjang wajib didistribusikan presisi sesuai kapasitas slot masing-masing node.
+* **Dual-Node Row Number Standard**: Pada profil dokumen yang memisahkan puluhan dan satuan nomor baris ke node Tag 2202 terpisah (seperti baris 11, 15, 19, 24), angka puluhan dan satuan wajib dialokasikan ke masing-masing nodenya secara independen.
+* **Standarisasi Alamat Kantor Cabang & Kalibrasi Matriks Tag 2100**: Saat mengubah alamat kantor cabang menjadi Menara Mandiri 1 (`Menara Mandiri 1 Jalan Jenderal Sudirman Kav. 54-55, Jakarta 12190, Indonesia`), selain memperbarui teks dan lebar baris `Tag 2206` (`277227, 6481, 0`), matriks posisi parent `Tag 2100` **WAJIB dikalibrasi ke koordinat resmi** (`300643, 778629, 1` -> Toolbar X=10.63cm, Y=27.44cm) pada seluruh halaman. Mengabaikan kalibrasi matriks parent akan menyebabkan teks panjang meluber keluar batas halaman (overflow ke canvas) akibat koordinat bawaan template lama yang didesain untuk teks pendek.
+
+
+---
+
+## VI. STANDAR TEMPLATE EXCEL BEBAS BUG & INTEGRASI PIPELINE
+
+1. **Standar Bebas Merged Cells (Zero Merged Cells)**:
+   * Seluruh header section pada Sheet `Header & Ringkasan` dan Sheet `Penyesuaian_Tambahan` didesain tanpa menggunakan fitur *Merge & Center*.
+   * Mengeliminasi 100% bug error Excel `Cannot change part of a merged cell` saat operator memblok dan menghapus/mengosongkan data transaksi.
+2. **Standar Kolom Tanggal Teks (`@`) & Smart Date Forward-Propagation**:
+   * Kolom Tanggal diformat sebagai Teks murni (`@`).
+   * Operator diperbolehkan mengosongkan tanggal pada baris-baris mutasi yang berada pada hari yang sama (sesuai format asli rekening koran bank).
+   * Engine pipeline secara otomatis meneruskan (*forward-propagate*) tanggal aktif terakhir ke baris berikutnya yang kosong.
+3. **Pemisahan Audit Visual & Otomasi Pipeline**:
+   * Teks audit di Excel diintegrasikan langsung pada Sheet 1 Baris 25 dengan formula dinamis: `=IF(ROUND(B21+B22-B23-B24,2)=0,"BALANCE (MATCH)","SELISIH: " & TEXT(...))`.
+   * Kolom transaksi hanya membaca baris ber-nomor urut integer. Tidak ada string audit palsu yang mengotori tabel mutasi.
+4. **Master Template Location**:
+   * Template master bersih tersimpan di: `C:\Users\Lenovo\xara_copilot\Template_Pekerjaan_Xara.xlsx`.
+   * Pipeline mendukung auto-discovery template dalam folder secara otomatis.
+
+
 

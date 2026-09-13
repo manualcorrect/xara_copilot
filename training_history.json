@@ -311,5 +311,203 @@
         "status": "PASS"
       }
     ]
+  },
+  "job_firmansyah_jun_2026": {
+    "project": "PT_BENDI_NASHA_NIAGA_INDUSTRI_Firmansyah_Jun",
+    "source_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Jun\\Template_Pekerjaan_Xara_firmansyah_Jun.xlsx",
+    "base_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Jun\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Jun\\0_output.xar",
+    "customer_name": "FIRMANSYAH",
+    "period": "01 Jun 2026 - 30 Jun 2026",
+    "issued_date": "10 Sep 2026",
+    "account_number": "1630010942426",
+    "total_pages": 3,
+    "total_records_locked": 6775,
+    "total_transaction_rows": 22,
+    "financial_summary": {
+      "saldo_awal": "1.020.834,00",
+      "dana_masuk": "+ 7.267.000,00",
+      "dana_keluar": "- 6.358.330,00",
+      "saldo_akhir": "1.929.504,00",
+      "balance_status": "MATCH"
+    },
+    "stages_completed": [
+      "Tahap 1",
+      "Tahap 2",
+      "Tahap 3",
+      "Tahap 4",
+      "Tahap 5",
+      "Tahap 6",
+      "Tahap 7"
+    ],
+    "status": "PASS"
+  },
+  "job_firmansyah_jul_2026": {
+    "project": "PT_BENDI_NASHA_NIAGA_INDUSTRI_Firmansyah_Jul",
+    "source_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Jul\\Template_Pekerjaan_Xara_JUL.xlsx",
+    "base_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Jul\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Jul\\0_output.xar",
+    "customer_name": "FIRMANSYAH",
+    "period": "01 Jul 2026 - 31 Jul 2026",
+    "issued_date": "10 Sep 2026",
+    "account_number": "1630010942426",
+    "total_pages": 3,
+    "total_records_locked": 7395,
+    "total_transaction_rows": 22,
+    "financial_summary": {
+      "saldo_awal": "1.929.504,00",
+      "dana_masuk": "+ 9.197.167,00",
+      "dana_keluar": "- 5.234.704,00",
+      "saldo_akhir": "5.891.967,00",
+      "balance_status": "MATCH"
+    },
+    "smart_normalization": {
+      "zero_nominal_rows_filtered": [
+        33,
+        34
+      ],
+      "sequential_reindexing": "1 to 22",
+      "multi_page_normalization": "Normalized '1 of 3' / '1 dari 3' and '2 of 3' / '2 dari 3'"
+    },
+    "bug_fixes_and_procedures_learned": [
+      {
+        "bug": "Overlapping Decimal Residual Nodes on Saldo",
+        "symptom": "Trailing digits like '...704,00' or '...67,00' appended to running balance",
+        "root_cause": "Original binary template split balances across primary and secondary fractional text nodes; secondary nodes were unblanked",
+        "permanent_resolution": "Explicitly mapped and blanked all trailing secondary split nodes (2848, 4778, 4954, 5325, 6019, 6185) with 2-byte null character b'\\x00\\x00' (size=2)"
+      },
+      {
+        "bug": "Credit Nominal Misclassified as Negative Debit",
+        "symptom": "Credit transactions (e.g. 15.200, 500.000) rendered as negative '-' in black",
+        "root_cause": "Excel cells had positive numbers without explicit '+' text and blank 'Tipe (CR/DB)' column",
+        "permanent_resolution": "Universal numeric evaluation: if nominal > 0 without '-' prefix, automatically format as '+' in green #ba030000"
+      },
+      {
+        "bug": "Branch Address Standardization & Tag 2100 Parent Matrix Alignment",
+        "symptom": "July document had old branch address 'Plaza Mandiri...' at X=13.29cm (Tag 2100 matrix 376800, 778500, 1)",
+        "root_cause": "July template had not been updated with Menara Mandiri 1 address and Tahap 7 parent coordinates",
+        "permanent_resolution": "Applied update_address_7395 calibrating Tag 2100 parent matrices (194, 3521) to (300643, 778629, 1) -> X=10.63cm, Y=27.44cm, with Tag 2206 advance width (277227, 6481, 0) and kerning separator (1, 0) across all pages"
+      }
+    ],
+    "status": "PASS"
+  },
+  "job_firmansyah_agu_2026": {
+    "project": "PT_BENDI_NASHA_NIAGA_INDUSTRI_Firmansyah_Agu",
+    "source_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Agu\\Template_Pekerjaan_Xara_AUG.xlsx",
+    "clean_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Agu\\Template_Pekerjaan_Xara_AUG_Clean.xlsx",
+    "base_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Agu\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Firmansyah\\New folder\\Agu\\0_output.xar",
+    "customer_name": "FIRMANSYAH",
+    "period": "01 Aug 2026 - 31 Aug 2026",
+    "issued_date": "10 Sep 2026",
+    "account_number": "1630010942426",
+    "total_pages": 3,
+    "total_records_locked": 13664,
+    "total_transaction_rows": 29,
+    "financial_summary": {
+      "saldo_awal": "5.891.967,00",
+      "dana_masuk": "+ 10.165.467,00",
+      "dana_keluar": "- 9.618.541,00",
+      "saldo_akhir": "6.438.893,00",
+      "balance_status": "MATCH"
+    },
+    "native_colors_profile": {
+      "kredit_dana_masuk": "Tag 150 = b'\\x44\\x05\\x00\\x00' (Native Document Green)",
+      "debit_dana_keluar": "Tag 150 = b'\\x87\\x01\\x00\\x00' (Native Document Black)",
+      "saldo_berjalan": "Tag 150 = b'\\x5f\\x07\\x00\\x00' (Native Document Blue)",
+      "saldo_awal": "Tag 150 = b'\\x20\\x05\\x00\\x00' (Native Document Dark Gray)",
+      "color_definition_fix": "Eliminated alien color definitions (ba030000, 0d050000) to guarantee zero pop-up warnings in Xara Designer Pro+"
+    },
+    "smart_normalization": {
+      "zero_nominal_rows_filtered": [
+        11,
+        12
+      ],
+      "sequential_reindexing": "1 to 29",
+      "multi_page_normalization": "Normalized '1 of 3' / '1 dari 3', '2 of 3' / '2 dari 3', '3 of 3' / '3 dari 3'"
+    },
+    "bug_fixes_and_procedures_learned": [
+      {
+        "bug": "Tag 2202 Atomic Character Node Truncation",
+        "symptom": "Header text (Periode, Dicetak, Rekening, Halaman, Saldo Awal, Dana Keluar) and Page 3 nominals truncated to only 1 character (e.g. '0', '1', '5', '-', '+')",
+        "root_cause": "Tag 2202 (TAG_TEXT_CHAR) is strictly a 2-byte single-character node; writing multi-character strings into Tag 2202 and blanking siblings caused Xara to drop everything except the first glyph",
+        "permanent_resolution": "Mapped all text strings into character-by-character atomic slices that respect Tag 2202 (single chars) and Tag 2201 (variable strings) without wiping necessary nodes"
+      },
+      {
+        "bug": "Color Definition Warning Pop-up",
+        "symptom": "Xara dialog warning: 'Problems have been found with some data. The data includes: color definition.'",
+        "root_cause": "Injected Tag 150 color hexes from a foreign profile (7,395 records) not defined in 0.xar's internal palette dictionary",
+        "permanent_resolution": "Locked exact native palette colors: Green b'\\x44\\x05\\x00\\x00', Black b'\\x87\\x01\\x00\\x00', Blue b'\\x5f\\x07\\x00\\x00', Dark Gray b'\\x20\\x05\\x00\\x00'"
+      },
+      {
+        "bug": "Header Customer Name Collision with Branch Office",
+        "symptom": "'KCP Serang Ciruas' shifted left and collided into 'FIRMANSYAH KCP'",
+        "root_cause": "Customer name and branch belong to a continuous text story; rewriting name without length compensation pulled subsequent text",
+        "permanent_resolution": "Partitioned new name across sub-nodes with exact trailing space padding to lock the branch container at its exact original coordinates"
+      },
+      {
+        "bug": "Row Numbers 11, 15, 19, 24 Showing Single Digits",
+        "symptom": "Row 11 showed '1', Row 15 showed '1', Row 19 showed '1', Row 24 showed '2'",
+        "root_cause": "Tens and units digits were stored across separate Tag 2202 nodes; writing two-digit string into the first node truncated the units digit",
+        "permanent_resolution": "Implemented row_no_map splitting tens and units across their dedicated Tag 2202 nodes"
+      },
+      {
+        "bug": "Excel Template [Group] Mode Multi-Sheet Mirror Overwrite",
+        "symptom": "Summary numbers (10165467, 9618541, 6438893) appeared in Tabel_Mutasi date column, and transaction amounts mirrored onto Penyesuaian_Tambahan",
+        "root_cause": "Excel workbook was saved with tabSelected=True on multiple worksheets, forcing Excel to open in [Group] mode where edits mirror across sheets at identical cell coordinates",
+        "permanent_resolution": "Enforced single active worksheet selection (tabSelected=False on secondary sheets) and added pipeline auto-sanitization for numeric bleed into date columns"
+      },
+      {
+        "bug": "Branch Address Positioning Matrix Tag 2100 Overflow (X=13.32cm vs X=10.63cm)",
+        "symptom": "Branch office address box selected at X=13.32cm, Y=27.43cm, W=9.69cm and text 'Menara Mandiri 1 Jalan Jenderal Sudirman Kav. 54-55, Jakarta 12190, Indonesia' overflowed past the right margin of the page into the canvas, instead of aligning at X=10.63cm, Y=27.44cm, W=9.8cm as in Jun Tahap 7",
+        "root_cause": "The base August template originally held a short address ('Plaza Mandiri...') positioned far to the right via parent matrix Tag 2100 = (376800, 778500, 1) across Pages 1..3. Updating only the text string and Tag 2206 line advance without updating the parent positioning matrix left the start position 2.69cm too far right",
+        "permanent_resolution": "Calibrated Tag 2100 parent positioning matrices across all pages (Rec 194 on Page 1, Rec 5282 on Page 2, Rec 8480 on Page 3) to exact Jun Tahap 7 coordinates: (300643, 778629, 1), locking toolbar X to 10.63cm and Y to 27.44cm with Tag 2206 advance set to (277227, 6481, 0) and kerning separator (1, 0)"
+      }
+    ],
+    "stages_completed": [
+      "Tahap 1",
+      "Tahap 2",
+      "Tahap 3",
+      "Tahap 4",
+      "Tahap 5",
+      "Tahap 6",
+      "Tahap 7"
+    ],
+    "status": "PASS"
+  },
+  "stress_test_3": {
+    "project": "StressTest_3_Marsiyah_7Pages_73Rows",
+    "base_template": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Marsiyah\\New folder\\jun\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Marsiyah\\New folder\\jun\\0_tahap7.xar",
+    "total_pages": 7,
+    "total_records_locked": 19597,
+    "total_transaction_rows": 73,
+    "customer_name": "Masriyah Muhammad Samian",
+    "account_number": "1630016144514",
+    "period": "01 Jun 2026 - 30 Jun 2026",
+    "dicetak_pada": "10 Sep 2026",
+    "financial_summary": {
+      "saldo_awal": "445.950,81",
+      "dana_masuk": "+ 11.055.000,00",
+      "dana_keluar": "- 5.123.603,00",
+      "saldo_akhir": "6.377.347,81",
+      "balance_status": "MATCH"
+    },
+    "native_colors_profile": {
+      "kredit_dana_masuk": "Tag 150 = b'\\xd6\\x03\\x00\\x00' (Native Green)",
+      "debit_dana_keluar": "Tag 150 = b'\\x9d\\x01\\x00\\x00' (Native Black)",
+      "saldo_berjalan": "Tag 150 = b'\\x28\\x05\\x00\\x00' (Native Blue)",
+      "saldo_awal": "Tag 150 = b'\\x72\\x03\\x00\\x00' (Native Dark Gray)"
+    },
+    "stages_completed": [
+      "Tahap 1: Perubahan Nama Nasabah pada 7 Halaman",
+      "Tahap 2: Perubahan Periode Laporan pada 7 Halaman",
+      "Tahap 3: Perubahan Tanggal Cetak pada 7 Halaman",
+      "Tahap 4: Perubahan Nomor Rekening pada Header Page 1",
+      "Tahap 5: Perubahan Nomor Halaman (1 of 7 s.d. 7 of 7)",
+      "Tahap 6: Perubahan Tanggal (Jun 2026) & Jam Transaksi (Smart Scheduling 06:00 - 23:00 WIB) pada 73 Baris",
+      "Tahap 7: Perubahan Ringkasan Header & Tabel Transaksi Utama (Deposit +6.355.000 Row 56 & Running Saldos)"
+    ],
+    "status": "PASS"
   }
 }
