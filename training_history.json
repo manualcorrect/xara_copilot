@@ -515,5 +515,73 @@
       "nominal_right_alignment": "Tag 2100 mp=373800, Tag 2206 advance=57601 locked to constant right-edge anchor at 431,400 millipoints"
     },
     "status": "PASS"
+  },
+  "job_marsiyah_jul_2026": {
+    "project": "PT_BENDI_NASHA_NIAGA_INDUSTRI_Marsiyah_Jul",
+    "source_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Marsiyah\\New folder\\jul\\Template_Pekerjaan_Xara_Jul.xlsx",
+    "base_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Marsiyah\\New folder\\jul\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Marsiyah\\New folder\\jul\\0_tahap7.xar",
+    "customer_name": "MASRIYAH MUHAMMAD SAMIAN",
+    "period": "01 Jul 2026 - 31 Jul 2026",
+    "issued_date": "10 Sep 2026",
+    "account_number": "1630016144514",
+    "total_pages": 8,
+    "total_records_locked": 22012,
+    "total_transaction_rows": 83,
+    "financial_summary": {
+      "saldo_awal": "21.347,81",
+      "dana_masuk": "+ 13.811.000,00",
+      "dana_keluar": "- 12.333.579,00",
+      "saldo_akhir": "1.498.768,81",
+      "balance_status": "MATCH"
+    },
+    "native_colors_profile": {
+      "kredit_dana_masuk": "Tag 150 = b'\\xd3\\x03\\x00\\x00' (Native Document Green #00A651)",
+      "debit_dana_keluar": "Tag 150 = b'\\x9e\\x01\\x00\\x00' (Native Document Black #000000)",
+      "saldo_berjalan": "Tag 150 = b'\\x2b\\x05\\x00\\x00' (Native Document Blue #005B9C)",
+      "saldo_awal": "Tag 150 = b'\\x6f\\x03\\x00\\x00' (Native Document Dark Gray #333333)"
+    },
+    "stages_completed": [
+      "Tahap 1: Perubahan Nama Nasabah pada 8 Halaman (Tag 2150 width expanded to 200,000 mp / 7.05 cm)",
+      "Tahap 2: Perubahan Periode Laporan pada 8 Halaman (Tag 2150 width expanded to 180,000 mp / 6.35 cm)",
+      "Tahap 3: Perubahan Tanggal Cetak pada 8 Halaman (10 Sep 2026)",
+      "Tahap 4: Perubahan Nomor Rekening pada Header Page 1 (1630016144514)",
+      "Tahap 5: Perubahan Nomor Halaman (1 of 8 s.d. 8 of 8 / 1 dari 8 s.d. 8 dari 8)",
+      "Tahap 6: Perubahan Tanggal (Jul 2026) & Jam Transaksi (83 Baris + 18 secondary time nodes blanked b'\\x00\\x00')",
+      "Tahap 7: Perubahan Ringkasan Header & Tabel Transaksi Utama (83 Baris Nominal & Running Saldos)"
+    ],
+    "bug_fixes_and_procedures_learned": [
+      {
+        "bug": "Header Customer Name Overspill to Branch Line (Line-Wrap)",
+        "symptom": "Customer name 'MASRIYAH MUHAMMAD SAMIAN' had 'SAMIAN' pushed down to line 2 (Cabang/Branch line), appearing as 'Cabang/Branch : SAMIAN KCP Jakarta Taman Aries'",
+        "root_cause": "Tag 2150 story container bounding box was set to a fixed narrow width of 89,085 mp (3.14 cm), causing Xara to auto-wrap words exceeding 3.14 cm onto line 2",
+        "permanent_resolution": "Expanded Tag 2150 story width at Rec 966, 3612, 6396, 9120, 11840, 14616, 17359, 20159 to 200,000 mp (7.05 cm) across all 8 pages, and updated Tag 2206 line 1 advance width to 120,000 mp"
+      },
+      {
+        "bug": "Header Period Line-Wrap (Year 2026 Pushed to Line 2)",
+        "symptom": "Period rendered as '01 Jul 2026 - 31 Jul' on line 1 and '2026' on line 2",
+        "root_cause": "Tag 2150 story container width was 96,562 mp (3.41 cm) and old split prefix/suffix nodes (Rec 14665, 14669, 14682, etc.) were not blanked",
+        "permanent_resolution": "Expanded Tag 2150 story width to 180,000 mp (6.35 cm) and blanked all prefix/suffix split nodes with 2-byte null character b'\\x00\\x00'"
+      },
+      {
+        "bug": "Ghost Digits & Dot Overlap in Transaction Jam/Time Column",
+        "symptom": "Floating dots and stray texts like '9 WIB', '3 WIB', 'B', 'WIB' overlapped transaction remarks (e.g. at Row 61)",
+        "root_cause": "18 transaction rows in 0.xar used split time stories (time_prim + time_sec); updating only time_prim left unblanked secondary nodes on canvas",
+        "permanent_resolution": "Mapped and blanked all 18 secondary time split nodes (Rec 1835, 1970, 3012, 4116, 9763, 9898, 10053, 10208, 12510, 12665, 12832, 13552, 13707, 13862, 14017, 15423, 18475, 18630) with b'\\x00\\x00' (size=2)"
+      },
+      {
+        "bug": "Credit Nominal and Dana Masuk Rendered as Dark Gray Instead of Green",
+        "symptom": "Credit transactions (+6.680.000,00) and Dana Masuk header (+ 13.811.000,00) displayed in dark gray/black",
+        "root_cause": "Incorrect Tag 150 color hex 6f030000 (Dark Gray Saldo Awal) was used instead of native document green d3030000",
+        "permanent_resolution": "Locked Tag 150 = b'\\xd3\\x03\\x00\\x00' for all Credit transactions and Dana Masuk Header"
+      },
+      {
+        "bug": "Nominal Column Right Alignment Inconsistency",
+        "symptom": "Nominal numbers of different character lengths (e.g. +6.680.000,00 vs -3.500,00) were not aligned to the right ruler edge at 15.217 cm",
+        "root_cause": "Tag 2100 Matrix X left position and Tag 2206 advance width were not dynamically updated when replacing nominal text",
+        "permanent_resolution": "Synchronized Tag 2100 Matrix X = 431360 - W(nominal) and Tag 2206 advance width = W(nominal) using exact TTInterphases-Bold advance glyph metrics across all 83 rows"
+      }
+    ],
+    "status": "PASS"
   }
 }
