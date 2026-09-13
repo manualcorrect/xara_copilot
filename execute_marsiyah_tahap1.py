@@ -18,7 +18,7 @@ def execute_tahap1():
     total_recs_before = len(doc.records)
     print(f"[*] Dokumen dimuat: {total_recs_before:,} records")
 
-    NEW_NAME = "Masriyah Muhammad Samian "
+    NEW_NAME = "MASRIYAH MUHAMMAD SAMIAN "
     name_payload = bytearray(NEW_NAME.encode('utf-16le'))
     name_size = len(name_payload)
 
