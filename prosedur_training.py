@@ -134,6 +134,45 @@ def deteksi_kamus_palet_native(doc: XarDocument) -> Dict[str, bytearray]:
 # 4. ATURAN PROSEDUR TRAINING: ARSITEKTUR 2-BOX NAMA (HURUF KAPITAL) & CABANG
 # =========================================================================
 
+def deteksi_kamus_font_native(doc: XarDocument) -> Dict[str, bytearray]:
+    """
+    Mendeteksi secara dinamis handle font native dari Tag 2000 pada dokumen asli (0.xar).
+    Menjamin tidak ada invalid handle font ID.
+    """
+    fonts = {
+        'regular': bytearray.fromhex('54010000'), # Default TTInterphases-Regular
+        'bold':    bytearray.fromhex('ce010000'), # Default TTInterphases-Bold
+        'italic':  bytearray.fromhex('61020000'), # Default TTInterphases-Italic
+    }
+    for idx, r in enumerate(doc.records):
+        if r['tag'] == 2000:
+            raw = r['payload']
+            name = raw.decode('utf-16le', errors='ignore').split('\x00')[0]
+            handle = idx + 116
+            h_bytes = bytearray(struct.pack('<I', handle))
+            if 'Regular' in name:
+                fonts['regular'] = h_bytes
+            elif 'Bold' in name:
+                fonts['bold'] = h_bytes
+            elif 'Italic' in name:
+                fonts['italic'] = h_bytes
+    return fonts
+
+def deteksi_kamus_style_native(doc: XarDocument) -> Dict[str, bytearray]:
+    """
+    Mendeteksi style Tag 4465 native dokumen dari template 0.xar.
+    """
+    styles = {
+        'text_style':    bytearray.fromhex('52010000'), # 0x0152 (338)
+        'table_style':   bytearray.fromhex('1c050000'), # 0x051c (1308)
+        'nominal_style': bytearray.fromhex('32020000'), # 0x0232 (562)
+    }
+    return styles
+
+# =========================================================================
+# 4. ATURAN PROSEDUR TRAINING: ARSITEKTUR 2-BOX NAMA (HURUF KAPITAL) & CABANG
+# =========================================================================
+
 def format_nama_kapital(nama_input: str) -> str:
     """
     Standarisasi Huruf Kapital Nama Nasabah (Aturan #22):
@@ -142,36 +181,37 @@ def format_nama_kapital(nama_input: str) -> str:
     """
     return str(nama_input).strip().upper()
 
-def buat_name_story_records(customer_name: str, palette: Dict[str, bytearray]) -> List[dict]:
+def buat_name_story_records(customer_name: str, palette: Dict[str, bytearray], fonts: Dict[str, bytearray] = None, styles: Dict[str, bytearray] = None) -> List[dict]:
     """
     Membuat blok record biner terisolasi untuk Nama Nasabah (HURUF KAPITAL):
     - Lebar Kolom W = 3.17 cm (Tag 2150 = 89858 mp)
     - Proportional Leading 80% (Tag 4208/4209 = 400 / 0x0190)
-    - Font 8pt (Tag 2901 = 10000 mp)
-    - Font ID Native Dokumen (Tag 2907 = 54010000)
+    - Font Native (Tag 2907 = TTInterphases-Regular)
     - Net Tree Balance: Tag 1 = 3, Tag 0 = 3 (Net = 0)
     """
     name_caps = format_nama_kapital(customer_name) + " "
-    color_bytes = palette.get('normal_text', bytearray.fromhex('58040000'))
+    color_bytes = palette.get('normal_text', bytearray.fromhex('53040000'))
+    font_id = fonts.get('regular', bytearray.fromhex('54010000')) if fonts else bytearray.fromhex('54010000')
+    style_id = styles.get('text_style', bytearray.fromhex('52010000')) if styles else bytearray.fromhex('52010000')
     
     return [
         {'tag': 2100, 'size': 12, 'payload': bytearray(struct.pack('<iii', X_NAME_MP, Y_NAME_MP, 1))},
         {'tag': 1,    'size': 0,  'payload': bytearray()},
         {'tag': 2150, 'size': 5,  'payload': bytearray(struct.pack('<iB', W_317_MP, 1))},
         {'tag': 2151, 'size': 8,  'payload': bytearray(8)},
-        {'tag': 150,  'size': 4,  'payload': color_bytes},
+        {'tag': 4465, 'size': len(style_id), 'payload': bytearray(style_id)},
+        {'tag': 150,  'size': len(color_bytes), 'payload': bytearray(color_bytes)},
+        {'tag': 2901, 'size': 4,  'payload': bytearray.fromhex('f0550000')}, # 22000 mp (8.5pt native)
         {'tag': 2906, 'size': 4,  'payload': bytearray.fromhex('401f0000')},
-        {'tag': 2907, 'size': 4,  'payload': bytearray.fromhex('54010000')}, # Native TTInterphases-Regular
+        {'tag': 2907, 'size': len(font_id), 'payload': bytearray(font_id)},
         {'tag': 177,  'size': 4,  'payload': bytearray.fromhex('00001027')},
         {'tag': 174,  'size': 1,  'payload': bytearray.fromhex('02')},
         {'tag': 175,  'size': 1,  'payload': bytearray.fromhex('02')},
         {'tag': 176,  'size': 1,  'payload': bytearray.fromhex('00')},
         {'tag': 152,  'size': 4,  'payload': bytearray.fromhex('fa000000')},
         {'tag': 193,  'size': 0,  'payload': bytearray()},
-        {'tag': 4465, 'size': 4,  'payload': bytearray.fromhex('53010000')},
         {'tag': 4208, 'size': 4,  'payload': bytearray.fromhex('90010000')}, # 80% leading
         {'tag': 4209, 'size': 4,  'payload': bytearray.fromhex('90010000')}, # 80% leading
-        {'tag': 2901, 'size': 4,  'payload': bytearray.fromhex('10270000')}, # 8pt
         # Line 1: Nama Nasabah (ALL CAPS)
         {'tag': 2200, 'size': 0,  'payload': bytearray()},
         {'tag': 1,    'size': 0,  'payload': bytearray()},
@@ -188,7 +228,7 @@ def buat_name_story_records(customer_name: str, palette: Dict[str, bytearray]) -
         {'tag': 0,    'size': 0,  'payload': bytearray()},
     ]
 
-def buat_cabang_object_records(branch_name: str, palette: Dict[str, bytearray]) -> List[dict]:
+def buat_cabang_object_records(branch_name: str, palette: Dict[str, bytearray], fonts: Dict[str, bytearray] = None, styles: Dict[str, bytearray] = None) -> List[dict]:
     """
     Membuat blok record biner mandiri untuk Objek Cabang:
     - Posisi terkunci di X = 4.378 cm (124101 mp), Y = 25.203 cm (714420 mp)
@@ -196,26 +236,28 @@ def buat_cabang_object_records(branch_name: str, palette: Dict[str, bytearray]) 
     - Net Tree Balance: Tag 1 = 3, Tag 0 = 3 (Net = 0) (Anti Access Violation)
     """
     b_str = branch_name.strip()
-    color_bytes = palette.get('normal_text', bytearray.fromhex('58040000'))
+    color_bytes = palette.get('normal_text', bytearray.fromhex('53040000'))
+    font_id = fonts.get('regular', bytearray.fromhex('54010000')) if fonts else bytearray.fromhex('54010000')
+    style_id = styles.get('text_style', bytearray.fromhex('52010000')) if styles else bytearray.fromhex('52010000')
 
     return [
         {'tag': 2100, 'size': 12, 'payload': bytearray(struct.pack('<iii', X_CABANG_MP, Y_CABANG_MP, 1))},
         {'tag': 1,    'size': 0,  'payload': bytearray()},
         {'tag': 2150, 'size': 5,  'payload': bytearray(struct.pack('<iB', 0, 0))},
         {'tag': 2151, 'size': 8,  'payload': bytearray(8)},
-        {'tag': 2901, 'size': 4,  'payload': bytearray.fromhex('10270000')}, # 8pt
-        {'tag': 4209, 'size': 4,  'payload': bytearray.fromhex('90010000')}, # 80%
-        {'tag': 4208, 'size': 4,  'payload': bytearray.fromhex('90010000')},
-        {'tag': 150,  'size': 4,  'payload': color_bytes},
+        {'tag': 4465, 'size': len(style_id), 'payload': bytearray(style_id)},
+        {'tag': 150,  'size': len(color_bytes), 'payload': bytearray(color_bytes)},
+        {'tag': 2901, 'size': 4,  'payload': bytearray.fromhex('f0550000')}, # 22000 mp
         {'tag': 2906, 'size': 4,  'payload': bytearray.fromhex('401f0000')},
-        {'tag': 2907, 'size': 4,  'payload': bytearray.fromhex('54010000')},
+        {'tag': 2907, 'size': len(font_id), 'payload': bytearray(font_id)},
         {'tag': 177,  'size': 4,  'payload': bytearray.fromhex('00001027')},
         {'tag': 174,  'size': 1,  'payload': bytearray.fromhex('02')},
         {'tag': 175,  'size': 1,  'payload': bytearray.fromhex('02')},
         {'tag': 176,  'size': 1,  'payload': bytearray.fromhex('00')},
         {'tag': 152,  'size': 4,  'payload': bytearray.fromhex('fa000000')},
         {'tag': 193,  'size': 0,  'payload': bytearray()},
-        {'tag': 4465, 'size': 4,  'payload': bytearray.fromhex('53010000')},
+        {'tag': 4208, 'size': 4,  'payload': bytearray.fromhex('90010000')},
+        {'tag': 4209, 'size': 4,  'payload': bytearray.fromhex('90010000')},
         {'tag': 2200, 'size': 0,  'payload': bytearray()},
         {'tag': 1,    'size': 0,  'payload': bytearray()},
         {'tag': 2206, 'size': 12, 'payload': bytearray(struct.pack('<iii', 88118, 5761, 0))},
@@ -226,8 +268,8 @@ def buat_cabang_object_records(branch_name: str, palette: Dict[str, bytearray]) 
         {'tag': 1,    'size': 0,  'payload': bytearray()},
         {'tag': 2206, 'size': 12, 'payload': bytearray(struct.pack('<iii', 0, 0, -10400))},
         {'tag': 2203, 'size': 0,  'payload': bytearray()},
-        {'tag': 0,    'size': 0,  'payload': bytearray()}, # Closes Line 2
-        {'tag': 0,    'size': 0,  'payload': bytearray()}, # Closes Top-Level Tag 2100 Object!
+        {'tag': 0,    'size': 0,  'payload': bytearray()},
+        {'tag': 0,    'size': 0,  'payload': bytearray()},
     ]
 
 # =========================================================================
@@ -245,15 +287,17 @@ def calc_text_width(text: str) -> int:
 
 TARGET_XR_SALDO = 570450 # 20.049 cm (Garis batas ruler kanan kolom Saldo)
 
-def buat_no_object_records(y_pos: int, no_str: str, palette: Dict[str, bytearray]) -> List[dict]:
+def buat_no_object_records(y_pos: int, no_str: str, palette: Dict[str, bytearray], fonts: Dict[str, bytearray] = None, styles: Dict[str, bytearray] = None) -> List[dict]:
     """
     Membuat objek teks mandiri untuk Kolom Nomor (No):
     - Terletak di X = 20.000 mp (0.705 cm)
     - Lebar bounding box lokal (W ~ 0.5 cm), tidak lagi menjangkau kolom saldo.
+    - Menggunakan Font Regular Native & Style Table 0.xar
     - Net Tree Balance = 0 (3 Tag 1, 3 Tag 0)
     """
-    color_bytes = palette.get('normal_text', bytearray.fromhex('58040000'))
-    font_id = bytearray.fromhex('54010000') # Regular Font ID
+    color_bytes = palette.get('normal_text', bytearray.fromhex('53040000'))
+    font_id = fonts.get('regular', bytearray.fromhex('54010000')) if fonts else bytearray.fromhex('54010000')
+    style_id = styles.get('table_style', bytearray.fromhex('1c050000')) if styles else bytearray.fromhex('1c050000')
     p_no = bytearray(no_str.encode('utf-16le'))
     
     return [
@@ -261,8 +305,8 @@ def buat_no_object_records(y_pos: int, no_str: str, palette: Dict[str, bytearray
         {'tag': 1,    'payload': bytearray(b''), 'size': 0},
         {'tag': 2150, 'payload': bytearray(b'\x00\x00\x00\x00\x00'), 'size': 5},
         {'tag': 2151, 'payload': bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00'), 'size': 8},
-        {'tag': 4465, 'payload': bytearray.fromhex('22050000'), 'size': 4},
-        {'tag': 2901, 'payload': bytearray.fromhex('0f270000'), 'size': 4}, # 8pt (10000 mp)
+        {'tag': 4465, 'payload': bytearray(style_id), 'size': len(style_id)},
+        {'tag': 2901, 'payload': bytearray.fromhex('0f270000'), 'size': 4}, # 9999 mp (~8pt)
         {'tag': 2906, 'payload': bytearray.fromhex('401f0000'), 'size': 4}, # 8000 mp
         {'tag': 177,  'payload': bytearray.fromhex('00001027'), 'size': 4},
         {'tag': 174,  'payload': bytearray.fromhex('02'), 'size': 1},
@@ -276,22 +320,25 @@ def buat_no_object_records(y_pos: int, no_str: str, palette: Dict[str, bytearray
         {'tag': 2201, 'payload': p_no, 'size': len(p_no)},
         {'tag': 1,    'payload': bytearray(b''), 'size': 0},
         {'tag': 150,  'payload': bytearray(color_bytes), 'size': len(color_bytes)},
-        {'tag': 2907, 'payload': bytearray(font_id), 'size': 4},
+        {'tag': 2907, 'payload': bytearray(font_id), 'size': len(font_id)},
         {'tag': 0,    'payload': bytearray(b''), 'size': 0},
         {'tag': 2203, 'payload': bytearray(b''), 'size': 0},
         {'tag': 0,    'payload': bytearray(b''), 'size': 0},
         {'tag': 0,    'payload': bytearray(b''), 'size': 0},
     ]
 
-def buat_saldo_object_records(y_pos: int, saldo_str: str, palette: Dict[str, bytearray]) -> List[dict]:
+def buat_saldo_object_records(y_pos: int, saldo_str: str, palette: Dict[str, bytearray], fonts: Dict[str, bytearray] = None, styles: Dict[str, bytearray] = None) -> List[dict]:
     """
     Membuat objek teks mandiri untuk Kolom Saldo:
     - Terletak tepat di X = TARGET_XR_SALDO - calc_text_width (Rata kanan pada 20.049 cm)
-    - Warna Biru Saldo Native (Tag 150 = 50050000 / 28050000)
+    - Warna Biru Saldo Native (Tag 150 = 4a050000 / 50050000)
+    - Font Bold Native 0.xar (Tag 2907 = ce010000 / TTInterphases-Bold)
+    - Style Table Native 0.xar (Tag 4465 = 1c050000)
     - Net Tree Balance = 0 (3 Tag 1, 3 Tag 0)
     """
-    color_bytes = palette.get('blue_saldo', bytearray.fromhex('50050000'))
-    font_id = bytearray.fromhex('d3010000') # Bold Font ID
+    color_bytes = palette.get('blue_saldo', bytearray.fromhex('4a050000'))
+    font_id = fonts.get('bold', bytearray.fromhex('ce010000')) if fonts else bytearray.fromhex('ce010000')
+    style_id = styles.get('table_style', bytearray.fromhex('1c050000')) if styles else bytearray.fromhex('1c050000')
     w_saldo = calc_text_width(saldo_str)
     x_pos = TARGET_XR_SALDO - w_saldo
     p_saldo = bytearray(saldo_str.encode('utf-16le'))
@@ -301,8 +348,8 @@ def buat_saldo_object_records(y_pos: int, saldo_str: str, palette: Dict[str, byt
         {'tag': 1,    'payload': bytearray(b''), 'size': 0},
         {'tag': 2150, 'payload': bytearray(b'\x00\x00\x00\x00\x00'), 'size': 5},
         {'tag': 2151, 'payload': bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00'), 'size': 8},
-        {'tag': 4465, 'payload': bytearray.fromhex('22050000'), 'size': 4},
-        {'tag': 2901, 'payload': bytearray.fromhex('0f270000'), 'size': 4}, # 8pt (10000 mp)
+        {'tag': 4465, 'payload': bytearray(style_id), 'size': len(style_id)},
+        {'tag': 2901, 'payload': bytearray.fromhex('0f270000'), 'size': 4}, # 9999 mp (~8pt)
         {'tag': 2906, 'payload': bytearray.fromhex('401f0000'), 'size': 4}, # 8000 mp
         {'tag': 177,  'payload': bytearray.fromhex('00001027'), 'size': 4},
         {'tag': 174,  'payload': bytearray.fromhex('02'), 'size': 1},
@@ -317,14 +364,14 @@ def buat_saldo_object_records(y_pos: int, saldo_str: str, palette: Dict[str, byt
         {'tag': 1,    'payload': bytearray(b''), 'size': 0},
         {'tag': 150,  'payload': bytearray(color_bytes), 'size': len(color_bytes)},
         {'tag': 2908, 'payload': bytearray(b''), 'size': 0},
-        {'tag': 2907, 'payload': bytearray(font_id), 'size': 4},
+        {'tag': 2907, 'payload': bytearray(font_id), 'size': len(font_id)},
         {'tag': 0,    'payload': bytearray(b''), 'size': 0},
         {'tag': 2203, 'payload': bytearray(b''), 'size': 0},
         {'tag': 0,    'payload': bytearray(b''), 'size': 0},
         {'tag': 0,    'payload': bytearray(b''), 'size': 0},
     ]
 
-def pemisahan_kolom_no_dan_saldo(doc: XarDocument, palette: Dict[str, bytearray]) -> int:
+def pemisahan_kolom_no_dan_saldo(doc: XarDocument, palette: Dict[str, bytearray], fonts: Dict[str, bytearray] = None, styles: Dict[str, bytearray] = None) -> int:
     """
     Mendeteksi objek Tag 2100 di mana Kolom Nomor dan Saldo tergabung menjadi 1 teks panjang (W = 19.57 cm),
     lalu memisahkannya menjadi 2 objek independen:
@@ -372,8 +419,8 @@ def pemisahan_kolom_no_dan_saldo(doc: XarDocument, palette: Dict[str, bytearray]
                     })
 
     for s in reversed(joined_stories):
-        no_recs = buat_no_object_records(s['y_pos'], s['no_str'], palette)
-        saldo_recs = buat_saldo_object_records(s['y_pos'], s['saldo_str'], palette)
+        no_recs = buat_no_object_records(s['y_pos'], s['no_str'], palette, fonts, styles)
+        saldo_recs = buat_saldo_object_records(s['y_pos'], s['saldo_str'], palette, fonts, styles)
         doc.records[s['start_idx']:s['end_idx']] = no_recs + saldo_recs
 
     for r in doc.records:
@@ -432,6 +479,8 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
     print("   [TAHAP 0] Mengeksekusi Prosedur Training & Standardisasi Template...")
     orig_total = len(doc.records)
     palette = deteksi_kamus_palet_native(doc)
+    fonts = deteksi_kamus_font_native(doc)
+    styles = deteksi_kamus_style_native(doc)
     name_caps = format_nama_kapital(customer_name)
     
     # 1. 2-Box Nama Nasabah & Cabang
@@ -455,7 +504,7 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
                             break
 
     for s, e in reversed(name_stories):
-        doc.records[s:e] = buat_name_story_records(name_caps, palette)
+        doc.records[s:e] = buat_name_story_records(name_caps, palette, fonts, styles)
 
     mandiri_ends = []
     for idx, r in enumerate(doc.records):
@@ -475,10 +524,10 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
                 has_cabang = True
                 break
         if not has_cabang:
-            doc.records[m_end:m_end] = buat_cabang_object_records(branch_name, palette)
+            doc.records[m_end:m_end] = buat_cabang_object_records(branch_name, palette, fonts, styles)
 
     # 2. Pemisahan Kolom No & Saldo menjadi 2 objek mandiri (Anti-Joint Bounding Box)
-    total_decoupled = pemisahan_kolom_no_dan_saldo(doc, palette)
+    total_decoupled = pemisahan_kolom_no_dan_saldo(doc, palette, fonts, styles)
     print(f"   [TAHAP 0] Berhasil memisahkan {total_decoupled} baris Kolom No & Saldo menjadi objek mandiri.")
 
     # 3. Ekspansi Container Periode & Kalibrasi Summary
