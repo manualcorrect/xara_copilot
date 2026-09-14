@@ -97,37 +97,33 @@ def set_container_width_tag2150(doc: XarDocument, rec_idx: Optional[int], new_w:
 
 def deteksi_kamus_palet_native(doc: XarDocument) -> Dict[str, bytearray]:
     """
-    Mendeteksi kamus palet internal dokumen asli target (Aturan #16 & #20).
-    Menghindari warning dialog 'Problems have been found with some data: color definition'.
+    Mendeteksi secara dinamis handle palet native dokumen berdasarkan signature RGB biner Tag 51.
+    Menjamin tidak ada invalid handle color pointer.
     """
-    total = len(doc.records)
     palette = {
-        'green_credit': bytearray.fromhex('ee030000'),
+        'green_credit': bytearray.fromhex('e9030000'),
         'black_debit':  bytearray.fromhex('9e010000'),
-        'blue_saldo':   bytearray.fromhex('50050000'),
-        'gray_sawal':   bytearray.fromhex('8a030000'),
-        'normal_text':  bytearray.fromhex('58040000'),
+        'blue_saldo':   bytearray.fromhex('4a050000'),
+        'gray_sawal':   bytearray.fromhex('85030000'),
+        'normal_text':  bytearray.fromhex('53040000'),
     }
-
-    if total in (19799, 19597):
-        palette['green_credit'] = bytearray.fromhex('d6030000')
-        palette['black_debit']  = bytearray.fromhex('9d010000')
-        palette['blue_saldo']   = bytearray.fromhex('28050000')
-        palette['gray_sawal']   = bytearray.fromhex('72030000')
-        palette['normal_text']  = bytearray.fromhex('40040000')
-    elif total == 28156:
-        palette['green_credit'] = bytearray.fromhex('e9030000')
-        palette['black_debit']  = bytearray.fromhex('9e010000')
-        palette['blue_saldo']   = bytearray.fromhex('1f050000')
-        palette['gray_sawal']   = bytearray.fromhex('85030000')
-        palette['normal_text']  = bytearray.fromhex('53040000')
-    elif total in (20812, 20800, 20850) or 20500 <= total <= 21500:
-        palette['green_credit'] = bytearray.fromhex('e9030000')
-        palette['black_debit']  = bytearray.fromhex('9e010000')
-        palette['blue_saldo']   = bytearray.fromhex('4a050000')
-        palette['gray_sawal']   = bytearray.fromhex('85030000')
-        palette['normal_text']  = bytearray.fromhex('53040000')
-
+    found_norm = False
+    for idx, r in enumerate(doc.records):
+        if r['tag'] == 51 and len(r['payload']) >= 3:
+            rgb = r['payload'][:3].hex()
+            handle = idx + 116
+            h_bytes = bytearray(struct.pack('<I', handle))
+            if rgb in ('134bba', '005b9c'): # Blue Saldo
+                palette['blue_saldo'] = h_bytes
+            elif rgb in ('06aa6f', '00a651', '06a66f'): # Green Credit
+                palette['green_credit'] = h_bytes
+            elif rgb in ('1a1a1a', '000000') and idx < 400: # Black Debit
+                palette['black_debit'] = h_bytes
+            elif rgb in ('615a5a', '858585', '727272'): # Gray Sawal
+                palette['gray_sawal'] = h_bytes
+            elif rgb == '000000' and idx > 500 and idx < 2000 and not found_norm: # Normal text
+                palette['normal_text'] = h_bytes
+                found_norm = True
     return palette
 
 # =========================================================================
@@ -169,10 +165,6 @@ def deteksi_kamus_style_native(doc: XarDocument) -> Dict[str, bytearray]:
     }
     return styles
 
-# =========================================================================
-# 4. ATURAN PROSEDUR TRAINING: ARSITEKTUR 2-BOX NAMA (HURUF KAPITAL) & CABANG
-# =========================================================================
-
 def format_nama_kapital(nama_input: str) -> str:
     """
     Standarisasi Huruf Kapital Nama Nasabah (Aturan #22):
@@ -181,7 +173,7 @@ def format_nama_kapital(nama_input: str) -> str:
     """
     return str(nama_input).strip().upper()
 
-def buat_name_story_records(customer_name: str, palette: Dict[str, bytearray], fonts: Dict[str, bytearray] = None, styles: Dict[str, bytearray] = None) -> List[dict]:
+def buat_name_story_records(customer_name: str, palette: Dict[str, bytearray], fonts: Dict[str, bytearray] = None, styles: Dict[str, bytearray] = None, is_page1: bool = False) -> List[dict]:
     """
     Membuat blok record biner terisolasi untuk Nama Nasabah (HURUF KAPITAL):
     - Lebar Kolom W = 3.17 cm (Tag 2150 = 89858 mp)
@@ -194,12 +186,17 @@ def buat_name_story_records(customer_name: str, palette: Dict[str, bytearray], f
     font_id = fonts.get('regular', bytearray.fromhex('54010000')) if fonts else bytearray.fromhex('54010000')
     style_id = styles.get('text_style', bytearray.fromhex('52010000')) if styles else bytearray.fromhex('52010000')
     
-    return [
+    recs = [
         {'tag': 2100, 'size': 12, 'payload': bytearray(struct.pack('<iii', X_NAME_MP, Y_NAME_MP, 1))},
         {'tag': 1,    'size': 0,  'payload': bytearray()},
         {'tag': 2150, 'size': 5,  'payload': bytearray(struct.pack('<iB', W_317_MP, 1))},
         {'tag': 2151, 'size': 8,  'payload': bytearray(8)},
         {'tag': 4465, 'size': len(style_id), 'payload': bytearray(style_id)},
+    ]
+    if is_page1:
+        recs.append({'tag': 51, 'size': 31, 'payload': bytearray.fromhex('00000002000000000000000000000000000000000000000000000000000000')})
+        
+    recs.extend([
         {'tag': 150,  'size': len(color_bytes), 'payload': bytearray(color_bytes)},
         {'tag': 2901, 'size': 4,  'payload': bytearray.fromhex('f0550000')}, # 22000 mp (8.5pt native)
         {'tag': 2906, 'size': 4,  'payload': bytearray.fromhex('401f0000')},
@@ -226,7 +223,8 @@ def buat_name_story_records(customer_name: str, palette: Dict[str, bytearray], f
         {'tag': 2203, 'size': 0,  'payload': bytearray()},
         {'tag': 0,    'size': 0,  'payload': bytearray()},
         {'tag': 0,    'size': 0,  'payload': bytearray()},
-    ]
+    ])
+    return recs
 
 def buat_cabang_object_records(branch_name: str, palette: Dict[str, bytearray], fonts: Dict[str, bytearray] = None, styles: Dict[str, bytearray] = None) -> List[dict]:
     """
@@ -483,20 +481,37 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
     styles = deteksi_kamus_style_native(doc)
     name_caps = format_nama_kapital(customer_name)
     
-    # 1. Update Nama Nasabah (ALL CAPS) & Cabang pada seluruh lembar header
+    # 1. 2-Box Nama Nasabah (ALL CAPS) & Cabang Mandiri pada Seluruh Halaman
+    name_stories = []
     for idx, r in enumerate(doc.records):
-        if r['tag'] == 2201:
-            t = r['payload'].decode('utf-16le', errors='ignore')
-            if ('ROY DARWIN' in t or 'Adhikarya' in t or 'ADHIKARYA' in t) and '6289' not in t:
-                # Periksa apakah ini header (bukan mutasi transaksi)
-                for k in range(max(0, idx-20), idx):
-                    if doc.records[k]['tag'] == 2100:
-                        coords = struct.unpack('<iii', doc.records[k]['payload'][:12])
-                        if coords[1] == 736000 or coords[0] in (123000, 123307, 124000):
-                            p_name = (name_caps + " ").encode('utf-16le')
-                            r['payload'] = bytearray(p_name)
-                            r['size'] = len(p_name)
-                        break
+        if r['tag'] == 2100 and len(r['payload']) >= 12:
+            coords = struct.unpack('<iii', r['payload'][:12])
+            if coords[1] == 736000 or coords[0] in (123000, 123307, 124000):
+                for j in range(idx, min(len(doc.records), idx+35)):
+                    if doc.records[j]['tag'] == 2201:
+                        t = doc.records[j]['payload'].decode('utf-16le', errors='ignore')
+                        if any(w in t for w in ['ROY', 'DARWIN', 'Adhikarya', 'ADHIKARYA']) and '6289' not in t:
+                            end = j
+                            for k in range(j, min(len(doc.records), j+20)):
+                                if doc.records[k]['tag'] == 2203:
+                                    end = k + 1
+                                    while end < len(doc.records) and doc.records[end]['tag'] == 0:
+                                        end += 1
+                                    break
+                            name_stories.append((idx, end))
+                            break
+
+    # Ganti setiap story nama lama dengan 2-Box decoupled mandiri
+    for idx_story, (s, e) in enumerate(reversed(name_stories)):
+        is_p1 = (idx_story == len(name_stories) - 1)
+        b1_name = buat_name_story_records(name_caps, palette, fonts, styles, is_page1=is_p1)
+        b2_cabang = buat_cabang_object_records(branch_name, palette, fonts, styles)
+        doc.records[s:e] = b1_name + b2_cabang
+
+    # Deteksi ulang palet dinamis setelah pembuatan header
+    palette = deteksi_kamus_palet_native(doc)
+    fonts = deteksi_kamus_font_native(doc)
+    styles = deteksi_kamus_style_native(doc)
 
     # 2. Pemisahan Kolom No & Saldo menjadi 2 objek mandiri (Anti-Joint Bounding Box)
     total_decoupled = pemisahan_kolom_no_dan_saldo(doc, palette, fonts, styles)
