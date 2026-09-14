@@ -116,6 +116,20 @@ SETIAP PERUBAHAN HARUS DIREVIEW DENGAN DUAL-STEP VERIFICATION:
   * Sinkronisasi kronologis tanggal & jam 82 baris (01 Jul 2026 s.d. 31 Jul 2026 23:59:00 WIB).
   * Halaman Penutup disinkronkan via Aturan #27 (+873 records shift) dengan 0 invalid font/color pointers.
 
+### 3. Dataset Profil Adhikarya Putra Agustus 2026 (`aug`):
+* **Basis File**: `0.xar` (20.966 records, 7 Halaman, 82 Baris Transaksi).
+* **Rekonsiliasi Saldo**:
+  * Saldo Awal: `4.784.795,81` (Tersambung 100% dari Saldo Akhir Juli 2026)
+  * Dana Masuk (+): `+ 13.903.756,00`
+  * Dana Keluar (-): `- 12.995.126,00`
+  * Saldo Akhir: `5.693.425,81` (Formula: $4.784.795,81 + 13.903.756,00 - 12.995.126,00 = 5.693.425,81$ -> **100% MATCH**).
+* **Penanganan Biner & Layout**:
+  * Seluruh 7 Halaman menerapkan **Standar 2-Box Nama $W=3,17\text{ cm}$ (80% Line Spacing, ALL CAPS) + Cabang Independen di $X=4,378\text{ cm}, Y=25,203\text{ cm}$**.
+  * Kamus Palet Dinamis `Tag 51` mendeteksi handle Biru Saldo `43050000` (`#134BBA`), Hijau Kredit `e7030000` (`#06AA6F`), Hitam Debit `b1010000` (`#1A1A1A`), Abu Saldo Awal `83030000` (`#615A5A`), dan Teks Normal `51040000` (`#000000`).
+  * Seluruh 82 baris mutasi menerapkan **Pemisahan Kolom No & Saldo Mandiri (Decoupled 2-Box)** dengan Saldo Rata Kanan presisi pada $X = 20,049\text{ cm}$ ($570.450\text{ mp}$).
+  * Sanitasi otomatis nilai bocor Excel mode `[Group]` pada Kolom B tanggal mutasi (filtering nilai nominal/header leak).
+  * Halaman Penutup disinkronkan via Aturan #27 (+861 records shift, Net Depth = -4).
+
 ---
 
 ## VI. STANDARISASI MODUL PROSEDUR TRAINING (TAHAP 0 PRE-SOP PIPELINE)
