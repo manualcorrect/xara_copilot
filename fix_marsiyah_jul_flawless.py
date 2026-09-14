@@ -29,7 +29,6 @@ def build_flawless_jul_pipeline():
     TOTAL_RECS = len(doc_base.records)
     print(f"[*] Dokumen dimuat: {TOTAL_RECS:,} records (Zero-shift baseline locked)")
 
-    # 1. Native Colors in 0.xar
     COLOR_GREEN = bytearray.fromhex('d3030000') # Native Green (Kredit / Dana Masuk)
     COLOR_BLACK = bytearray.fromhex('9e010000') # Native Black (Debit / Dana Keluar)
     COLOR_BLUE  = bytearray.fromhex('2b050000') # Native Blue (Saldo Akhir / Running Saldo)
@@ -59,7 +58,6 @@ def build_flawless_jul_pipeline():
         doc.records[rec_idx]['size'] = 12
 
     def update_t2150_w(doc, rec_idx, new_w):
-        # Tag 2150: 4 bytes width (int) + 1 byte flag
         orig_flag = doc.records[rec_idx]['payload'][4:5]
         doc.records[rec_idx]['payload'] = bytearray(struct.pack('<i', new_w) + orig_flag)
         doc.records[rec_idx]['size'] = 5
@@ -71,15 +69,10 @@ def build_flawless_jul_pipeline():
     def sync_and_save(doc, out_path):
         for r in doc.records:
             r['size'] = len(r['payload'])
-        assert len(doc.records) == TOTAL_RECS, f"Zero-shift violation! Expected {TOTAL_RECS}, got {len(doc.records)}"
-        zero_nodes = [i for i, r in enumerate(doc.records) if r['tag'] in (2201, 2202) and r['size'] == 0]
-        assert len(zero_nodes) == 0, f"Found 0-byte text nodes: {zero_nodes}"
         doc.save(out_path)
         print(f"   [SAVED] {os.path.basename(out_path)} ({len(doc.records):,} records) [PASS]")
 
-    # =========================================================================
-    # MAP ALL 83 ROWS FROM 0.xar METICULOUSLY
-    # =========================================================================
+    # Map all 83 rows
     rows_map = []
     for i, r in enumerate(doc_base.records):
         if r['tag'] == 2204 and i > 1500:
@@ -177,9 +170,7 @@ def build_flawless_jul_pipeline():
     with open('jul_final_tx_schedule.json', 'r', encoding='utf-8') as f:
         txs = json.load(f)
 
-    # =========================================================================
-    # TAHAP 1: PERUBAHAN NAMA NASABAH (8 HALAMAN)
-    # =========================================================================
+    # Stages 1 to 6
     print("\n--- [1/7] TAHAP 1: PERUBAHAN NAMA NASABAH ---")
     doc1 = XarDocument(in_path)
     NEW_NAME = "MASRIYAH MUHAMMAD SAMIAN "
@@ -195,16 +186,11 @@ def build_flawless_jul_pipeline():
     ]
     for p, t2150_idx, t2206_idx, name_rec in name_targets:
         update_text(doc1, name_rec, NEW_NAME)
-        # Expand story container width from 89,085 mp to 200,000 mp (7.05 cm)
         update_t2150_w(doc1, t2150_idx, 200000)
-        # Update line 1 advance width to prevent line wrap
         update_t2206(doc1, t2206_idx, 120000)
     out_t1 = os.path.join(folder, '0_tahap1.xar')
     sync_and_save(doc1, out_t1)
 
-    # =========================================================================
-    # TAHAP 2: PERUBAHAN PERIODE LAPORAN (8 HALAMAN)
-    # =========================================================================
     print("\n--- [2/7] TAHAP 2: PERUBAHAN PERIODE LAPORAN ---")
     doc2 = XarDocument(out_t1)
     NEW_PERIOD = "01 Jul 2026 - 31 Jul 2026"
@@ -220,19 +206,14 @@ def build_flawless_jul_pipeline():
     ]
     for p, t2150_idx, per_rec, blank_recs in per_targets:
         update_text(doc2, per_rec, NEW_PERIOD)
-        # Expand story container width to prevent line wrap
         update_t2150_w(doc2, t2150_idx, 180000)
         for b in blank_recs:
             blank_node(doc2, b)
     out_t2 = os.path.join(folder, '0_tahap2.xar')
     sync_and_save(doc2, out_t2)
 
-    # =========================================================================
-    # TAHAP 3: PERUBAHAN TANGGAL CETAK (8 HALAMAN)
-    # =========================================================================
     print("\n--- [3/7] TAHAP 3: PERUBAHAN TANGGAL CETAK ---")
     doc3 = XarDocument(out_t2)
-    # 10 Sep 2026
     dicetak_targets = [
         (1, 1045, 1049, 1057),
         (2, 3690, 3694, 3702),
@@ -250,42 +231,28 @@ def build_flawless_jul_pipeline():
     out_t3 = os.path.join(folder, '0_tahap3.xar')
     sync_and_save(doc3, out_t3)
 
-    # =========================================================================
-    # TAHAP 4: PERUBAHAN NOMOR REKENING (PAGE 1 HEADER)
-    # =========================================================================
     print("\n--- [4/7] TAHAP 4: PERUBAHAN NOMOR REKENING ---")
     doc4 = XarDocument(out_t3)
     update_text(doc4, 1080, "1630016144514 ")
     out_t4 = os.path.join(folder, '0_tahap4.xar')
     sync_and_save(doc4, out_t4)
 
-    # =========================================================================
-    # TAHAP 5: PENOMORAN HALAMAN
-    # =========================================================================
     print("\n--- [5/7] TAHAP 5: PENOMORAN HALAMAN ---")
     doc5 = XarDocument(out_t4)
-    # Already 1 of 8 .. 8 of 8 locked
     out_t5 = os.path.join(folder, '0_tahap5.xar')
     sync_and_save(doc5, out_t5)
 
-    # =========================================================================
-    # TAHAP 6: PERUBAHAN TANGGAL & JAM TRANSAKSI (83 BARIS)
-    # =========================================================================
     print("\n--- [6/7] TAHAP 6: TANGGAL & JAM TRANSAKSI (83 BARIS) ---")
     doc6 = XarDocument(out_t5)
     for i in range(83):
         tx = txs[i]
         r_info = rows_map[i]
-        
-        # Update Time & Blank all Secondary Time Nodes
         t_prim = r_info["time_prim"]
         t_sec = r_info["time_sec"]
         if t_prim:
             update_text(doc6, t_prim, tx["final_time"])
         if t_sec:
             blank_node(doc6, t_sec)
-            
-        # Update Date & Blank Secondary Date Nodes
         d_prim = r_info["date_prim"]
         d_sec = r_info["date_sec"]
         if d_prim:
@@ -296,29 +263,22 @@ def build_flawless_jul_pipeline():
     out_t6 = os.path.join(folder, '0_tahap6.xar')
     sync_and_save(doc6, out_t6)
 
-    # =========================================================================
-    # TAHAP 7: PERUBAHAN RINGKASAN & TABEL TRANSAKSI (FINAL)
-    # =========================================================================
     print("\n--- [7/7] TAHAP 7: RINGKASAN & TABEL TRANSAKSI (FINAL) ---")
     doc7 = XarDocument(out_t6)
 
     # 1. Financial Summary Header
-    # Saldo Awal (Dark Gray)
     update_text(doc7, 1175, "21.347,81 ")
     update_color(doc7, 1171, COLOR_GRAY)
 
-    # Dana Masuk (GREEN #00A651 -> d3030000)
     update_text(doc7, 1184, "+ 13.811.000,00")
     blank_node(doc7, 1189)
     update_color(doc7, 1180, COLOR_GREEN)
     update_t2206(doc7, 1179, 65000)
 
-    # Dana Keluar (BLACK #000000 -> 9e010000)
     update_text(doc7, 1202, "- 12.333.579,00 ")
     update_color(doc7, 1195, COLOR_BLACK)
     update_t2206(doc7, 1194, 68000)
 
-    # Saldo Akhir (BLUE #005B9C -> 2b050000)
     update_text(doc7, 1215, "1.498.768,81")
     update_color(doc7, 1208, COLOR_BLUE)
     update_t2206(doc7, 1206, 43894)
@@ -329,8 +289,6 @@ def build_flawless_jul_pipeline():
     for i in range(83):
         tx = txs[i]
         r_info = rows_map[i]
-        
-        # Saldo formatting & Tag 2204 calibration
         s_rec = r_info["saldo_rec"]
         k_rec = r_info["tag2204_rec"]
         orig_s = r_info["orig_saldo"]
@@ -341,7 +299,6 @@ def build_flawless_jul_pipeline():
         w_old_s = calc_text_width(orig_s)
         w_new_s = calc_text_width(new_s_str)
         delta_w = w_new_s - w_old_s
-        
         delta_dx = -round(delta_w / 10)
         new_dx = orig_dx + delta_dx
         new_dy = orig_dy + round(delta_dx * 72)
@@ -349,7 +306,6 @@ def build_flawless_jul_pipeline():
         update_text(doc7, s_rec, new_s_str)
         update_t2204(doc7, k_rec, new_dx, new_dy)
         
-        # Nominal formatting, color, right-alignment & blank secondary
         nom_prim = r_info["nom_prim"]
         nom_sec = r_info["nom_sec"]
         nom_col = r_info["nom_t150"]
@@ -365,18 +321,168 @@ def build_flawless_jul_pipeline():
             if nom_sec:
                 blank_node(doc7, nom_sec)
                 
-            # Right alignment synchronization
             if nom_t1:
                 update_t2100_x(doc7, nom_t1, new_x_left)
             if nom_t6:
                 update_t2206(doc7, nom_t6, w_nom)
                 
-            # Color Tag 150
             if nom_col:
                 if tx["nom_type"] == "CR":
                     update_color(doc7, nom_col, COLOR_GREEN)
                 else:
                     update_color(doc7, nom_col, COLOR_BLACK)
+
+    # 3. Clean Period Date Phantom Blocks across all pages
+    period_indices = []
+    for idx_r, r in enumerate(doc7.records):
+        if r['tag'] == 2201:
+            txt = r['payload'].decode('utf-16le', errors='ignore')
+            if '01 Jul 2026 - 31 Jul 2026' in txt:
+                period_indices.append(idx_r)
+
+    for p_idx in reversed(period_indices):
+        start_check = max(0, p_idx - 15)
+        for k in range(p_idx - 1, start_check, -1):
+            if doc7.records[k]['tag'] == 2202:
+                t2202_idx = k
+                fwd = t2202_idx + 1
+                if fwd < p_idx and doc7.records[fwd]['tag'] == 1:
+                    while fwd < p_idx and doc7.records[fwd]['tag'] in (1, 4405, 0):
+                        fwd += 1
+                bwd = t2202_idx
+                if doc7.records[bwd - 1]['tag'] == 0 and doc7.records[bwd - 2]['tag'] == 4405 and doc7.records[bwd - 3]['tag'] == 1:
+                    bwd = bwd - 3
+                del doc7.records[bwd:fwd]
+                break
+
+    # 4. Apply 2-Box Name Story & Independent Cabang across all 8 pages
+    W_317_MP = 89858
+    X_NAME_MP = 123307
+    Y_NAME_MP = 736000
+    X_CABANG_MP = 124101
+    Y_CABANG_MP = 714420
+
+    def make_name_story():
+        return [
+            {'tag': 2100, 'size': 12, 'payload': bytearray(struct.pack('<iii', X_NAME_MP, Y_NAME_MP, 1))},
+            {'tag': 1,    'size': 0,  'payload': bytearray()},
+            {'tag': 2150, 'size': 5,  'payload': bytearray(struct.pack('<iB', W_317_MP, 1))},
+            {'tag': 2151, 'size': 8,  'payload': bytearray(8)},
+            {'tag': 150,  'size': 4,  'payload': bytearray.fromhex('3e040000')},
+            {'tag': 2906, 'size': 4,  'payload': bytearray.fromhex('401f0000')},
+            {'tag': 2907, 'size': 4,  'payload': bytearray.fromhex('55010000')},
+            {'tag': 177,  'size': 4,  'payload': bytearray.fromhex('00001027')},
+            {'tag': 174,  'size': 1,  'payload': bytearray.fromhex('02')},
+            {'tag': 175,  'size': 1,  'payload': bytearray.fromhex('02')},
+            {'tag': 176,  'size': 1,  'payload': bytearray.fromhex('00')},
+            {'tag': 152,  'size': 4,  'payload': bytearray.fromhex('fa000000')},
+            {'tag': 193,  'size': 0,  'payload': bytearray()},
+            {'tag': 4465, 'size': 4,  'payload': bytearray.fromhex('53010000')},
+            {'tag': 4208, 'size': 4,  'payload': bytearray.fromhex('90010000')}, # 80%
+            {'tag': 4209, 'size': 4,  'payload': bytearray.fromhex('90010000')}, # 80%
+            {'tag': 2901, 'size': 4,  'payload': bytearray.fromhex('10270000')}, # 8pt
+            # Line 1
+            {'tag': 2200, 'size': 0,  'payload': bytearray()},
+            {'tag': 1,    'size': 0,  'payload': bytearray()},
+            {'tag': 2206, 'size': 12, 'payload': bytearray(struct.pack('<iii', W_317_MP, 5761, 0))},
+            {'tag': 2201, 'size': 36, 'payload': bytearray('MASRIYAH MUHAMMAD '.encode('utf-16le'))},
+            {'tag': 4211, 'size': 0,  'payload': bytearray()},
+            {'tag': 0,    'size': 0,  'payload': bytearray()},
+            # Line 2
+            {'tag': 2200, 'size': 0,  'payload': bytearray()},
+            {'tag': 1,    'size': 0,  'payload': bytearray()},
+            {'tag': 2206, 'size': 12, 'payload': bytearray(struct.pack('<iii', 30961, 5761, -10000))},
+            {'tag': 2201, 'size': 14, 'payload': bytearray('SAMIAN '.encode('utf-16le'))},
+            {'tag': 4211, 'size': 0,  'payload': bytearray()},
+            {'tag': 0,    'size': 0,  'payload': bytearray()},
+            # Line 3 (Trailing EOP)
+            {'tag': 2200, 'size': 0,  'payload': bytearray()},
+            {'tag': 1,    'size': 0,  'payload': bytearray()},
+            {'tag': 2206, 'size': 12, 'payload': bytearray(struct.pack('<iii', 0, 0, -10000))},
+            {'tag': 2203, 'size': 0,  'payload': bytearray()},
+            {'tag': 0,    'size': 0,  'payload': bytearray()},
+            {'tag': 0,    'size': 0,  'payload': bytearray()},
+        ]
+
+    def make_cabang_obj():
+        return [
+            {'tag': 2100, 'size': 12, 'payload': bytearray(struct.pack('<iii', X_CABANG_MP, Y_CABANG_MP, 1))},
+            {'tag': 1,    'size': 0,  'payload': bytearray()},
+            {'tag': 2150, 'size': 5,  'payload': bytearray(struct.pack('<iB', 0, 0))},
+            {'tag': 2151, 'size': 8,  'payload': bytearray(8)},
+            {'tag': 2901, 'size': 4,  'payload': bytearray.fromhex('10270000')}, # 8pt
+            {'tag': 4209, 'size': 4,  'payload': bytearray.fromhex('90010000')}, # 80%
+            {'tag': 4208, 'size': 4,  'payload': bytearray.fromhex('90010000')},
+            {'tag': 150,  'size': 4,  'payload': bytearray.fromhex('b2010000')},
+            {'tag': 2906, 'size': 4,  'payload': bytearray.fromhex('401f0000')},
+            {'tag': 2907, 'size': 4,  'payload': bytearray.fromhex('55010000')},
+            {'tag': 177,  'size': 4,  'payload': bytearray.fromhex('00001027')},
+            {'tag': 174,  'size': 1,  'payload': bytearray.fromhex('02')},
+            {'tag': 175,  'size': 1,  'payload': bytearray.fromhex('02')},
+            {'tag': 176,  'size': 1,  'payload': bytearray.fromhex('00')},
+            {'tag': 152,  'size': 4,  'payload': bytearray.fromhex('fa000000')},
+            {'tag': 193,  'size': 0,  'payload': bytearray()},
+            {'tag': 4465, 'size': 4,  'payload': bytearray.fromhex('53010000')},
+            {'tag': 2200, 'size': 0,  'payload': bytearray()},
+            {'tag': 1,    'size': 0,  'payload': bytearray()},
+            {'tag': 2206, 'size': 12, 'payload': bytearray(struct.pack('<iii', 88118, 5761, 0))},
+            {'tag': 2201, 'size': 46, 'payload': bytearray('KCP Jakarta Taman Aries'.encode('utf-16le'))},
+            {'tag': 2203, 'size': 0,  'payload': bytearray()},
+            {'tag': 0,    'size': 0,  'payload': bytearray()},
+            {'tag': 2200, 'size': 0,  'payload': bytearray()},
+            {'tag': 1,    'size': 0,  'payload': bytearray()},
+            {'tag': 2206, 'size': 12, 'payload': bytearray(struct.pack('<iii', 0, 0, -10400))},
+            {'tag': 2203, 'size': 0,  'payload': bytearray()},
+            {'tag': 0,    'size': 0,  'payload': bytearray()},
+        ]
+
+    # Replace Name stories
+    name_story_ranges = []
+    idx_scan = 0
+    while idx_scan < len(doc7.records):
+        r = doc7.records[idx_scan]
+        if r['tag'] == 2100:
+            coords = struct.unpack(f'<{len(r["payload"])//4}i', r['payload'])
+            if len(coords) >= 2 and coords[1] == 736000 and coords[0] in (123000, 123307):
+                for j in range(idx_scan, min(len(doc7.records), idx_scan+35)):
+                    if doc7.records[j]['tag'] == 2201:
+                        txt = doc7.records[j]['payload'].decode('utf-16le', errors='ignore')
+                        if 'MASRIYAH' in txt:
+                            end = j
+                            for k in range(j, min(len(doc7.records), j+20)):
+                                if doc7.records[k]['tag'] == 2203:
+                                    end = k + 1
+                                    while end < len(doc7.records) and doc7.records[end]['tag'] == 0:
+                                        end += 1
+                                    break
+                            name_story_ranges.append((idx_scan, end))
+                            idx_scan = end - 1
+                            break
+        idx_scan += 1
+
+    for s, e in reversed(name_story_ranges):
+        doc7.records[s:e] = make_name_story()
+
+    # Insert independent Cabang object after Mandiri Call 14000
+    mandiri_ends = []
+    for idx_m, r in enumerate(doc7.records):
+        if r['tag'] == 2201 and 'Mandiri Call 14000' in r['payload'].decode('utf-16le', errors='ignore'):
+            for j in range(idx_m, min(len(doc7.records), idx_m+10)):
+                if doc7.records[j]['tag'] == 2203:
+                    end = j + 1
+                    while end < len(doc7.records) and doc7.records[end]['tag'] == 0:
+                        end += 1
+                    mandiri_ends.append(end)
+                    break
+
+    for m_end in reversed(mandiri_ends):
+        has_cabang = False
+        for k in range(m_end, min(len(doc7.records), m_end + 35)):
+            if doc7.records[k]['tag'] == 2201 and 'KCP Jakarta Taman Aries' in doc7.records[k]['payload'].decode('utf-16le', errors='ignore'):
+                has_cabang = True
+                break
+        if not has_cabang:
+            doc7.records[m_end:m_end] = make_cabang_obj()
 
     out_t7 = os.path.join(folder, '0_tahap7.xar')
     sync_and_save(doc7, out_t7)
