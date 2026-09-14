@@ -486,7 +486,7 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
     for idx, r in enumerate(doc.records):
         if r['tag'] == 2100 and len(r['payload']) >= 12:
             coords = struct.unpack('<iii', r['payload'][:12])
-            if coords[1] == 736000 or coords[0] in (123000, 123307, 124000):
+            if coords[1] == 736000 and coords[0] in (123000, 123307, 124000, 124101):
                 for j in range(idx, min(len(doc.records), idx+35)):
                     if doc.records[j]['tag'] == 2201:
                         t = doc.records[j]['payload'].decode('utf-16le', errors='ignore')

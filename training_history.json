@@ -824,5 +824,48 @@
       "Tahap 7: Perubahan Ringkasan Header & Tabel Mutasi 82 Baris (0_tahap7.xar, Nominal Rata Kanan 15.214 cm, Saldo Rata Kanan 20.049 cm Blue #134BBA)"
     ],
     "status": "PASS"
+  },
+  "job_adhikarya_aug_2026": {
+    "project": "PT_BENDI_NASHA_NIAGA_INDUSTRI_Adhikarya_Aug",
+    "source_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\ADHIKARYA PUTRA\\New folder\\AUG\\Template_Pekerjaan_Xara_Aug.xlsx",
+    "base_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\ADHIKARYA PUTRA\\New folder\\AUG\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\ADHIKARYA PUTRA\\New folder\\AUG\\0_tahap7.xar",
+    "customer_name": "ADHIKARYA PUTRA",
+    "period": "01 Aug 2026 - 31 Aug 2026",
+    "issued_date": "10 Sep 2026",
+    "account_number": "1630016148929",
+    "total_pages": 7,
+    "total_records_locked": 21827,
+    "total_transaction_rows": 82,
+    "tree_depth_net": -4,
+    "financial_summary": {
+      "saldo_awal": "4.784.795,81",
+      "dana_masuk": "+ 13.903.756,00",
+      "dana_keluar": "- 12.995.126,00",
+      "saldo_akhir": "5.693.425,81",
+      "balance_status": "MATCH (4.784.795,81 + 13.903.756,00 - 12.995.126,00 = 5.693.425,81)"
+    },
+    "dynamic_palette_detected": {
+      "blue_saldo": "Tag 51 Index 1200 (#134BBA) -> Handle 43050000 (0x0543)",
+      "green_credit": "Tag 51 Index 871 (#06AA6F) -> Handle e7030000 (0x03e7)",
+      "black_debit": "Tag 51 Index 42 (#1A1A1A) -> Handle b1010000 (0x01b1)",
+      "gray_sawal": "Tag 51 Index 786 (#615A5A) -> Handle 83030000 (0x0383)",
+      "normal_text": "Tag 51 Index 990 (#000000) -> Handle 51040000 (0x0451)"
+    },
+    "dynamic_fonts_detected": {
+      "font_regular": "Tag 2000 (PDF-TTInterphases-Regular) -> Handle 54010000 (0x0154)",
+      "font_bold": "Tag 2000 (PDF-TTInterphases-Bold) -> Handle ce010000 (0x01ce)",
+      "font_italic": "Tag 2000 (PDF-TTInterphases-Italic) -> Handle 61020000 (0x0261)"
+    },
+    "stages_completed": [
+      "Tahap 1: Standarisasi Template Tahap 0 (2-Box Nama ALL CAPS W=3.17cm + Cabang Mandiri, Decoupled No & Saldo, 0_tahap1.xar)",
+      "Tahap 2: Perubahan Periode Laporan pada 7 Halaman (0_tahap2.xar, 01 Aug 2026 - 31 Aug 2026)",
+      "Tahap 3: Perubahan Tanggal Cetak pada 7 Halaman (0_tahap3.xar, 10 Sep 2026)",
+      "Tahap 4: Perubahan Nomor Rekening pada Header Page 1 (0_tahap4.xar, 1630016148929)",
+      "Tahap 5: Penomoran Halaman (0_tahap5.xar, 1 of 7 s.d. 7 of 7 / 1 dari 7 s.d. 7 dari 7)",
+      "Tahap 6: Perubahan Tanggal (Aug 2026) & Jam Transaksi (0_tahap6.xar, 82 Baris Chronological)",
+      "Tahap 7: Perubahan Ringkasan Header & Tabel Mutasi 82 Baris (0_tahap7.xar, Nominal Rata Kanan 15.214 cm, Saldo Rata Kanan 20.049 cm Blue #134BBA)"
+    ],
+    "status": "PASS"
   }
 }
