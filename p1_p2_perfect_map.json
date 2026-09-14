@@ -1,0 +1,934 @@
+[
+  {
+    "row_num": 1,
+    "page": 1,
+    "no_rec": null,
+    "no_text": "",
+    "saldo_rec": null,
+    "saldo_splits": [],
+    "saldo_text": "",
+    "tag2204_rec": null,
+    "orig_dx": 0,
+    "orig_dy": 0,
+    "saldo_t2206": 1349,
+    "saldo_t2100": 1331,
+    "nom_rec": null,
+    "nom_splits": [],
+    "nom_text": "",
+    "nom_t150": null,
+    "nom_t2206": null,
+    "nom_t2100": null,
+    "time_recs": [
+      [
+        1396,
+        "Date"
+      ]
+    ],
+    "time_t2100": 1377,
+    "date_recs": [
+      [
+        1419,
+        "Tanggal"
+      ]
+    ],
+    "date_t2100": 1400
+  },
+  {
+    "row_num": 2,
+    "page": 1,
+    "no_rec": null,
+    "no_text": "",
+    "saldo_rec": null,
+    "saldo_splits": [],
+    "saldo_text": "",
+    "tag2204_rec": null,
+    "orig_dx": 0,
+    "orig_dy": 0,
+    "saldo_t2206": 1372,
+    "saldo_t2100": 1354,
+    "nom_rec": null,
+    "nom_splits": [],
+    "nom_text": "",
+    "nom_t150": null,
+    "nom_t2206": null,
+    "nom_t2100": null,
+    "time_recs": [
+      [
+        1419,
+        "Tanggal"
+      ]
+    ],
+    "time_t2100": 1400,
+    "date_recs": [],
+    "date_t2100": null
+  },
+  {
+    "row_num": 3,
+    "page": 1,
+    "no_rec": 1590,
+    "no_text": "1",
+    "saldo_rec": 1601,
+    "saldo_splits": [],
+    "saldo_text": "30.488,81",
+    "tag2204_rec": 1595,
+    "orig_dx": 63930,
+    "orig_dy": 4602951,
+    "saldo_t2206": 1589,
+    "saldo_t2100": 1574,
+    "nom_rec": 1634,
+    "nom_splits": [
+      1639
+    ],
+    "nom_text": "-22.000,00",
+    "nom_t150": 1620,
+    "nom_t2206": 1633,
+    "nom_t2100": 1615,
+    "time_recs": [
+      [
+        1661,
+        "12:47:04 WIB"
+      ]
+    ],
+    "time_t2100": 1643,
+    "date_recs": [
+      [
+        1683,
+        "01 Apr 2026"
+      ]
+    ],
+    "date_t2100": 1665
+  },
+  {
+    "row_num": 4,
+    "page": 1,
+    "no_rec": 1752,
+    "no_text": "2",
+    "saldo_rec": 1763,
+    "saldo_splits": [],
+    "saldo_text": "3.030.488,81",
+    "tag2204_rec": 1757,
+    "orig_dx": 62185,
+    "orig_dy": 4477311,
+    "saldo_t2206": 1751,
+    "saldo_t2100": 1736,
+    "nom_rec": 1796,
+    "nom_splits": [
+      1801
+    ],
+    "nom_text": "+3.000.000,00",
+    "nom_t150": 1782,
+    "nom_t2206": 1795,
+    "nom_t2100": 1777,
+    "time_recs": [
+      [
+        1823,
+        "18:10:51 WIB"
+      ]
+    ],
+    "time_t2100": 1805,
+    "date_recs": [
+      [
+        1845,
+        "03 Apr 2026"
+      ]
+    ],
+    "date_t2100": 1827
+  },
+  {
+    "row_num": 5,
+    "page": 1,
+    "no_rec": 1919,
+    "no_text": "3",
+    "saldo_rec": 1930,
+    "saldo_splits": [],
+    "saldo_text": "5.030.488,81",
+    "tag2204_rec": 1924,
+    "orig_dx": 62180,
+    "orig_dy": 4476951,
+    "saldo_t2206": 1918,
+    "saldo_t2100": 1903,
+    "nom_rec": 1963,
+    "nom_splits": [
+      1968
+    ],
+    "nom_text": "+2.000.000,00",
+    "nom_t150": 1949,
+    "nom_t2206": 1962,
+    "nom_t2100": 1944,
+    "time_recs": [
+      [
+        1990,
+        "18:48:05 WIB"
+      ]
+    ],
+    "time_t2100": 1972,
+    "date_recs": [
+      [
+        2012,
+        "03 Apr 2026"
+      ]
+    ],
+    "date_t2100": 1994
+  },
+  {
+    "row_num": 6,
+    "page": 1,
+    "no_rec": 2069,
+    "no_text": "4",
+    "saldo_rec": 2080,
+    "saldo_splits": [],
+    "saldo_text": "5.029.488,81",
+    "tag2204_rec": 2074,
+    "orig_dx": 62275,
+    "orig_dy": 4483809,
+    "saldo_t2206": 2068,
+    "saldo_t2100": 2053,
+    "nom_rec": 2113,
+    "nom_splits": [],
+    "nom_text": "-1.000,00",
+    "nom_t150": 2099,
+    "nom_t2206": 2112,
+    "nom_t2100": 2094,
+    "time_recs": [
+      [
+        2135,
+        "01:54:53 WIB"
+      ]
+    ],
+    "time_t2100": 2117,
+    "date_recs": [
+      [
+        2157,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 2139
+  },
+  {
+    "row_num": 7,
+    "page": 1,
+    "no_rec": 2209,
+    "no_text": "5",
+    "saldo_rec": 2220,
+    "saldo_splits": [],
+    "saldo_text": "4.929.488,81",
+    "tag2204_rec": 2214,
+    "orig_dx": 62315,
+    "orig_dy": 4486671,
+    "saldo_t2206": 2208,
+    "saldo_t2100": 2193,
+    "nom_rec": 2253,
+    "nom_splits": [
+      2258
+    ],
+    "nom_text": "-100.000,00",
+    "nom_t150": 2239,
+    "nom_t2206": 2252,
+    "nom_t2100": 2234,
+    "time_recs": [
+      [
+        2280,
+        "01:54:53 WIB"
+      ]
+    ],
+    "time_t2100": 2262,
+    "date_recs": [
+      [
+        2302,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 2284
+  },
+  {
+    "row_num": 8,
+    "page": 1,
+    "no_rec": 2356,
+    "no_text": "6",
+    "saldo_rec": 2367,
+    "saldo_splits": [],
+    "saldo_text": "4.129.488,81",
+    "tag2204_rec": 2361,
+    "orig_dx": 62530,
+    "orig_dy": 4502151,
+    "saldo_t2206": 2355,
+    "saldo_t2100": 2340,
+    "nom_rec": 2400,
+    "nom_splits": [
+      2405
+    ],
+    "nom_text": "-800.000,00",
+    "nom_t150": 2386,
+    "nom_t2206": 2399,
+    "nom_t2100": 2381,
+    "time_recs": [
+      [
+        2427,
+        "02:00:40 W"
+      ],
+      [
+        2432,
+        "IB"
+      ]
+    ],
+    "time_t2100": 2409,
+    "date_recs": [
+      [
+        2454,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 2436
+  },
+  {
+    "row_num": 9,
+    "page": 1,
+    "no_rec": 2508,
+    "no_text": "7",
+    "saldo_rec": 2519,
+    "saldo_splits": [],
+    "saldo_text": "2.879.488,81",
+    "tag2204_rec": 2513,
+    "orig_dx": 62440,
+    "orig_dy": 4495680,
+    "saldo_t2206": 2507,
+    "saldo_t2100": 2492,
+    "nom_rec": 2552,
+    "nom_splits": [
+      2557
+    ],
+    "nom_text": "-1.250.000,00",
+    "nom_t150": 2538,
+    "nom_t2206": 2551,
+    "nom_t2100": 2533,
+    "time_recs": [
+      [
+        2579,
+        "02:00:40 W"
+      ],
+      [
+        2584,
+        "IB"
+      ]
+    ],
+    "time_t2100": 2561,
+    "date_recs": [
+      [
+        2606,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 2588
+  },
+  {
+    "row_num": 10,
+    "page": 1,
+    "no_rec": 2663,
+    "no_text": "8",
+    "saldo_rec": 2674,
+    "saldo_splits": [],
+    "saldo_text": "2.779.988,81",
+    "tag2204_rec": 2668,
+    "orig_dx": 62445,
+    "orig_dy": 4496040,
+    "saldo_t2206": 2662,
+    "saldo_t2100": 2647,
+    "nom_rec": 2707,
+    "nom_splits": [],
+    "nom_text": "-99.500,00",
+    "nom_t150": 2693,
+    "nom_t2206": 2706,
+    "nom_t2100": 2688,
+    "time_recs": [
+      [
+        2729,
+        "20:47:14 WIB"
+      ]
+    ],
+    "time_t2100": 2711,
+    "date_recs": [
+      [
+        2751,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 2733
+  },
+  {
+    "row_num": 11,
+    "page": 1,
+    "no_rec": 2813,
+    "no_text": "9",
+    "saldo_rec": 2824,
+    "saldo_splits": [],
+    "saldo_text": "2.778.988,81",
+    "tag2204_rec": 2818,
+    "orig_dx": 62445,
+    "orig_dy": 4496031,
+    "saldo_t2206": 2812,
+    "saldo_t2100": 2797,
+    "nom_rec": 2857,
+    "nom_splits": [],
+    "nom_text": "-1.000,00",
+    "nom_t150": 2843,
+    "nom_t2206": 2856,
+    "nom_t2100": 2838,
+    "time_recs": [
+      [
+        2879,
+        "21:03:10 WIB"
+      ]
+    ],
+    "time_t2100": 2861,
+    "date_recs": [
+      [
+        2901,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 2883
+  },
+  {
+    "row_num": 12,
+    "page": 1,
+    "no_rec": 2958,
+    "no_text": "10",
+    "saldo_rec": 2969,
+    "saldo_splits": [],
+    "saldo_text": "2.589.438,81",
+    "tag2204_rec": 2963,
+    "orig_dx": 61900,
+    "orig_dy": 4456800,
+    "saldo_t2206": 2957,
+    "saldo_t2100": 2942,
+    "nom_rec": 3002,
+    "nom_splits": [],
+    "nom_text": "-189.550,00",
+    "nom_t150": 2988,
+    "nom_t2206": 3001,
+    "nom_t2100": 2983,
+    "time_recs": [
+      [
+        3024,
+        "21:03:10 WIB"
+      ]
+    ],
+    "time_t2100": 3006,
+    "date_recs": [
+      [
+        3046,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 3028
+  },
+  {
+    "row_num": 11,
+    "page": 2,
+    "no_rec": null,
+    "no_text": "",
+    "saldo_rec": null,
+    "saldo_splits": [],
+    "saldo_text": "",
+    "tag2204_rec": null,
+    "orig_dx": 0,
+    "orig_dy": 0,
+    "saldo_t2206": 3824,
+    "saldo_t2100": 3806,
+    "nom_rec": null,
+    "nom_splits": [],
+    "nom_text": "",
+    "nom_t150": null,
+    "nom_t2206": null,
+    "nom_t2100": null,
+    "time_recs": [
+      [
+        3871,
+        "Date"
+      ]
+    ],
+    "time_t2100": 3852,
+    "date_recs": [
+      [
+        3894,
+        "Tanggal"
+      ]
+    ],
+    "date_t2100": 3875
+  },
+  {
+    "row_num": 12,
+    "page": 2,
+    "no_rec": null,
+    "no_text": "",
+    "saldo_rec": null,
+    "saldo_splits": [],
+    "saldo_text": "",
+    "tag2204_rec": null,
+    "orig_dx": 0,
+    "orig_dy": 0,
+    "saldo_t2206": 3847,
+    "saldo_t2100": 3829,
+    "nom_rec": null,
+    "nom_splits": [],
+    "nom_text": "",
+    "nom_t150": null,
+    "nom_t2206": null,
+    "nom_t2100": null,
+    "time_recs": [
+      [
+        3894,
+        "Tanggal"
+      ]
+    ],
+    "time_t2100": 3875,
+    "date_recs": [],
+    "date_t2100": null
+  },
+  {
+    "row_num": 13,
+    "page": 2,
+    "no_rec": 4055,
+    "no_text": "11",
+    "saldo_rec": 4066,
+    "saldo_splits": [],
+    "saldo_text": "1.339.438,81",
+    "tag2204_rec": 4060,
+    "orig_dx": 62450,
+    "orig_dy": 4496382,
+    "saldo_t2206": 4054,
+    "saldo_t2100": 4039,
+    "nom_rec": 4099,
+    "nom_splits": [
+      4104
+    ],
+    "nom_text": "-1.250.000,00",
+    "nom_t150": 4085,
+    "nom_t2206": 4098,
+    "nom_t2100": 4080,
+    "time_recs": [
+      [
+        4126,
+        "22:12:58 WI"
+      ],
+      [
+        4131,
+        "B"
+      ]
+    ],
+    "time_t2100": 4108,
+    "date_recs": [
+      [
+        4153,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 4135
+  },
+  {
+    "row_num": 14,
+    "page": 2,
+    "no_rec": 4207,
+    "no_text": "12",
+    "saldo_rec": 4218,
+    "saldo_splits": [],
+    "saldo_text": "589.438,81",
+    "tag2204_rec": 4212,
+    "orig_dx": 62830,
+    "orig_dy": 4523742,
+    "saldo_t2206": 4206,
+    "saldo_t2100": 4191,
+    "nom_rec": 4251,
+    "nom_splits": [
+      4256
+    ],
+    "nom_text": "-750.000,00",
+    "nom_t150": 4237,
+    "nom_t2206": 4250,
+    "nom_t2100": 4232,
+    "time_recs": [
+      [
+        4278,
+        "22:16:3"
+      ],
+      [
+        4283,
+        "9 WIB"
+      ]
+    ],
+    "time_t2100": 4260,
+    "date_recs": [
+      [
+        4305,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 4287
+  },
+  {
+    "row_num": 15,
+    "page": 2,
+    "no_rec": 4362,
+    "no_text": "13",
+    "saldo_rec": 4373,
+    "saldo_splits": [],
+    "saldo_text": "489.438,81",
+    "tag2204_rec": 4367,
+    "orig_dx": 62820,
+    "orig_dy": 4523022,
+    "saldo_t2206": 4361,
+    "saldo_t2100": 4346,
+    "nom_rec": 4406,
+    "nom_splits": [
+      4411
+    ],
+    "nom_text": "-100.000,00",
+    "nom_t150": 4392,
+    "nom_t2206": 4405,
+    "nom_t2100": 4387,
+    "time_recs": [
+      [
+        4433,
+        "22:57:36 WIB"
+      ]
+    ],
+    "time_t2100": 4415,
+    "date_recs": [
+      [
+        4455,
+        "04 Apr 2026"
+      ]
+    ],
+    "date_t2100": 4437
+  },
+  {
+    "row_num": 16,
+    "page": 2,
+    "no_rec": 4517,
+    "no_text": "14",
+    "saldo_rec": 4528,
+    "saldo_splits": [],
+    "saldo_text": "389.438,81",
+    "tag2204_rec": 4522,
+    "orig_dx": 62840,
+    "orig_dy": 4524480,
+    "saldo_t2206": 4516,
+    "saldo_t2100": 4501,
+    "nom_rec": 4561,
+    "nom_splits": [
+      4566
+    ],
+    "nom_text": "-100.000,00",
+    "nom_t150": 4547,
+    "nom_t2206": 4560,
+    "nom_t2100": 4542,
+    "time_recs": [
+      [
+        4588,
+        "03:49:38 WIB"
+      ]
+    ],
+    "time_t2100": 4570,
+    "date_recs": [
+      [
+        4610,
+        "05 Apr 2026"
+      ]
+    ],
+    "date_t2100": 4592
+  },
+  {
+    "row_num": 17,
+    "page": 2,
+    "no_rec": 4672,
+    "no_text": "15",
+    "saldo_rec": 4683,
+    "saldo_splits": [],
+    "saldo_text": "349.438,81",
+    "tag2204_rec": 4677,
+    "orig_dx": 62825,
+    "orig_dy": 4523382,
+    "saldo_t2206": 4671,
+    "saldo_t2100": 4656,
+    "nom_rec": 4716,
+    "nom_splits": [
+      4721
+    ],
+    "nom_text": "-40.000,00",
+    "nom_t150": 4702,
+    "nom_t2206": 4715,
+    "nom_t2100": 4697,
+    "time_recs": [
+      [
+        4743,
+        "16:54:32 WIB"
+      ]
+    ],
+    "time_t2100": 4725,
+    "date_recs": [
+      [
+        4765,
+        "05 Apr 2026"
+      ]
+    ],
+    "date_t2100": 4747
+  },
+  {
+    "row_num": 18,
+    "page": 2,
+    "no_rec": 4807,
+    "no_text": "16",
+    "saldo_rec": 4818,
+    "saldo_splits": [],
+    "saldo_text": "346.938,81",
+    "tag2204_rec": 4812,
+    "orig_dx": 62825,
+    "orig_dy": 4523382,
+    "saldo_t2206": 4806,
+    "saldo_t2100": 4791,
+    "nom_rec": 4851,
+    "nom_splits": [],
+    "nom_text": "-2.500,00",
+    "nom_t150": 4837,
+    "nom_t2206": 4850,
+    "nom_t2100": 4832,
+    "time_recs": [
+      [
+        4873,
+        "18:15:10 WIB"
+      ]
+    ],
+    "time_t2100": 4855,
+    "date_recs": [
+      [
+        4895,
+        "05 Apr 2026"
+      ]
+    ],
+    "date_t2100": 4877
+  },
+  {
+    "row_num": 19,
+    "page": 2,
+    "no_rec": 4952,
+    "no_text": "17",
+    "saldo_rec": 4963,
+    "saldo_splits": [],
+    "saldo_text": "46.938,81",
+    "tag2204_rec": 4957,
+    "orig_dx": 63495,
+    "orig_dy": 4571631,
+    "saldo_t2206": 4951,
+    "saldo_t2100": 4936,
+    "nom_rec": 4996,
+    "nom_splits": [
+      5001
+    ],
+    "nom_text": "-300.000,00",
+    "nom_t150": 4982,
+    "nom_t2206": 4995,
+    "nom_t2100": 4977,
+    "time_recs": [
+      [
+        5023,
+        "18:15:10 WIB"
+      ]
+    ],
+    "time_t2100": 5005,
+    "date_recs": [
+      [
+        5045,
+        "05 Apr 2026"
+      ]
+    ],
+    "date_t2100": 5027
+  },
+  {
+    "row_num": 20,
+    "page": 2,
+    "no_rec": 5120,
+    "no_text": "18",
+    "saldo_rec": 5131,
+    "saldo_splits": [],
+    "saldo_text": "546.938,81",
+    "tag2204_rec": 5125,
+    "orig_dx": 62815,
+    "orig_dy": 4522671,
+    "saldo_t2206": 5119,
+    "saldo_t2100": 5104,
+    "nom_rec": 5164,
+    "nom_splits": [
+      5169
+    ],
+    "nom_text": "+500.000,00",
+    "nom_t150": 5150,
+    "nom_t2206": 5163,
+    "nom_t2100": 5145,
+    "time_recs": [
+      [
+        5191,
+        "16:11:5"
+      ],
+      [
+        5196,
+        "5 WIB"
+      ]
+    ],
+    "time_t2100": 5173,
+    "date_recs": [
+      [
+        5218,
+        "06 Apr 2026"
+      ]
+    ],
+    "date_t2100": 5200
+  },
+  {
+    "row_num": 21,
+    "page": 2,
+    "no_rec": 5278,
+    "no_text": "19",
+    "saldo_rec": 5289,
+    "saldo_splits": [],
+    "saldo_text": "528.938,81",
+    "tag2204_rec": 5283,
+    "orig_dx": 62830,
+    "orig_dy": 4523742,
+    "saldo_t2206": 5277,
+    "saldo_t2100": 5262,
+    "nom_rec": 5322,
+    "nom_splits": [
+      5327
+    ],
+    "nom_text": "-18.000,00",
+    "nom_t150": 5308,
+    "nom_t2206": 5321,
+    "nom_t2100": 5303,
+    "time_recs": [
+      [
+        5349,
+        "16:35:5"
+      ],
+      [
+        5354,
+        "5 WIB"
+      ]
+    ],
+    "time_t2100": 5331,
+    "date_recs": [
+      [
+        5376,
+        "06 Apr 2026"
+      ]
+    ],
+    "date_t2100": 5358
+  },
+  {
+    "row_num": 22,
+    "page": 2,
+    "no_rec": 5433,
+    "no_text": "20",
+    "saldo_rec": 5444,
+    "saldo_splits": [],
+    "saldo_text": "527.938,81",
+    "tag2204_rec": 5438,
+    "orig_dx": 62590,
+    "orig_dy": 4506480,
+    "saldo_t2206": 5432,
+    "saldo_t2100": 5417,
+    "nom_rec": 5477,
+    "nom_splits": [],
+    "nom_text": "-1.000,00",
+    "nom_t150": 5463,
+    "nom_t2206": 5476,
+    "nom_t2100": 5458,
+    "time_recs": [
+      [
+        5499,
+        "17:41:31 WIB"
+      ]
+    ],
+    "time_t2100": 5481,
+    "date_recs": [
+      [
+        5521,
+        "06 Apr 2026"
+      ]
+    ],
+    "date_t2100": 5503
+  },
+  {
+    "row_num": 23,
+    "page": 2,
+    "no_rec": 5573,
+    "no_text": "21",
+    "saldo_rec": 5584,
+    "saldo_splits": [],
+    "saldo_text": "427.938,81",
+    "tag2204_rec": 5578,
+    "orig_dx": 62920,
+    "orig_dy": 4530222,
+    "saldo_t2206": 5572,
+    "saldo_t2100": 5557,
+    "nom_rec": 5617,
+    "nom_splits": [
+      5622
+    ],
+    "nom_text": "-100.000,00",
+    "nom_t150": 5603,
+    "nom_t2206": 5616,
+    "nom_t2100": 5598,
+    "time_recs": [
+      [
+        5644,
+        "17:41:31 WIB"
+      ]
+    ],
+    "time_t2100": 5626,
+    "date_recs": [
+      [
+        5666,
+        "06 Apr 2026"
+      ]
+    ],
+    "date_t2100": 5648
+  },
+  {
+    "row_num": 24,
+    "page": 2,
+    "no_rec": 5718,
+    "no_text": "22",
+    "saldo_rec": 5729,
+    "saldo_splits": [],
+    "saldo_text": "404.438,81",
+    "tag2204_rec": 5723,
+    "orig_dx": 62535,
+    "orig_dy": 4502502,
+    "saldo_t2206": 5717,
+    "saldo_t2100": 5702,
+    "nom_rec": 5762,
+    "nom_splits": [],
+    "nom_text": "-23.500,00",
+    "nom_t150": 5748,
+    "nom_t2206": 5761,
+    "nom_t2100": 5743,
+    "time_recs": [
+      [
+        5784,
+        "22:16:58 WI"
+      ],
+      [
+        5789,
+        "B"
+      ]
+    ],
+    "time_t2100": 5766,
+    "date_recs": [
+      [
+        5811,
+        "06 Apr 2026"
+      ]
+    ],
+    "date_t2100": 5793
+  }
+]

@@ -10,3 +10,4 @@ __pycache__/
 # Temporary test outputs
 admin_test_log.txt
 stream5_records.txt
+scratch_*.py
