@@ -121,6 +121,12 @@ def deteksi_kamus_palet_native(doc: XarDocument) -> Dict[str, bytearray]:
         palette['blue_saldo']   = bytearray.fromhex('1f050000')
         palette['gray_sawal']   = bytearray.fromhex('85030000')
         palette['normal_text']  = bytearray.fromhex('53040000')
+    elif total in (20812, 20800, 20850) or 20500 <= total <= 21500:
+        palette['green_credit'] = bytearray.fromhex('e9030000')
+        palette['black_debit']  = bytearray.fromhex('9e010000')
+        palette['blue_saldo']   = bytearray.fromhex('4a050000')
+        palette['gray_sawal']   = bytearray.fromhex('85030000')
+        palette['normal_text']  = bytearray.fromhex('53040000')
 
     return palette
 
