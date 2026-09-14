@@ -483,48 +483,20 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
     styles = deteksi_kamus_style_native(doc)
     name_caps = format_nama_kapital(customer_name)
     
-    # 1. 2-Box Nama Nasabah & Cabang
-    name_stories = []
+    # 1. Update Nama Nasabah (ALL CAPS) & Cabang pada seluruh lembar header
     for idx, r in enumerate(doc.records):
-        if r['tag'] == 2100 and len(r['payload']) >= 12:
-            coords = struct.unpack('<iii', r['payload'][:12])
-            if coords[1] == 736000 and coords[0] in (123000, 123307, 124000):
-                for j in range(idx, min(len(doc.records), idx+35)):
-                    if doc.records[j]['tag'] == 2201:
-                        t = doc.records[j]['payload'].decode('utf-16le', errors='ignore')
-                        if any(w in t for w in ['ROY', 'DARWIN', 'Adhikarya', 'ADHIKARYA']):
-                            end = j
-                            for k in range(j, min(len(doc.records), j+20)):
-                                if doc.records[k]['tag'] == 2203:
-                                    end = k + 1
-                                    while end < len(doc.records) and doc.records[end]['tag'] == 0:
-                                        end += 1
-                                    break
-                            name_stories.append((idx, end))
-                            break
-
-    for s, e in reversed(name_stories):
-        doc.records[s:e] = buat_name_story_records(name_caps, palette, fonts, styles)
-
-    mandiri_ends = []
-    for idx, r in enumerate(doc.records):
-        if r['tag'] == 2201 and 'Mandiri Call 14000' in r['payload'].decode('utf-16le', errors='ignore'):
-            for j in range(idx, min(len(doc.records), idx+10)):
-                if doc.records[j]['tag'] == 2203:
-                    end = j + 1
-                    while end < len(doc.records) and doc.records[end]['tag'] == 0:
-                        end += 1
-                    mandiri_ends.append(end)
-                    break
-
-    for m_end in reversed(mandiri_ends):
-        has_cabang = False
-        for k in range(m_end, min(len(doc.records), m_end+35)):
-            if doc.records[k]['tag'] == 2201 and branch_name in doc.records[k]['payload'].decode('utf-16le', errors='ignore'):
-                has_cabang = True
-                break
-        if not has_cabang:
-            doc.records[m_end:m_end] = buat_cabang_object_records(branch_name, palette, fonts, styles)
+        if r['tag'] == 2201:
+            t = r['payload'].decode('utf-16le', errors='ignore')
+            if ('ROY DARWIN' in t or 'Adhikarya' in t or 'ADHIKARYA' in t) and '6289' not in t:
+                # Periksa apakah ini header (bukan mutasi transaksi)
+                for k in range(max(0, idx-20), idx):
+                    if doc.records[k]['tag'] == 2100:
+                        coords = struct.unpack('<iii', doc.records[k]['payload'][:12])
+                        if coords[1] == 736000 or coords[0] in (123000, 123307, 124000):
+                            p_name = (name_caps + " ").encode('utf-16le')
+                            r['payload'] = bytearray(p_name)
+                            r['size'] = len(p_name)
+                        break
 
     # 2. Pemisahan Kolom No & Saldo menjadi 2 objek mandiri (Anti-Joint Bounding Box)
     total_decoupled = pemisahan_kolom_no_dan_saldo(doc, palette, fonts, styles)
