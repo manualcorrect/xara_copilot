@@ -430,6 +430,7 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
     7. Auto-Size sync untuk seluruh payload biner.
     """
     print("   [TAHAP 0] Mengeksekusi Prosedur Training & Standardisasi Template...")
+    orig_total = len(doc.records)
     palette = deteksi_kamus_palet_native(doc)
     name_caps = format_nama_kapital(customer_name)
     
@@ -486,9 +487,59 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
     # 4. Kalibrasi Alamat Cabang
     kalibrasi_alamat_kantor_cabang(doc)
     
-    # 5. Sinkronkan semua size record
+    # 5. Aturan #27: Sinkronisasi Pointer Font & Warna Halaman Penutup (Anti-Fallback Times New Roman)
+    sinkronisasi_pointer_halaman_penutup(doc, orig_total)
+
+    # 6. Sinkronkan semua size record
     for r in doc.records:
         r['size'] = len(r['payload'])
         
     print(f"   [TAHAP 0 SELESAI] Template berhasil distandarisasi ({len(doc.records):,} records, ALL CAPS: '{name_caps}'). [PASS]")
     return doc
+
+# =========================================================================
+# 9. ATURAN PROSEDUR TRAINING: SINKRONISASI POINTER HALAMAN PENUTUP (ATURAN #27)
+# =========================================================================
+
+def sinkronisasi_pointer_halaman_penutup(doc: XarDocument, orig_total_records: int):
+    """
+    Aturan #27: Rekalkulasi Pointer Internal Halaman Penutup / Disclaimer.
+    Menjamin atribut font (Arial / Tag 2907) dan warna outline box (Cyan / Tag 151)
+    tidak putus / fallback ke Times New Roman & garis hitam saat terjadi pergeseran record (+delta_records).
+    """
+    shift = len(doc.records) - orig_total_records
+    if shift == 0:
+        return
+    
+    # Cari posisi awal Spread Halaman Penutup / Disclaimer
+    disclaimer_spread_idx = None
+    spread_indices = [idx for idx, r in enumerate(doc.records) if r['tag'] == 46]
+    for sp_idx in spread_indices:
+        for k in range(sp_idx, min(len(doc.records), sp_idx + 300)):
+            if doc.records[k]['tag'] == 2201 and 'batas akhir' in doc.records[k]['payload'].decode('utf-16le', errors='ignore'):
+                disclaimer_spread_idx = sp_idx
+                break
+        if disclaimer_spread_idx is not None:
+            break
+            
+    if disclaimer_spread_idx is None and len(spread_indices) >= 2:
+        disclaimer_spread_idx = spread_indices[-2]
+    elif disclaimer_spread_idx is None and spread_indices:
+        disclaimer_spread_idx = spread_indices[-1]
+        
+    if disclaimer_spread_idx is None:
+        return
+
+    threshold = 15000
+    fixed_count = 0
+    for idx in range(disclaimer_spread_idx, len(doc.records)):
+        r = doc.records[idx]
+        tag = r['tag']
+        if tag in (150, 151, 2907, 4465) and len(r['payload']) >= 4:
+            val = struct.unpack('<I', r['payload'][:4])[0]
+            if threshold <= val <= orig_total_records + 500:
+                new_val = val + shift
+                r['payload'][:4] = struct.pack('<I', new_val)
+                fixed_count += 1
+    print(f"   [ATURAN #27] Berhasil menyinkronkan {fixed_count} pointer font & warna di Halaman Penutup/Disclaimer (Shift: +{shift}).")
+
