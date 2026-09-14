@@ -74,6 +74,11 @@ flowchart TD
 | **21** | **Excel Mode `[Group]` Menduplikasi Teks Header Menimpa Kolom Tanggal Mutasi & Mengabaikan Jam Spesifik** | Operator tanpa sengaja mengaktifkan seleksi multi-sheet di Excel (title bar bertuliskan `[Group]`), sehingga saat mengedit Sheet 1, baris 6..24 ter-paste otomatis ke Kolom B (Tanggal) Sheet 2 (Tabel Mutasi). Hal ini menyebabkan parser tanggal mendeteksi data rusak dan melakukan fallback template pada baris mutasi tertentu (seperti Baris 96). | **Ungroup Sheets & Explicit Override Priority**: (1) Di Excel: Klik kanan tab sheet -> `Ungroup Sheets`. (2) Pada script parser: Terapkan sanitasi string untuk memfilter teks path/label, dan **prioritaskan input tanggal/jam eksplisit user** (contoh: Transaksi 96 terkunci mutlak di `25 Aug 2026 04:00:00 WIB` dengan nominal `+7.800.000,00` dan seluruh transaksi berikutnya pada tanggal 25 disusun berurutan kronologis setelah jam 04:00 WIB). |
 | **22** | **Standarisasi Huruf Kapital Nama Nasabah (ALL CAPS Mandate)** | Nama nasabah diinput dalam format Title Case (misal `Adhikarya Putra`) sehingga tidak seragam dengan standar format rekening koran resmi Bank Mandiri. | **Auto-Uppercase Transformation**: Seluruh nama nasabah pada Tahap 1 wajib secara otomatis dikonversi menjadi **HURUF KAPITAL (ALL CAPS)** (contoh: `ADHIKARYA PUTRA`, `MASRIYAH MUHAMMAD SAMIAN`, `FIRMANSYAH`) menggunakan fungsi `format_nama_kapital()`. |
 | **23** | **`Serious Error: Access violation exception at 0x00007FF...` saat Membuka / Menavigasi Halaman** | Blok objek yang diinjeksikan (seperti Objek Cabang Mandiri) kekurangan node penutup `Tag 0` (`TAG_UP`), menyebabkan `Tag 1` (`TAG_DOWN`) tidak seimbang pada scene graph stack Xara. Setelah 10+ halaman, stack overflow memicu crash access violation. | **Strict Tree Balance & Closing Tag 0 Rule**: Seluruh blok objek biner mandiri wajib memiliki jumlah `Tag 1` dan `Tag 0` yang seimbang sempurna (**Net = 0**). Setiap `Tag 2100` yang dibuka dengan `Tag 1` wajib ditutup dengan `Tag 0` di ujung akhir story. |
+| **24** | **Pergeseran Node Digit Header Dicetak Pada Terlewat Format Atribut** | Pencocokan digit puluhan/satuan tanggal cetak menggunakan index offset statis, sehingga ketika ada tag format `Tag 4200/4405`, digit tanggal tidak terupdate. | **Dynamic Preceding Tag 2202 Detection**: Telusuri secara dinamis 2 node `Tag 2202` terdekat sebelum `Tag 2201` bulan/tahun dicetak pada setiap halaman dokumen. |
+| **25** | **Jam Transaksi Mengacak / Melompat ke Subuh (< 06:00) atau Mundur Terhadap Tanggal** | Generator jam mengalokasikan timestamp secara acak atau tidak mengecek batas jam kerja logis perbankan. | **Universal Chronological Date & Time Engine**: Kunci jam transaksi berurutan monoton naik ($T_1 \le T_2 \le \dots \le T_m$) dalam rentang aktif logis **06:00:00 - 22:55:00 WIB**, dengan biaya admin tutup buku di **23:59:00 WIB**. |
+| **26** | **Kolom No dan Kolom Saldo Tergabung dalam 1 Bounding Box Raksasa ($W=19,57\text{ cm}$)** | Template biner hasil ekspor PDF menyatukan No dan Saldo dalam satu story teks panjang dengan loncatan kerning `Tag 2204/2206`, sehingga mengklik baris memicu seleksi raksasa dan rentan pergeseran layout. | **Decoupled 2-Box No & Saldo Architecture**: Deteksi story teks gabungan di Tahap 0 dan pisahkan otomatis menjadi 2 objek mandiri: (1) Objek Kolom No di $X = 20.000\text{ mp}$ ($0,705\text{ cm}$), (2) Objek Kolom Saldo di $X = 570.450\text{ mp} - \text{width}$ (Rata Kanan $20,049\text{ cm}$) dengan Net Depth = 0. |
+| **27** | **Font & Garis Kotak Halaman Penutup (Disclaimer Halaman 8) Fallback ke Times New Roman & Hitam** | Injeksi record baru pada halaman 1-7 menggeser indeks record biner dokumen (+delta), sehingga pointer font `Tag 2907` dan warna `Tag 150/151` pada Halaman Penutup meleset ke indeks yang salah. | **Downstream Pointer Synchronization**: Jalankan `sinkronisasi_pointer_halaman_penutup(doc, orig_total)` untuk menggeser seluruh pointer atribut pada spread disclaimer sebesar $+ \text{shift}$ records. |
+| **28** | **Font Rusak / Berubah Bentuk & Warna Saldo Berubah Hitam Akibat Hardcoded Handle Lintas Template** | Setiap file `0.xar` memiliki handle `Tag 2000` (Font ID) dan `Tag 51` (Palette) yang berbeda antar bulan (misal Bold di Juli `ce010000` vs Agustus `d3010000`, Saldo Biru di Juli `69050000` vs Agustus `1f050000`). | **Dynamic Native Font & RGB Palette Engine**: Pindai `Tag 2000` dan `Tag 51` secara dinamis dari dokumen target menggunakan signature nama font dan kode biner RGB (`#134BBA` Blue Saldo, `#06AA6F` Green Credit, `#1A1A1A` Black Debit, `#615A5A` Gray Sawal, `#000000` Normal Text). |
 
 ---
 
@@ -84,11 +89,11 @@ SETIAP PERUBAHAN HARUS DIREVIEW DENGAN DUAL-STEP VERIFICATION:
 2. **GUI Ruler Verification**:
    * Tutup dokumen aktif di Xara Designer Pro+ (`Ctrl + W`).
    * Buka file `.xar` hasil update.
-   * Tekan `Ctrl + R` (Show Rulers) untuk memastikan batas kanan angka Nominal mengunci di **$15,08\text{ cm} / 15,18\text{ cm}$** dan Saldo mengunci di **$19,47\text{ cm}$**.
+   * Tekan `Ctrl + R` (Show Rulers) untuk memastikan batas kanan angka Nominal mengunci di **$15,08\text{ cm} / 15,214\text{ cm}$** dan Saldo mengunci di **$20,049\text{ cm}$**.
 
 ---
 
-## V. STANDAR SKALABILITAS MULTI-HALAMAN & PROFIL DATASET BARU (10 HALAMAN / 110 BARIS)
+## V. STANDAR SKALABILITAS MULTI-HALAMAN & PROFIL DATASET TERUJI
 
 ### 1. Dataset Profil Marsiyah Agustus 2026 (`aug`):
 * **Basis File**: `0.xar` (28.156 records, 10 Halaman, 110 Baris Transaksi).
@@ -97,22 +102,30 @@ SETIAP PERUBAHAN HARUS DIREVIEW DENGAN DUAL-STEP VERIFICATION:
   * Dana Masuk (+): `+ 21.359.500,00`
   * Dana Keluar (-): `- 21.685.780,00`
   * Saldo Akhir: `1.172.488,81` (Formula: $1.498.768,81 + 21.359.500,00 - 21.685.780,00 = 1.172.488,81$ -> **100% MATCH**).
-* **Penanganan Perbedaan Panjang Halaman**:
-  * Seluruh 10 Halaman menerapkan **Standar 2-Box Nama $W=3,17\text{ cm}$ (80% Line Spacing) + Cabang Independen di $X=4,378\text{ cm}, Y=25,203\text{ cm}$**.
-  * Seluruh 10 Halaman dibersihkan dari phantom `Tag 2202` pada Header Periode sehingga tanggal tampil langsung tanpa spasi kosong.
-  * Sebanyak 18 node sekunder jam dan 87 node sekunder nominal dibersihkan total dengan `b'\x00\x00'`.
-  * Rata kanan kolom nominal terkunci pada garis ruler $X = 15,217\text{ cm}$ ($431.360\text{ mp}$).
+
+### 2. Dataset Profil Adhikarya Putra Juli 2026 (`jul`):
+* **Basis File**: `0.xar` (20.812 records, 7 Halaman, 82 Baris Transaksi).
+* **Rekonsiliasi Saldo**:
+  * Saldo Awal: `570.498,81`
+  * Dana Masuk (+): `+ 17.241.700,00`
+  * Dana Keluar (-): `- 13.027.403,00`
+  * Saldo Akhir: `4.784.795,81` (Formula: $570.498,81 + 17.241.700,00 - 13.027.403,00 = 4.784.795,81$ -> **100% MATCH**).
+* **Penanganan Biner & Layout**:
+  * Seluruh 7 Halaman menerapkan **Standar 2-Box Nama $W=3,17\text{ cm}$ (80% Line Spacing, ALL CAPS) + Cabang Independen di $X=4,378\text{ cm}, Y=25,203\text{ cm}$**.
+  * Seluruh 82 baris mutasi menerapkan **Pemisahan Kolom No & Saldo Mandiri (Decoupled 2-Box)** dengan Saldo Rata Kanan pada $X = 20,049\text{ cm}$ dan warna Biru Mandiri `#134BBA` (`Tag 51` index 1238 -> handle `69050000`).
+  * Sinkronisasi kronologis tanggal & jam 82 baris (01 Jul 2026 s.d. 31 Jul 2026 23:59:00 WIB).
+  * Halaman Penutup disinkronkan via Aturan #27 (+873 records shift) dengan 0 invalid font/color pointers.
 
 ---
 
 ## VI. STANDARISASI MODUL PROSEDUR TRAINING (TAHAP 0 PRE-SOP PIPELINE)
 
-Seluruh 21 aturan penyesuaian biner dan perbaikan bug hasil training kini diisolasi secara permanen ke dalam satu modul independen: **[`prosedur_training.py`](file:///c:/Users/Lenovo/xara_copilot/prosedur_training.py)**.
+Seluruh 28 aturan penyesuaian biner dan perbaikan bug hasil training kini diisolasi secara permanen ke dalam satu modul independen: **[`prosedur_training.py`](file:///c:/Users/Lenovo/xara_copilot/prosedur_training.py)**.
 
 ### Arsitektur Eksekusi 2-Fase (Two-Phase Execution Pattern):
 1. **Fase 1: Tahap 0 (Pre-SOP Template Standardization)**:
    * Modul `prosedur_training.standarisasi_template_tahap0(doc, customer_name, branch_name)` dieksekusi **SEKALI DI AWAL** terhadap file mentah `0.xar`.
-   * Menyelesaikan seluruh modifikasi geometri dan biner (Palet Warna Native, 2-Box Nama $W=3.17\text{ cm}$ + Cabang Independen, Ekspansi Container Periode $180.000\text{ mp}$ & Ringkasan $120.000\text{ mp}$, Kalibrasi Matriks Menara Mandiri 1, serta Sanitasi Phantom & Split Nodes).
+   * Menyelesaikan seluruh modifikasi geometri dan biner (Kamus Palet Dinamis, Kamus Font Dinamis, 2-Box Nama $W=3.17\text{ cm}$ + Cabang Independen, Pemisahan Kolom No & Saldo Mandiri, Ekspansi Container Periode $180.000\text{ mp}$ & Ringkasan $63.646\text{ mp}$, Kalibrasi Matriks Menara Mandiri 1, serta Sinkronisasi Pointer Halaman Penutup Aturan #27).
    * Menghasilkan file template dasar yang **100% imun terhadap bug visual dan layout**.
 
 2. **Fase 2: SOP 7 Tahap (Pure Data Injection)**:
@@ -122,23 +135,8 @@ Seluruh 21 aturan penyesuaian biner dan perbaikan bug hasil training kini diisol
      * **Tahap 3**: Tanggal Dicetak
      * **Tahap 4**: Nomor Rekening
      * **Tahap 5**: Nomor Halaman Multi-Lembar ($X\text{ dari }K$)
-     * **Tahap 6**: Tanggal & Jam Transaksi
-     * **Tahap 7**: Tabel Mutasi Utama (Rata Kanan $15.214\text{ cm}$, Saldo Berjalan, & Ringkasan Keuangan).
+     * **Tahap 6**: Tanggal & Jam Transaksi (Universal Chronological Solver)
+     * **Tahap 7**: Tabel Mutasi Utama (Rata Kanan $15.214\text{ cm}$, Saldo Berjalan $20.049\text{ cm}$, & Ringkasan Keuangan).
 
 3. **Fase 3: Post-Verification & Quality Assurance**:
-   * Otomatis memvalidasi rekonsiliasi saldo ($\text{Awal} + \text{Masuk} - \text{Keluar} = \text{Akhir}$), presisi rata kanan ruler, serta integritas pointer biner ($0\text{ streaming errors}$).
-
-### Aturan Tambahan Prosedur Training:
-* **Aturan #22: Mandat Huruf Kapital Nama Nasabah (ALL CAPS)**:
-  Seluruh nama nasabah pada rekening koran resmi wajib berformat **HURUF KAPITAL** (misal: `"ADHIKARYA PUTRA"`). Modul `prosedur_training.py` secara otomatis mengonversi string input nama menggunakan `.upper()`.
-* **Aturan #23: Keseimbangan Pohon Scene Graph Xara (Anti Access Violation Crash)**:
-  Setiap record `Tag 1` (`TAG_DOWN`) yang disuntikkan pada object story baru wajib ditutup dengan pasangan `Tag 0` (`TAG_UP`). Net perubahan kedalaman pohon wajib $= 0$.
-* **Aturan #24: Deteksi Dinamis Node Digit Header Dicetak Pada**:
-  Pencocokan digit puluhan, satuan, dan teks bulan/tahun pada Header "Dicetak Pada" harus mencari 2 node `Tag 2202` terdekat sebelum node `Tag 2201` untuk menghindari pergeseran akibat tag atribut format (Tag 4200/4405).
-* **Aturan #25: Mesin Sinkronisasi Tanggal & Jam Logis (06:00 - 23:00 WIB)**:
-  Dalam satu tanggal yang sama, seluruh jam transaksi wajib monoton naik ($T_1 \le T_2 \le \dots \le T_m$). Transaksi normal dipetakan ke jam aktif yang realistis ($06:00:00 - 22:55:00\text{ WIB}$), sedangkan biaya admin tutup buku akhir periode dikunci pada $23:59:00\text{ WIB}$. Modul [`chronological_date_engine.py`](file:///c:/Users/Lenovo/xara_copilot/chronological_date_engine.py) menjamin tidak ada transaksi subuh/dini hari yang tidak wajar dan tidak ada jam yang mundur.
-* **Aturan #26: Pemisahan Kolom No & Saldo Mandiri (Decoupled 2-Box No & Saldo Architecture)**:
-  Pada template hasil import PDF, kolom No ($X=0,705\text{ cm}$) dan kolom Saldo ($X=20,049\text{ cm}$) sering kali tergabung dalam satu objek teks raksasa ($W=19,57\text{ cm}$) dengan loncatan kern `Tag 2204`/`Tag 2206`. Prosedur Training (Tahap 0) mendeteksi objek tergabung ini dan secara otomatis memisahkannya menjadi 2 objek teks mandiri dengan tree balance sempurna ($Net=0$):
-  1. Objek Kolom No mandiri di $X = 20.000\text{ mp}$ ($W \approx 0,5\text{ cm}$).
-  2. Objek Kolom Saldo mandiri di $X = 570.450\text{ mp} - \text{width}$ (Rata Kanan pada ruler $X = 20,049\text{ cm}$, $W \approx 1,5\text{ cm}$).
-  Menghilangkan total kotak seleksi raksasa saat diklik di Xara Designer Pro+.
+   * Otomatis memvalidasi rekonsiliasi saldo ($\text{Awal} + \text{Masuk} - \text{Keluar} = \text{Akhir}$), presisi rata kanan ruler, serta integritas pointer biner ($0\text{ streaming errors}$, $Net\text{ Depth} = -4$).
