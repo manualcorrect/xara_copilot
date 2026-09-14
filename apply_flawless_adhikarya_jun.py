@@ -1,5 +1,5 @@
 """
-MASTER FLAWLESS RUNNER: ADHIKARYA PUTRA JUN 2026 (ZERO CRASH & ALL CAPS NAME)
+MASTER FLAWLESS RUNNER: ADHIKARYA PUTRA JUN 2026 (13 PAGES / 147 ROWS)
 Target: C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\ADHIKARYA PUTRA\\New folder\\JUN
 """
 
@@ -54,12 +54,6 @@ def update_t2100_x(doc, rec_idx, new_x):
         doc.records[rec_idx]['payload'] = bytearray(struct.pack('<iii', new_x, orig[1], orig[2]))
         doc.records[rec_idx]['size'] = 12
 
-def update_t2150_w(doc, rec_idx, new_w):
-    if rec_idx is not None and 0 <= rec_idx < len(doc.records):
-        orig_flag = doc.records[rec_idx]['payload'][4:5] if len(doc.records[rec_idx]['payload']) >= 5 else b'\x01'
-        doc.records[rec_idx]['payload'] = bytearray(struct.pack('<i', new_w) + orig_flag)
-        doc.records[rec_idx]['size'] = len(doc.records[rec_idx]['payload'])
-
 def sync_and_save(doc, out_path):
     for r in doc.records:
         r['size'] = len(r['payload'])
@@ -97,6 +91,7 @@ def extract_dom_rows(doc):
             next4 = objects[obj_idx + 4] if obj_idx + 4 < len(objects) else None
             
             s_t2100 = None
+            s_t150 = None
             s_rec = None
             s_splits = []
             s_txt = ''
@@ -104,7 +99,9 @@ def extract_dom_rows(doc):
             if next1 and next1['x'] >= 500000: # Decoupled Saldo Object!
                 s_t2100 = next1['t2100_idx']
                 for r_idx, tag, payload in next1['records']:
-                    if tag in (2201, 2202):
+                    if tag == 150 and s_t150 is None:
+                        s_t150 = r_idx
+                    elif tag in (2201, 2202):
                         if s_rec is None:
                             s_rec = r_idx
                             s_txt = payload.decode('utf-16le', errors='ignore')
@@ -168,6 +165,7 @@ def extract_dom_rows(doc):
                 'no_rec': no_rec,
                 'no_txt': no_txt,
                 's_t2100': s_t2100,
+                's_t150': s_t150,
                 's_rec': s_rec,
                 's_splits': s_splits,
                 's_txt': s_txt,
@@ -184,16 +182,16 @@ def extract_dom_rows(doc):
             })
     return all_rows
 
-def run_master_adhikarya_pipeline():
+def run_master_adhikarya_jun_pipeline():
     folder = r'C:\Users\Lenovo\Downloads\rekening\PT BENDI NASHA NIAGA INDUSTRI\ADHIKARYA PUTRA\New folder\JUN'
     base_xar = os.path.join(folder, '0.xar')
     excel_path = os.path.join(folder, 'Template_Pekerjaan_Xara_Jun.xlsx')
 
     print("=========================================================================")
-    print("   MASTER FLAWLESS PIPELINE: ADHIKARYA PUTRA JUN 2026 (ALL CAPS & ZERO CRASH)")
+    print("   MASTER FLAWLESS PIPELINE: ADHIKARYA PUTRA JUN 2026 (13 PAGES / 147 ROWS)")
     print("=========================================================================\n")
 
-    # Load Excel Data
+    # 1. Load Excel Data
     wb = openpyxl.load_workbook(excel_path, data_only=True)
     ws_hdr = wb['Header & Ringkasan']
     ws_mut = wb['Tabel_Mutasi']
@@ -204,17 +202,25 @@ def run_master_adhikarya_pipeline():
     acc_no = str(ws_hdr.cell(13, 2).value or "1630016148929").strip()
 
     sawal_val = ws_hdr.cell(21, 2).value or 52488.81
-    dmasuk_val = ws_hdr.cell(22, 2).value or 30212000
-    dkeluar_val = ws_hdr.cell(23, 2).value or 29693990
+    dmasuk_val = ws_hdr.cell(22, 2).value or 30212000.0
+    dkeluar_val = ws_hdr.cell(23, 2).value or 29693990.0
     sakhir_val = ws_hdr.cell(24, 2).value or 570498.81
 
-    # Load 147 transactions from Excel (including explicit dates & times)
+    # Load 147 transactions from Excel
     tx_list = []
     for r in range(6, ws_mut.max_row + 1):
         nom = ws_mut.cell(r, 5).value
         bal = ws_mut.cell(r, 7).value
         dt_val = ws_mut.cell(r, 2).value
         tm_val = ws_mut.cell(r, 3).value
+        
+        # Sanitize Excel [Group] mode leak in column B
+        if dt_val is not None:
+            if isinstance(dt_val, (int, float)) and dt_val > 31:
+                dt_val = None
+            elif isinstance(dt_val, str) and (',' in dt_val or '.' in dt_val or '30212' in dt_val or '29693' in dt_val or '5704' in dt_val or '5248' in dt_val):
+                dt_val = None
+                
         if nom is not None and bal is not None:
             tx_list.append({
                 'row_no': len(tx_list) + 1,
@@ -229,17 +235,20 @@ def run_master_adhikarya_pipeline():
     # Load Base File
     doc = XarDocument(base_xar)
     print(f"[*] Loaded base file 0.xar ({len(doc.records):,} records).")
-    palette = prosedur_training.deteksi_kamus_palet_native(doc)
 
     # =========================================================================
-    # [FASE 1: TAHAP 0 - STANDAR 2-BOX NAMA (ALL CAPS) & CABANG MANDIRI]
+    # [FASE 1: TAHAP 0 - PROSEDUR TRAINING STANDARISASI PRE-SOP]
     # =========================================================================
     print("\n" + "="*50)
-    print(" FASE 1: TAHAP 0 (PROSEDUR TRAINING & 2-BOX ALL CAPS ARCHITECTURE)")
+    print(" FASE 1: TAHAP 0 (PROSEDUR TRAINING STANDARISASI TEMPLATE)")
     print("="*50)
     doc = prosedur_training.standarisasi_template_tahap0(doc, cust_name, "KCP Jakarta Taman Aries")
     out_t1 = os.path.join(folder, '0_tahap1.xar')
     sync_and_save(doc, out_t1)
+
+    # Re-detect dynamic palette after header injection
+    palette = prosedur_training.deteksi_kamus_palet_native(doc)
+    print(f"[*] Re-detected Native Palette: Blue Saldo = {palette['blue_saldo'].hex()} | Green = {palette['green_credit'].hex()} | Black = {palette['black_debit'].hex()}")
 
     # =========================================================================
     # [FASE 2: TAHAP 2 - PERIODE LAPORAN (SEMUA 13 HALAMAN)]
@@ -248,10 +257,16 @@ def run_master_adhikarya_pipeline():
     for idx_r, r in enumerate(doc.records):
         if r['tag'] == 2201:
             t = r['payload'].decode('utf-16le', errors='ignore')
-            if 'Apr 2026 -' in t or 'Jun 2026 -' in t:
-                update_text(doc, idx_r, "Jun 2026 - ")
-            elif '0 Apr 2026' in t or '0 Jun 2026' in t:
-                update_text(doc, idx_r, "0 Jun 2026")
+            if any(k in t for k in ['Apr 2026 -', 'Jun 2026 -', 'May 2026 -', 'Jul 2026 -']):
+                update_text(doc, idx_r, "Jun 2026 - 30 Jun 2026")
+                # Blank trailing Tag 2202 node if present
+                for k in range(idx_r + 1, min(len(doc.records), idx_r + 8)):
+                    if doc.records[k]['tag'] == 2202:
+                        blank_node(doc, k)
+                        break
+                    elif doc.records[k]['tag'] == 2200 or doc.records[k]['tag'] == 2203:
+                        break
+
     out_t2 = os.path.join(folder, '0_tahap2.xar')
     sync_and_save(doc, out_t2)
 
@@ -269,7 +284,7 @@ def run_master_adhikarya_pipeline():
     for idx_r, r in enumerate(doc.records):
         if r['tag'] == 2201:
             t = r['payload'].decode('utf-16le', errors='ignore')
-            if any(w in t for w in ['Sep 202', 'Apr 202', 'Jun 202']) and '-' not in t and not t.startswith('0 ') and len(t) <= 15:
+            if any(w in t for w in ['Sep 202', 'Apr 202', 'Jun 202', 'Jul 202', 'Aug 202']) and '-' not in t and not t.startswith('0 ') and len(t) <= 15:
                 t2202_nodes = []
                 for k in range(idx_r - 1, max(0, idx_r - 25), -1):
                     if doc.records[k]['tag'] == 2202:
@@ -296,16 +311,39 @@ def run_master_adhikarya_pipeline():
     for idx_r, r in enumerate(doc.records):
         if r['tag'] == 2201:
             t = r['payload'].decode('utf-16le', errors='ignore')
-            if '16300' in t:
+            if '165000' in t or '163001' in t:
                 update_text(doc, idx_r, f"{acc_no} ")
                 break
     out_t4 = os.path.join(folder, '0_tahap4.xar')
     sync_and_save(doc, out_t4)
 
     # =========================================================================
-    # [FASE 2: TAHAP 5 - PENOMORAN HALAMAN (SEMUA 13 HALAMAN)]
+    # [FASE 2: TAHAP 5 - PENOMORAN HALAMAN (SEMUA 13 HALAMAN: X OF 13 / X DARI 13)]
     # =========================================================================
     print("\n[*] Menjalankan Tahap 5: Penomoran Halaman (1 of 13 s.d. 13 of 13)...")
+    for idx_r, r in enumerate(doc.records):
+        if r['tag'] == 2201:
+            t = r['payload'].decode('utf-16le', errors='ignore')
+            # English indicator: 'of 14' or 'of 8' or 'of 13'
+            if t.strip() in ['of 14', 'of 8', 'of 13', 'of 1']:
+                update_text(doc, idx_r, "of 13")
+                for k in range(idx_r + 1, min(len(doc.records), idx_r + 8)):
+                    if doc.records[k]['tag'] == 2202 and doc.records[k]['payload'].decode('utf-16le', errors='ignore').strip() in ('4', '8', '3'):
+                        blank_node(doc, k)
+                        break
+                    elif doc.records[k]['tag'] == 2200 or doc.records[k]['tag'] == 2203:
+                        break
+            # Indonesian indicator: 'X dari' -> update Tag 2202 before 'dari' to '13'
+            elif 'dari' in t.strip():
+                for k in range(idx_r - 1, max(0, idx_r - 30), -1):
+                    if doc.records[k]['tag'] == 2202:
+                        txt_digit = doc.records[k]['payload'].decode('utf-16le', errors='ignore').strip()
+                        if txt_digit in ('14', '8', '13', '7'):
+                            update_text(doc, k, "13")
+                            break
+                    elif doc.records[k]['tag'] == 2100:
+                        break
+
     out_t5 = os.path.join(folder, '0_tahap5.xar')
     sync_and_save(doc, out_t5)
 
@@ -317,7 +355,6 @@ def run_master_adhikarya_pipeline():
     print(f"[*] Dynamically extracted {len(dom_rows)} rows from DOM.")
     assert len(dom_rows) == 147, f"Expected 147 rows, got {len(dom_rows)}"
 
-    # 1. Ekstrak baseline day numbers dan baseline times
     baseline_days = []
     baseline_times = []
     for r in dom_rows:
@@ -327,11 +364,9 @@ def run_master_adhikarya_pipeline():
         t_str = r['time_recs'][0][1] if r['time_recs'] else None
         baseline_times.append(t_str)
 
-    # 2. Ambil Excel Overrides
     excel_dt_overrides = [tx.get('date_override') for tx in tx_list]
     excel_tm_overrides = [tx.get('time_override') for tx in tx_list]
 
-    # 3. Selesaikan Tanggal & Jam Secara Kronologis Monoton Naik
     solved_dates = chronological_date_engine.solve_chronological_dates(
         num_rows=len(dom_rows),
         excel_date_overrides=excel_dt_overrides,
@@ -350,7 +385,6 @@ def run_master_adhikarya_pipeline():
         max_hour=23
     )
 
-    # 4. Terapkan ke Dokumen Xara
     for idx_row, r in enumerate(dom_rows):
         d_str = solved_dates[idx_row]
         t_str = solved_times[idx_row]
@@ -359,7 +393,7 @@ def run_master_adhikarya_pipeline():
         for d_rec, _ in r['date_recs']:
             update_text(doc, d_rec, d_str)
 
-        # Update Time (Sanitasi Node Tunggal: Update Primary & Blank Secondary)
+        # Update Time
         if r['time_recs']:
             t_prim = r['time_recs'][0][0]
             update_text(doc, t_prim, t_str)
@@ -377,21 +411,21 @@ def run_master_adhikarya_pipeline():
     print("="*50)
     doc7 = XarDocument(out_t6)
 
-    # 1. Ringkasan Keuangan Header (Dynamic Node Lookup)
+    # 1. Ringkasan Keuangan Header
     print("[*] Mengisi Ringkasan Keuangan Header...")
     sawal_idx = None
     dmasuk_idx = None
     dkeluar_idx = None
     sakhir_idx = None
 
-    for idx_r, r in enumerate(doc7.records):
+    for idx_r, r in enumerate(doc7.records[:2500]):
         if r['tag'] == 2201:
             t = r['payload'].decode('utf-16le', errors='ignore')
             if '52.488' in t and sawal_idx is None:
                 sawal_idx = idx_r
-            elif ('+ 25.062' in t or '+ 30.212' in t) and dmasuk_idx is None:
+            elif ('+ 2.750' in t or '+ 30.212' in t) and dmasuk_idx is None:
                 dmasuk_idx = idx_r
-            elif ('- 24.543' in t or '- 29.693' in t) and dkeluar_idx is None:
+            elif ('- 3.197' in t or '- 29.693' in t) and dkeluar_idx is None:
                 dkeluar_idx = idx_r
             elif '570.498' in t and sakhir_idx is None:
                 sakhir_idx = idx_r
@@ -411,9 +445,12 @@ def run_master_adhikarya_pipeline():
     if dmasuk_idx:
         str_dmasuk = f"+ {fmt_idr(dmasuk_val)}"
         update_text(doc7, dmasuk_idx, str_dmasuk)
-        for k in range(dmasuk_idx+1, min(len(doc7.records), dmasuk_idx+10)):
-            if doc7.records[k]['tag'] == 2201:
-                blank_node(doc7, k)
+        for k in range(dmasuk_idx+1, min(len(doc7.records), dmasuk_idx+8)):
+            if doc7.records[k]['tag'] == 2202 or doc7.records[k]['tag'] == 2201:
+                t_sec = doc7.records[k]['payload'].decode('utf-16le', errors='ignore')
+                if t_sec.strip() in ('0,00', '00', '0'):
+                    blank_node(doc7, k)
+                    break
             elif doc7.records[k]['tag'] == 2200 or doc7.records[k]['tag'] == 2203:
                 break
         for k in range(dmasuk_idx-1, max(0, dmasuk_idx-10), -1):
@@ -450,6 +487,9 @@ def run_master_adhikarya_pipeline():
     dom_rows7 = extract_dom_rows(doc7)
     assert len(dom_rows7) == 147, f"Expected 147 rows, got {len(dom_rows7)}"
 
+    TARGET_XR_NOMINAL = 431320 # 15.214 cm
+    TARGET_XR_SALDO = 570450   # 20.049 cm
+
     for idx_row, m in enumerate(dom_rows7):
         tx = tx_list[idx_row]
         row_num = idx_row + 1
@@ -462,14 +502,17 @@ def run_master_adhikarya_pipeline():
         s_rec = m['s_rec']
         s_splits = m.get('s_splits', [])
         s_t2100 = m.get('s_t2100')
+        s_t150 = m.get('s_t150')
         bal_val = tx['balance']
         str_saldo = fmt_idr(bal_val)
         if s_rec:
             update_text(doc7, s_rec, str_saldo)
         for sp in s_splits:
             blank_node(doc7, sp)
+        if s_t150:
+            update_color(doc7, s_t150, palette['blue_saldo'])
         if s_t2100:
-            new_x_saldo = prosedur_training.TARGET_XR_SALDO - prosedur_training.calc_text_width(str_saldo)
+            new_x_saldo = TARGET_XR_SALDO - prosedur_training.calc_text_width(str_saldo)
             update_t2100_x(doc7, s_t2100, new_x_saldo)
 
         # C. Nominal Transaksi (+/-) & Rata Kanan 15.214 cm
@@ -484,32 +527,28 @@ def run_master_adhikarya_pipeline():
             str_nominal = f"+{fmt_idr(nom_val)}"
             nom_color = palette['green_credit']
         else:
-            str_nominal = f"-{fmt_idr(abs(nom_val))}"
+            str_nominal = f"-{fmt_idr(nom_val)}"
             nom_color = palette['black_debit']
 
-        update_text(doc7, n_rec, str_nominal)
+        if n_rec:
+            update_text(doc7, n_rec, str_nominal)
         for sp in n_splits:
             blank_node(doc7, sp)
-
         if n_t150:
             update_color(doc7, n_t150, nom_color)
-
-        x_left, w_nominal = prosedur_training.hitung_posisi_rata_kanan(str_nominal, prosedur_training.TARGET_XR_NOMINAL)
-
         if n_t2100:
-            update_t2100_x(doc7, n_t2100, x_left)
-        if n_t2206:
-            update_t2206(doc7, n_t2206, w_nominal)
+            new_x_nom = TARGET_XR_NOMINAL - prosedur_training.calc_text_width(str_nominal)
+            update_t2100_x(doc7, n_t2100, new_x_nom)
 
     out_t7 = os.path.join(folder, '0_tahap7.xar')
     sync_and_save(doc7, out_t7)
 
     print("\n=========================================================================")
-    print("   [SUCCESS] MASTER FLAWLESS PIPELINE EXECUTION COMPLETED!")
+    print("   [SUCCESS] MASTER FLAWLESS PIPELINE JUN 2026 COMPLETED!")
     print(f"   Final Output: {out_t7}")
-    print(f"   Customer Name: {prosedur_training.format_nama_kapital(cust_name)}")
+    print(f"   Customer Name: {cust_name.upper()}")
     print(f"   Total Pages: 13 | Total Rows: 147")
     print("=========================================================================\n")
 
 if __name__ == '__main__':
-    run_master_adhikarya_pipeline()
+    run_master_adhikarya_jun_pipeline()
