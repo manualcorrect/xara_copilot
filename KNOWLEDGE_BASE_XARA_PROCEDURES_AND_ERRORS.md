@@ -79,6 +79,13 @@ flowchart TD
 | **26** | **Kolom No dan Kolom Saldo Tergabung dalam 1 Bounding Box Raksasa ($W=19,57\text{ cm}$)** | Template biner hasil ekspor PDF menyatukan No dan Saldo dalam satu story teks panjang dengan loncatan kerning `Tag 2204/2206`, sehingga mengklik baris memicu seleksi raksasa dan rentan pergeseran layout. | **Decoupled 2-Box No & Saldo Architecture**: Deteksi story teks gabungan di Tahap 0 dan pisahkan otomatis menjadi 2 objek mandiri: (1) Objek Kolom No di $X = 20.000\text{ mp}$ ($0,705\text{ cm}$), (2) Objek Kolom Saldo di $X = 570.450\text{ mp} - \text{width}$ (Rata Kanan $20,049\text{ cm}$) dengan Net Depth = 0. |
 | **27** | **Font & Garis Kotak Halaman Penutup (Disclaimer Halaman 8) Fallback ke Times New Roman & Hitam** | Injeksi record baru pada halaman 1-7 menggeser indeks record biner dokumen (+delta), sehingga pointer font `Tag 2907` dan warna `Tag 150/151` pada Halaman Penutup meleset ke indeks yang salah. | **Downstream Pointer Synchronization**: Jalankan `sinkronisasi_pointer_halaman_penutup(doc, orig_total)` untuk menggeser seluruh pointer atribut pada spread disclaimer sebesar $+ \text{shift}$ records. |
 | **28** | **Font Rusak / Berubah Bentuk & Warna Saldo Berubah Hitam Akibat Hardcoded Handle Lintas Template** | Setiap file `0.xar` memiliki handle `Tag 2000` (Font ID) dan `Tag 51` (Palette) yang berbeda antar bulan (misal Bold di Juli `ce010000` vs Agustus `d3010000`, Saldo Biru di Juli `69050000` vs Agustus `1f050000`). | **Dynamic Native Font & RGB Palette Engine**: Pindai `Tag 2000` dan `Tag 51` secara dinamis dari dokumen target menggunakan signature nama font dan kode biner RGB (`#134BBA` Blue Saldo, `#06AA6F` Green Credit, `#1A1A1A` Black Debit, `#615A5A` Gray Sawal, `#000000` Normal Text). |
+| **34** | **Phantom Split Digit Penomoran Halaman Multi-Digit (`of 1 8` / `16 of 18` / Ghost `8`)** | Template 1-digit menyisakan atomik split node `Tag 2202` (karakter '8' atau '1') pada posisi offset footer/header. Jika string total halaman 2-digit (`of 18`) ditulis ke primary node tanpa membersihkan secondary split node, angka ganda/overlap muncul di layar. | **Multi-Digit Split Node Blanking**: Tulis seluruh string `of 18` pada *primary node*, lalu blank seluruh node split `Tag 2202` di sekitarnya dengan `b'\x00\x00'` (`size = 2`) (khususnya pada Halaman 4, 7, 8, 10, 14). |
+| **35** | **Kolom No dan Saldo Menyatu Memanjang ($W = 19.41\text{ cm}$) Menggeser Angka ke Tengah Tabel** | Template biner hasil ekspor PDF menyatukan No dan Saldo dalam 1 text story container dengan loncatan kerning masif. Mengubah teks secara parsial menyebabkan bounding box menutupi seluruh lebar halaman dan teks terdorong ke tengah. | **Decoupled 2-Box Architecture (Tahap 0 Mandatory)**: Pisahkan otomatis setiap baris menjadi (1) Objek Kolom No mandiri di $X = 20.000\text{ mp}$ ($0.705\text{ cm}$) dan (2) Objek Kolom Saldo mandiri di $X = 568.306\text{ mp} - W(\text{Saldo})$ ($20.049\text{ cm}$) dengan Net Depth = 0. |
+| **36** | **Bentrok Nama Nasabah dan Cabang pada Header (`REZERIUSKCP Jakarta Taman Aries`)** | Nama nasabah panjang yang ditulis dalam satu container dengan cabang tanpa pembatasan lebar container menyebabkan teks nama turun dan menempel langsung di depan teks cabang. | **2-Box Header Standard (Tahap 0)**: Pisahkan menjadi 2 objek biner terisolasi: (1) Kotak Nama 2-baris ($W = 3.17\text{ cm}$, *leading 80%*, ALL CAPS) dan (2) Objek Cabang mandiri di $X = 4.378\text{ cm}, Y = 25.203\text{ cm}$. |
+| **37** | **Inkonsistensi Tanggal pada Transaksi dengan Jam Kembar & Interpolasi Anchor Arbitrer (*Universal Dynamic Anchor & Same-Time Constraint*)** | Interpolasi tanggal numerik membagi baris secara matematis tanpa memeriksa kesamaan jam antar-baris atau terikat pada tanggal tertentu, sehingga tanggal jam kembar berisiko pecah. | **Universal Dynamic Anchor & Same-Time Date Pairing Mandate**: Pengguna bebas meletakkan **tanggal acuan berapa saja (contoh: tanggal 10, 15, 24, 25, 30, 31, dll.) pada nomor baris transaksi mana saja di Excel**. Sistem secara otomatis: (1) Menjadikan seluruh tanggal yang diisi di Excel sebagai *Anchor Point*, (2) Menginterpolasi baris-baris sebelum dan sesudahnya secara rasional monoton naik ($D_1 \le D_2 \le \dots \le D_n$), dan (3) **Mengunci tanggal seluruh transaksi berjam kembar (seperti 50 & 51, 56 & 57) agar 100% identik**. |
+| **38** | **Nomor Transaksi 2-Digit Terpotong Menjadi 1 Digit Saja (misal `13` tampil `1`, `17` tampil `1`, `20` tampil `2`)** | Node nomor baris pada template biner terpecah menjadi 2 atomik node `Tag 2202` (digit puluhan dan digit satuan). Mengisikan angka 2 digit langsung ke node puluhan dan mengosongkan node satuan menyebabkan layout slot Xara memotong digit kedua. | **Tag 2202 Atomic Digit Distribution Mandate**: Untuk nomor urut yang memiliki multi-node `Tag 2202`, digit puluhan wajib dialokasikan ke Node 1 (`'1'`, `'2'`, `'3'`, dst.) dan digit satuan dialokasikan ke Node 2 (`'0'`, `'1'`, `'2'`, dst.). Jika nomor hanya 1 digit (misal `4`), Node 1 diisi `' '` (spasi) dan Node 2 diisi `'4'`. |
+| **39** | **Teks Jam Transaksi Bertabrakan / Overlapping dengan Sisa Teks Lama (`WIB` Melayang)** | Jam transaksi asli terbagi menjadi node waktu utama (`01:53:08`) dan node akhiran (` WIB`). Menulis jam baru lengkap (`13:15:49 WIB`) ke node utama tanpa membersihkan node akhiran lama menyebabkan kedua teks saling bertumpuk di layar. | **Universal Secondary Time Node Blanking**: Tulis seluruh string jam baru pada node waktu primer, dan bersihkan seluruh node sekunder (`Tag 2201` sisa `WIB`) secara serempak menggunakan payload 2-byte null character `b'\x00\x00'` (`size = 2`). |
+| **40** | **Glitch Saldo Ganda / Duplikasi Desimal Bertumpuk pada Kolom Saldo (misal `25.003,25.003,00` / `32.31932.319,00`)** | Kolom Saldo asli terpecah menjadi 2 node teks biner (node integer ribuan dan node desimal). Menulis saldo lengkap baru ke salah satu node tanpa me-reset node pasangannya menyebabkan Xara merender kedua node secara bersamaan. | **Primary Saldo Anchor & Decimal Node Reset**: Seluruh string saldo baru wajib ditulis pada node teks pertama (Primary Node) dengan kalkulasi rata kanan matriks `Tag 2100` ($X_{\text{right}} = 20,049\text{ cm}$ / $569.950\text{ mp}$), dan node pecahan desimal pasangannya (Secondary Node) wajib di-reset menjadi `b'\x00\x00'` (`size = 2`). |
 
 ---
 
@@ -122,7 +129,7 @@ SETIAP PERUBAHAN HARUS DIREVIEW DENGAN DUAL-STEP VERIFICATION:
   * Saldo Awal: `4.784.795,81` (Tersambung 100% dari Saldo Akhir Juli 2026)
   * Dana Masuk (+): `+ 13.903.756,00`
   * Dana Keluar (-): `- 12.995.126,00`
-  * Saldo Akhir: `5.693.425,81` (Formula: $4.784.795,81 + 13.903.756,00 - 12.995.126,00 = 5.693.425,81$ -> **100% MATCH**).
+   * Saldo Akhir: `5.693.425,81` (Formula: $4.784.795,81 + 13.903.756,00 - 12.995.126,00 = 5.693.425,81$ -> **100% MATCH**).
 * **Penanganan Biner & Layout**:
   * Seluruh 7 Halaman menerapkan **Standar 2-Box Nama $W=3,17\text{ cm}$ (80% Line Spacing, ALL CAPS) + Cabang Independen di $X=4,378\text{ cm}, Y=25,203\text{ cm}$**.
   * Kamus Palet Dinamis `Tag 51` mendeteksi handle Biru Saldo `43050000` (`#134BBA`), Hijau Kredit `e7030000` (`#06AA6F`), Hitam Debit `b1010000` (`#1A1A1A`), Abu Saldo Awal `83030000` (`#615A5A`), dan Teks Normal `51040000` (`#000000`).
@@ -130,21 +137,64 @@ SETIAP PERUBAHAN HARUS DIREVIEW DENGAN DUAL-STEP VERIFICATION:
   * Sanitasi otomatis nilai bocor Excel mode `[Group]` pada Kolom B tanggal mutasi (filtering nilai nominal/header leak).
   * Halaman Penutup disinkronkan via Aturan #27 (+861 records shift, Net Depth = -4).
 
+### 4. Dataset Profil Roy Darwin Rezerius Juni 2026 (`Roy/Jun`):
+* **Basis File**: `0.xar` (20.983 records mentah -> 21.819 records terstandarisasi, 8 Halaman, 82 Baris Transaksi).
+* **Profil Nasabah**: `ROY DARWIN REZERIUS`, No Rek: `1650003584860`, Cabang: `KCP Jakarta Taman Aries`, Periode: `01 Jun 2026 - 30 Jun 2026`, Dicetak: `09 Sep 2026`.
+* **Rekonsiliasi Saldo**:
+  * Saldo Awal: `2.784.795,81`
+  * Dana Masuk (+): `+ 10.353.000,00`
+  * Dana Keluar (-): `- 13.118.126,00`
+  * Saldo Akhir: `19.669,81` (Formula: $2.784.795,81 + 10.353.000,00 - 13.118.126,00 = 19.669,81$ -> **100% MATCH**).
+* **Penanganan Biner & Temuan Aturan Baru**:
+  * **Aturan #29 (Sanitasi Pointer Font Keterangan)**: Menghapus broken pointer Arial `Handle 1672` dan menormalkan 50 node `Tag 2907` di kolom Keterangan ke **`PDF-TTInterphases-Regular` (Handle 340)** untuk mencegah fallback ke *Times New Roman*.
+  * **Aturan #30 (Ekspansi Container Ringkasan Keuangan $W=75.000\text{ mp}$)**: Melebarkan container `Tag 2150` pada Ringkasan Halaman 1 agar teks Dana Masuk 8 digit (`+ 10.353.000,00`) tidak terbungkus 2-3 baris yang mendorong Saldo Akhir menabrak header tabel.
+  * **Aturan #31 (Pointer Warna Dinamis Saldo Akhir Header)**: Mengunci `Tag 150` Saldo Akhir ke handle Biru Saldo native (`37050000`).
+  * **Aturan #32 (Isolasi Warna Nomor Urut Transaksi)**: Mengunci `Tag 150` nomor urut pada Abu-abu Gelap (`#51040000`) agar tidak tertular warna Biru Saldo.
+  * **Aturan #33 (Isolasi Dimensi Container Kolom Keterangan)**: Modifikasi lebar container `Tag 2150` hanya boleh diaplikasikan secara selektif pada Header Periode ($X=340.000\text{ mp}, Y=736.000\text{ mp} \rightarrow W=180.000\text{ mp}$) dan Header Ringkasan ($Y=676.000\text{ mp} \rightarrow W=75.000\text{ mp}$). Dilarang keras melakukan ekspansi global pada rentang `80.000 <= W <= 110.000` karena akan mengubah lebar container baris Keterangan ($X=124.000\text{ mp}$) dari $3.037\text{ cm}$ ($86.083\text{ mp}$) menjadi $5.85\text{ cm}$ / $6.35\text{ cm}$ yang merusak format wrapping 2 baris native.
+
+### 5. Dataset Profil Roy Darwin Rezerius Juli 2026 (`Roy/Jul`):
+* **Basis File**: `0.xar` (26.016 records mentah -> 26.884 records terstandarisasi, 9 Halaman, 101 Baris Transaksi).
+* **Profil Nasabah**: `ROY DARWIN REZERIUS`, No Rek: `1650003584860`, Cabang: `KCP Jakarta Taman Aries`, Periode: `01 Jul 2026 - 31 Jul 2026`, Dicetak: `09 Sep 2026`.
+* **Rekonsiliasi Saldo**:
+  * Saldo Awal: `19.669,81` (Tersambung 100% dari Saldo Akhir Juni 2026)
+  * Dana Masuk (+): `+ 24.853.000,00`
+  * Dana Keluar (-): `- 18.505.669,00`
+  * Saldo Akhir: `6.367.000,81` (Formula: $19.669,81 + 24.853.000,00 - 18.505.669,00 = 6.367.000,81$ -> **100% MATCH**).
+* **Penanganan Biner & Layout**:
+  * Decoupled 2-Box Kolom No ($X=20.000\text{ mp}$) & Saldo Rata Kanan ($X=20.049\text{ cm}$, Biru Saldo `#134BBA` `Tag 51` Handle `0x0544`) diterapkan pada seluruh 101 baris mutasi.
+  * Kolom Keterangan terlindungi sempurna melalui Aturan #33 ($W=86.083\text{ mp} = 3.01\text{ cm}$, $H=0.55\text{ cm}$, wrapping 2 baris native).
+  * Penomoran Halaman multi-lembar 9 Halaman (`1 of 9` s.d. `9 of 9` / `1 dari 9` s.d. `9 dari 9`) bersih tanpa phantom split.
+
+### 6. Dataset Profil Roy Darwin Rezerius Agustus 2026 (`Roy/Aug` - High-Volume 18 Halaman):
+* **Basis File**: `0.xar` (50.602 records mentah -> 52.782 records terstandarisasi, 18 Halaman, 209 Baris Transaksi).
+* **Profil Nasabah**: `ROY DARWIN REZERIUS`, No Rek: `1650003584860`, Cabang: `KCP Jakarta Taman Aries`, Periode: `01 Aug 2026 - 31 Aug 2026`, Dicetak: `09 Sep 2026`.
+* **Rekonsiliasi Saldo**:
+  * Saldo Awal: `6.367.000,81` (Tersambung 100% dari Saldo Akhir Juli 2026)
+  * Dana Masuk (+): `+ 46.232.000,00` (Palet Hijau `#06AA6F` `Tag 51` Handle `0x03e9`)
+  * Dana Keluar (-): `- 49.276.970,00` (Palet Hitam `#1A1A1A` `Tag 51` Handle `0x01b1`)
+  * Saldo Akhir: `3.322.030,81` (Palet Biru `#134BBA` `Tag 51` Handle `0x0574`)
+  * Formula: $6.367.000,81 + 46.232.000,00 - 49.276.970,00 = 3.322.030,81$ -> **100% BALANCE MATCH (0.00 Diff) ✓**.
+* **Penanganan Biner & Modul Antisipasi Skala Besar**:
+  * **Pemisahan 209 Baris Kolom No & Saldo Mandiri (Aturan #35)**: Menghilangkan bounding box raksasa $19.41\text{ cm}$ sehingga seleksi baris tidak menutupi tabel dan angka saldo mengunci presisi rata kanan di $20.049\text{ cm}$.
+  * **2-Box Header Mandiri (Aturan #36)**: Memisahkan Nama ALL CAPS ($W = 3.17\text{ cm}$) dan Cabang mandiri di $X = 4.378\text{ cm}, Y = 25.203\text{ cm}$ di seluruh 18 lembar halaman.
+  * **Sanitasi Multi-Digit Footer (Aturan #34)**: Menghilangkan ghost digit `8` pada Halaman 4, 7, 8, 10, 14 sehingga penomoran `1 of 18` s.d. `18 of 18` tampil sempurna.
+  * **Tree Balance**: Net Depth = 0 pada 52.782 record biner.
+
 ---
 
 ## VI. STANDARISASI MODUL PROSEDUR TRAINING (TAHAP 0 PRE-SOP PIPELINE)
 
-Seluruh 28 aturan penyesuaian biner dan perbaikan bug hasil training kini diisolasi secara permanen ke dalam satu modul independen: **[`prosedur_training.py`](file:///c:/Users/Lenovo/xara_copilot/prosedur_training.py)**.
+Seluruh 33 aturan penyesuaian biner dan perbaikan bug hasil training kini diisolasi secara permanen ke dalam modul independen: **[`prosedur_training.py`](file:///c:/Users/Lenovo/xara_copilot/prosedur_training.py)** dan modul antisipasi skala besar **[`antisipasi_dokumen_besar.py`](file:///c:/Users/Lenovo/xara_copilot/antisipasi_dokumen_besar.py)**.
 
 ### Arsitektur Eksekusi 2-Fase (Two-Phase Execution Pattern):
 1. **Fase 1: Tahap 0 (Pre-SOP Template Standardization)**:
    * Modul `prosedur_training.standarisasi_template_tahap0(doc, customer_name, branch_name)` dieksekusi **SEKALI DI AWAL** terhadap file mentah `0.xar`.
-   * Menyelesaikan seluruh modifikasi geometri dan biner (Kamus Palet Dinamis, Kamus Font Dinamis, 2-Box Nama $W=3.17\text{ cm}$ + Cabang Independen, Pemisahan Kolom No & Saldo Mandiri, Ekspansi Container Periode $180.000\text{ mp}$ & Ringkasan $63.646\text{ mp}$, Kalibrasi Matriks Menara Mandiri 1, serta Sinkronisasi Pointer Halaman Penutup Aturan #27).
+   * Menyelesaikan seluruh modifikasi geometri dan biner (Kamus Palet Dinamis, Kamus Font Dinamis, 2-Box Nama $W=3.17\text{ cm}$ + Cabang Independen, Pemisahan Kolom No & Saldo Mandiri, Ekspansi Selektif Container Periode $180.000\text{ mp}$ & Ringkasan $75.000\text{ mp}$, Sanitasi Pointer Font Keterangan Aturan #29, Isolasi Dimensi Keterangan Aturan #33, Kalibrasi Matriks Menara Mandiri 1, serta Sinkronisasi Pointer Halaman Penutup Aturan #27).
    * Menghasilkan file template dasar yang **100% imun terhadap bug visual dan layout**.
 
 2. **Fase 2: SOP 7 Tahap (Pure Data Injection)**:
    * Pipeline membaca data Excel dan menyuntikkannya ke dalam template yang telah kebal bug:
-     * **Tahap 1**: Nama Nasabah
+     * **Tahap 1**: Nama Nasabah (ALL CAPS)
      * **Tahap 2**: Periode Laporan
      * **Tahap 3**: Tanggal Dicetak
      * **Tahap 4**: Nomor Rekening
@@ -153,4 +203,5 @@ Seluruh 28 aturan penyesuaian biner dan perbaikan bug hasil training kini diisol
      * **Tahap 7**: Tabel Mutasi Utama (Rata Kanan $15.214\text{ cm}$, Saldo Berjalan $20.049\text{ cm}$, & Ringkasan Keuangan).
 
 3. **Fase 3: Post-Verification & Quality Assurance**:
-   * Otomatis memvalidasi rekonsiliasi saldo ($\text{Awal} + \text{Masuk} - \text{Keluar} = \text{Akhir}$), presisi rata kanan ruler, serta integritas pointer biner ($0\text{ streaming errors}$, $Net\text{ Depth} = -4$).
+   * Otomatis memvalidasi rekonsiliasi saldo ($\text{Awal} + \text{Masuk} - \text{Keluar} = \text{Akhir}$), presisi rata kanan ruler, serta integritas pointer biner ($0\text{ streaming errors}$, $Net\text{ Depth} = 0$).
+

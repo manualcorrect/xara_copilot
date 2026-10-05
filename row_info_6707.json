@@ -1,0 +1,499 @@
+[
+  {
+    "row": 1,
+    "s_txt": 1588,
+    "s_txt_val": "54.048,00",
+    "s_kern": 1587,
+    "s_pos": null,
+    "s_col": 1576,
+    "n_txt": 1609,
+    "n_txt_val": "-700.0",
+    "n_split": 1614,
+    "n_split_val": "00,00",
+    "n_kern": 1608,
+    "n_pos": 1592,
+    "n_col": 1597,
+    "d_recs": [
+      [
+        1654,
+        "01 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        1634,
+        "07:09:03 WIB"
+      ]
+    ]
+  },
+  {
+    "row": 2,
+    "s_txt": 1745,
+    "s_txt_val": "36.848,00",
+    "s_kern": 1744,
+    "s_pos": null,
+    "s_col": 1733,
+    "n_txt": 1766,
+    "n_txt_val": "-17.200,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 1765,
+    "n_pos": 1749,
+    "n_col": 1754,
+    "d_recs": [
+      [
+        1816,
+        "02 Nov 2025"
+      ]
+    ],
+    "t_recs": []
+  },
+  {
+    "row": 3,
+    "s_txt": 1912,
+    "s_txt_val": "27.948,00",
+    "s_kern": 1911,
+    "s_pos": null,
+    "s_col": 1900,
+    "n_txt": 1933,
+    "n_txt_val": "-8.900,00",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 1932,
+    "n_pos": 1916,
+    "n_col": 1921,
+    "d_recs": [
+      [
+        1978,
+        "04 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        1958,
+        ":13 WIB"
+      ]
+    ]
+  },
+  {
+    "row": 4,
+    "s_txt": 2084,
+    "s_txt_val": "377.948,00",
+    "s_kern": 2083,
+    "s_pos": null,
+    "s_col": 2072,
+    "n_txt": 2105,
+    "n_txt_val": "+350.0",
+    "n_split": 2110,
+    "n_split_val": "00,00",
+    "n_kern": 2104,
+    "n_pos": 2088,
+    "n_col": 2093,
+    "d_recs": [
+      [
+        2155,
+        "08 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        2135,
+        "WIB"
+      ]
+    ]
+  },
+  {
+    "row": 5,
+    "s_txt": 2261,
+    "s_txt_val": "127.948,00",
+    "s_kern": 2260,
+    "s_pos": null,
+    "s_col": 2249,
+    "n_txt": 2282,
+    "n_txt_val": "-250.00",
+    "n_split": 2287,
+    "n_split_val": "0,00",
+    "n_kern": 2281,
+    "n_pos": 2265,
+    "n_col": 2270,
+    "d_recs": [
+      [
+        2332,
+        "08 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        2312,
+        "WIB"
+      ]
+    ]
+  },
+  {
+    "row": 6,
+    "s_txt": 2403,
+    "s_txt_val": "116.448,00",
+    "s_kern": 2402,
+    "s_pos": null,
+    "s_col": 2391,
+    "n_txt": 2424,
+    "n_txt_val": "-11.500,00",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 2423,
+    "n_pos": 2407,
+    "n_col": 2412,
+    "d_recs": [
+      [
+        2469,
+        "09 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        2444,
+        "03:33:21 WI"
+      ]
+    ]
+  },
+  {
+    "row": 7,
+    "s_txt": 2560,
+    "s_txt_val": "77.448,00",
+    "s_kern": 2559,
+    "s_pos": null,
+    "s_col": 2548,
+    "n_txt": 2581,
+    "n_txt_val": "-39.000,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 2580,
+    "n_pos": 2564,
+    "n_col": 2569,
+    "d_recs": [
+      [
+        2631,
+        "09 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        2611,
+        " WIB"
+      ]
+    ]
+  },
+  {
+    "row": 8,
+    "s_txt": 2732,
+    "s_txt_val": "25.448,00",
+    "s_kern": 2731,
+    "s_pos": null,
+    "s_col": 2720,
+    "n_txt": 2753,
+    "n_txt_val": "-52.000,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 2752,
+    "n_pos": 2736,
+    "n_col": 2741,
+    "d_recs": [
+      [
+        2803,
+        "09 Nov 2025"
+      ]
+    ],
+    "t_recs": []
+  },
+  {
+    "row": 9,
+    "s_txt": 2913,
+    "s_txt_val": "5.260.060,00",
+    "s_kern": 2912,
+    "s_pos": null,
+    "s_col": 2901,
+    "n_txt": 2934,
+    "n_txt_val": "+5.234.612,00",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 2933,
+    "n_pos": 2917,
+    "n_col": 2922,
+    "d_recs": [
+      [
+        2979,
+        "10 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        2959,
+        "00 WIB"
+      ]
+    ]
+  },
+  {
+    "row": 10,
+    "s_txt": 3050,
+    "s_txt_val": "5.160.060,00",
+    "s_kern": 3049,
+    "s_pos": null,
+    "s_col": 3038,
+    "n_txt": 3071,
+    "n_txt_val": "-100.00",
+    "n_split": 3076,
+    "n_split_val": "0,00",
+    "n_kern": 3070,
+    "n_pos": 3054,
+    "n_col": 3059,
+    "d_recs": [
+      [
+        3121,
+        "14 Nov 2025"
+      ],
+      [
+        3788,
+        "Nov 2025 - 30 No"
+      ]
+    ],
+    "t_recs": [
+      [
+        3096,
+        "14:48:25 WI"
+      ]
+    ]
+  },
+  {
+    "row": 11,
+    "s_txt": 4159,
+    "s_txt_val": "4.960.060,00",
+    "s_kern": 4158,
+    "s_pos": null,
+    "s_col": 4147,
+    "n_txt": 4180,
+    "n_txt_val": "-200.000,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 4179,
+    "n_pos": 4163,
+    "n_col": 4168,
+    "d_recs": [
+      [
+        4225,
+        "17 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        4205,
+        "08:29:38 WIB"
+      ]
+    ]
+  },
+  {
+    "row": 12,
+    "s_txt": 4303,
+    "s_txt_val": "2.460.060,00",
+    "s_kern": 4302,
+    "s_pos": null,
+    "s_col": 4291,
+    "n_txt": 4324,
+    "n_txt_val": "-2.500.000,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 4323,
+    "n_pos": 4307,
+    "n_col": 4312,
+    "d_recs": [
+      [
+        4374,
+        "20  Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        4349,
+        "08:35:21 WI"
+      ]
+    ]
+  },
+  {
+    "row": 13,
+    "s_txt": 4445,
+    "s_txt_val": "2.458.060,00",
+    "s_kern": 4444,
+    "s_pos": null,
+    "s_col": 4433,
+    "n_txt": 4466,
+    "n_txt_val": "-2.000,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 4465,
+    "n_pos": 4449,
+    "n_col": 4454,
+    "d_recs": [
+      [
+        4516,
+        "22 Nov 2025"
+      ]
+    ],
+    "t_recs": []
+  },
+  {
+    "row": 14,
+    "s_txt": 4587,
+    "s_txt_val": "2.408.060,00",
+    "s_kern": 4586,
+    "s_pos": null,
+    "s_col": 4575,
+    "n_txt": 4608,
+    "n_txt_val": "-50.000,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 4607,
+    "n_pos": 4591,
+    "n_col": 4596,
+    "d_recs": [
+      [
+        4658,
+        "22 Nov 2025"
+      ]
+    ],
+    "t_recs": []
+  },
+  {
+    "row": 15,
+    "s_txt": 4734,
+    "s_txt_val": "2.329.878,00",
+    "s_kern": 4733,
+    "s_pos": null,
+    "s_col": 4722,
+    "n_txt": 4755,
+    "n_txt_val": "-78.182,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 4754,
+    "n_pos": 4738,
+    "n_col": 4743,
+    "d_recs": [
+      [
+        4805,
+        "27 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        4785,
+        "50 WIB"
+      ]
+    ]
+  },
+  {
+    "row": 16,
+    "s_txt": 4906,
+    "s_txt_val": "2.029.878,00",
+    "s_kern": 4905,
+    "s_pos": null,
+    "s_col": 4894,
+    "n_txt": 4927,
+    "n_txt_val": "-300.00",
+    "n_split": 4932,
+    "n_split_val": "0,00",
+    "n_kern": 4926,
+    "n_pos": 4910,
+    "n_col": 4915,
+    "d_recs": [
+      [
+        4987,
+        "Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        4957,
+        " WI"
+      ]
+    ]
+  },
+  {
+    "row": 17,
+    "s_txt": 5053,
+    "s_txt_val": "2.026.378,00",
+    "s_kern": 5052,
+    "s_pos": null,
+    "s_col": 5041,
+    "n_txt": 5074,
+    "n_txt_val": "-3.500,00",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 5073,
+    "n_pos": 5057,
+    "n_col": 5062,
+    "d_recs": [
+      [
+        5119,
+        "27 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        5099,
+        "9 WIB"
+      ]
+    ]
+  },
+  {
+    "row": 18,
+    "s_txt": 5221,
+    "s_txt_val": "166.378,00",
+    "s_kern": 5220,
+    "s_pos": null,
+    "s_col": 5209,
+    "n_txt": 5242,
+    "n_txt_val": "-1.860.000,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 5241,
+    "n_pos": 5225,
+    "n_col": 5230,
+    "d_recs": [
+      [
+        5292,
+        "Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        5267,
+        "06:42:50 WIB"
+      ]
+    ]
+  },
+  {
+    "row": 19,
+    "s_txt": 5353,
+    "s_txt_val": "161.378,00",
+    "s_kern": 5352,
+    "s_pos": null,
+    "s_col": 5341,
+    "n_txt": 5374,
+    "n_txt_val": "-5.000,0",
+    "n_split": null,
+    "n_split_val": null,
+    "n_kern": 5373,
+    "n_pos": 5357,
+    "n_col": 5362,
+    "d_recs": [
+      [
+        5419,
+        "30 Nov 2025"
+      ]
+    ],
+    "t_recs": [
+      [
+        5399,
+        "23:59:00 WIB"
+      ]
+    ]
+  }
+]

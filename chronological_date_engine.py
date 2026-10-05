@@ -51,25 +51,38 @@ def solve_chronological_dates(
     baseline_day_numbers: List[int],
     target_month: int = 6,
     target_year: int = 2026,
-    month_label: str = "Jun 2026"
+    month_label: str = "Jun 2026",
+    baseline_times: Optional[List[str]] = None
 ) -> List[str]:
     """
     Menghitung urutan tanggal yang 100% kronologis monoton naik untuk num_rows transaksi.
+    Mendukung Same-Time Constraint (Aturan #37): Transaksi dengan jam kembar wajib memiliki tanggal yang sama.
     """
     _, max_days = calendar.monthrange(target_year, target_month)
     
-    # 1. Ekstrak Anchor Eksplisit dari Excel
+    # 1. Ekstrak Anchor Eksplisit dari Excel (dengan Sanitasi Anti-Group Mode Leak)
     anchors: Dict[int, int] = {}
     for idx, dt_val in enumerate(excel_date_overrides):
         if dt_val is not None:
             if isinstance(dt_val, (datetime.datetime, datetime.date)):
                 anchors[idx] = dt_val.day
+            elif isinstance(dt_val, (int, float)):
+                # Jika angka murni (1 s.d. max_days), valid sebagai anchor tanggal. Nilai saldo/nominal ribuan diabaikan.
+                if 1 <= int(dt_val) <= max_days and float(dt_val) == int(dt_val):
+                    anchors[idx] = int(dt_val)
             elif isinstance(dt_val, str) and dt_val.strip():
-                # parse string seperti '25/06/2026' atau '25-06-2026' atau '25 Jun 2026'
-                cleaned = dt_val.strip().replace('-', ' ').replace('/', ' ')
+                # Sanitasi string: abaikan formula (=B23..), path (C:\..), nama nasabah, atau teks panjang bukan tanggal
+                s_clean = dt_val.strip()
+                if s_clean.startswith('=') or '\\' in s_clean or '/' in s_clean and len(s_clean.split('/')) > 3:
+                    continue
+                if len(s_clean) > 25:
+                    continue
+                cleaned = s_clean.replace('-', ' ').replace('/', ' ')
                 parts = cleaned.split()
                 if parts and parts[0].isdigit():
-                    anchors[idx] = max(1, min(max_days, int(parts[0])))
+                    val = int(parts[0])
+                    if 1 <= val <= max_days:
+                        anchors[idx] = val
 
     # Pastikan Anchor Awal & Akhir ada
     if 0 not in anchors:
@@ -103,17 +116,40 @@ def solve_chronological_dates(
             interp_day = round(day_a + t * (day_b - day_a))
             final_days[k] = max(1, min(max_days, interp_day))
 
-    # 3. Forward Clamp: Menjamin Monoton Naik (Date[k] >= Date[k-1])
+    # 3. Same-Time Date Locking Constraint (Aturan #37):
+    # Jika dua transaksi berurutan memiliki jam yang identik, kunci tanggal keduanya agar sama persis
+    if baseline_times:
+        # Forward pass: jika jam sama dengan sebelumnya dan belum eksplisit di-anchor di masa depan, samakan
+        for k in range(1, num_rows):
+            if k < len(baseline_times) and (k - 1) < len(baseline_times):
+                if baseline_times[k] == baseline_times[k - 1]:
+                    if k in anchors and (k - 1) not in anchors:
+                        final_days[k - 1] = final_days[k]
+                    else:
+                        final_days[k] = final_days[k - 1]
+
+    # 4. Forward Clamp: Menjamin Monoton Naik (Date[k] >= Date[k-1])
     for k in range(1, num_rows):
         if final_days[k] is None or final_days[k] < final_days[k - 1]:
             final_days[k] = final_days[k - 1]
             
-    # 4. Backward Clamp: Menjamin Anchor Target Tidak Dilanggar (Date[k] <= Date[k+1])
+    # 5. Backward Clamp: Menjamin Anchor Target Tidak Dilanggar (Date[k] <= Date[k+1])
     for k in range(num_rows - 2, -1, -1):
         if final_days[k] > final_days[k + 1]:
             final_days[k] = final_days[k + 1]
 
-    # 5. Format Menjadi String Tanggal Resmi Xara
+    # Re-apply Same-Time Locking setelah clamping untuk menjamin 100% konsistensi
+    if baseline_times:
+        for k in range(1, num_rows):
+            if k < len(baseline_times) and (k - 1) < len(baseline_times):
+                if baseline_times[k] == baseline_times[k - 1]:
+                    if final_days[k] != final_days[k - 1]:
+                        # Pilih tanggal anchor atau tanggal yang lebih besar
+                        d_lock = max(final_days[k], final_days[k - 1])
+                        final_days[k] = d_lock
+                        final_days[k - 1] = d_lock
+
+    # 6. Format Menjadi String Tanggal Resmi Xara
     formatted_dates = []
     for d in final_days:
         formatted_dates.append(f"{d:02d} {month_label}")

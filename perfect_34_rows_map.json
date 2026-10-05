@@ -1,0 +1,939 @@
+[
+  {
+    "row_no": 1,
+    "nom_primary": 1453,
+    "nom_splits": [],
+    "nom_tag150": 1442,
+    "nom_tag2100": 1437,
+    "nom_tag2206": 1452,
+    "nom_tag2204": null,
+    "saldo_primary": 1473,
+    "saldo_splits": [
+      1478
+    ],
+    "saldo_tag150": 1462,
+    "saldo_tag2100": 1457,
+    "saldo_tag2206": 1472,
+    "saldo_tag2204": null,
+    "time_primary": 1498,
+    "time_splits": [],
+    "date_primary": 1518,
+    "date_splits": [
+      1523
+    ],
+    "orig_nom": "-500.000,00",
+    "orig_saldo": "154.955,00",
+    "orig_time": "4:12:29 WIB",
+    "orig_date": "01 Sep 2025"
+  },
+  {
+    "row_no": 2,
+    "nom_primary": 1614,
+    "nom_splits": [
+      1609
+    ],
+    "nom_tag150": 1598,
+    "nom_tag2100": 1593,
+    "nom_tag2206": 1608,
+    "nom_tag2204": null,
+    "saldo_primary": 1634,
+    "saldo_splits": [],
+    "saldo_tag150": 1623,
+    "saldo_tag2100": 1618,
+    "saldo_tag2206": 1633,
+    "saldo_tag2204": null,
+    "time_primary": 1654,
+    "time_splits": [
+      1659
+    ],
+    "date_primary": 1679,
+    "date_splits": [
+      1684
+    ],
+    "orig_nom": "-14.000,00",
+    "orig_saldo": "140.955,00",
+    "orig_time": "18:44:56 WIB",
+    "orig_date": "01 Sep 2025"
+  },
+  {
+    "row_no": 3,
+    "nom_primary": 1786,
+    "nom_splits": [
+      1781
+    ],
+    "nom_tag150": 1770,
+    "nom_tag2100": 1765,
+    "nom_tag2206": 1780,
+    "nom_tag2204": null,
+    "saldo_primary": 1806,
+    "saldo_splits": [
+      1811
+    ],
+    "saldo_tag150": 1795,
+    "saldo_tag2100": 1790,
+    "saldo_tag2206": 1805,
+    "saldo_tag2204": null,
+    "time_primary": 1831,
+    "time_splits": [],
+    "date_primary": 1851,
+    "date_splits": [
+      1856
+    ],
+    "orig_nom": "+510.000,00",
+    "orig_saldo": "650.955,00",
+    "orig_time": "0:17:05 WIB",
+    "orig_date": "01 Sep 2025"
+  },
+  {
+    "row_no": 4,
+    "nom_primary": 1952,
+    "nom_splits": [],
+    "nom_tag150": 1941,
+    "nom_tag2100": 1936,
+    "nom_tag2206": 1951,
+    "nom_tag2204": null,
+    "saldo_primary": 1972,
+    "saldo_splits": [
+      1977
+    ],
+    "saldo_tag150": 1961,
+    "saldo_tag2100": 1956,
+    "saldo_tag2206": 1971,
+    "saldo_tag2204": null,
+    "time_primary": 1997,
+    "time_splits": [],
+    "date_primary": 2017,
+    "date_splits": [
+      2022
+    ],
+    "orig_nom": "-500.000,00",
+    "orig_saldo": "150.955,00",
+    "orig_time": "20:51:14 WIB",
+    "orig_date": "01 Sep 2025"
+  },
+  {
+    "row_no": 5,
+    "nom_primary": 2108,
+    "nom_splits": [],
+    "nom_tag150": 2097,
+    "nom_tag2100": 2092,
+    "nom_tag2206": 2107,
+    "nom_tag2204": null,
+    "saldo_primary": 2128,
+    "saldo_splits": [
+      2133
+    ],
+    "saldo_tag150": 2117,
+    "saldo_tag2100": 2112,
+    "saldo_tag2206": 2127,
+    "saldo_tag2204": null,
+    "time_primary": 2153,
+    "time_splits": [],
+    "date_primary": 2173,
+    "date_splits": [
+      2178
+    ],
+    "orig_nom": "-30.000,00",
+    "orig_saldo": "120.955,00",
+    "orig_time": "12:04:48 WIB",
+    "orig_date": "02 Sep 2025"
+  },
+  {
+    "row_no": 6,
+    "nom_primary": 2274,
+    "nom_splits": [],
+    "nom_tag150": 2263,
+    "nom_tag2100": 2258,
+    "nom_tag2206": 2273,
+    "nom_tag2204": null,
+    "saldo_primary": 2294,
+    "saldo_splits": [
+      2299
+    ],
+    "saldo_tag150": 2283,
+    "saldo_tag2100": 2278,
+    "saldo_tag2206": 2293,
+    "saldo_tag2204": null,
+    "time_primary": 2319,
+    "time_splits": [],
+    "date_primary": 2339,
+    "date_splits": [
+      2344
+    ],
+    "orig_nom": "-90.000,00",
+    "orig_saldo": "30.955,00",
+    "orig_time": "15:44:38 WIB",
+    "orig_date": "02 Sep 2025"
+  },
+  {
+    "row_no": 7,
+    "nom_primary": 2432,
+    "nom_splits": [],
+    "nom_tag150": 2421,
+    "nom_tag2100": 2416,
+    "nom_tag2206": 2431,
+    "nom_tag2204": null,
+    "saldo_primary": 2452,
+    "saldo_splits": [
+      2457
+    ],
+    "saldo_tag150": 2441,
+    "saldo_tag2100": 2436,
+    "saldo_tag2206": 2451,
+    "saldo_tag2204": null,
+    "time_primary": 2477,
+    "time_splits": [],
+    "date_primary": 2497,
+    "date_splits": [
+      2502
+    ],
+    "orig_nom": "+731.000,00",
+    "orig_saldo": "761.955,00",
+    "orig_time": "6:14:48 WIB",
+    "orig_date": "02 Sep 2025"
+  },
+  {
+    "row_no": 8,
+    "nom_primary": 2593,
+    "nom_splits": [],
+    "nom_tag150": 2582,
+    "nom_tag2100": 2577,
+    "nom_tag2206": 2592,
+    "nom_tag2204": null,
+    "saldo_primary": 2613,
+    "saldo_splits": [
+      2618
+    ],
+    "saldo_tag150": 2602,
+    "saldo_tag2100": 2597,
+    "saldo_tag2206": 2612,
+    "saldo_tag2204": null,
+    "time_primary": 2638,
+    "time_splits": [],
+    "date_primary": 2658,
+    "date_splits": [
+      2663
+    ],
+    "orig_nom": "-30.000,00",
+    "orig_saldo": "731.955,00",
+    "orig_time": "18:50:21 WIB",
+    "orig_date": "02 Sep 2025"
+  },
+  {
+    "row_no": 9,
+    "nom_primary": 2760,
+    "nom_splits": [],
+    "nom_tag150": 2749,
+    "nom_tag2100": 2744,
+    "nom_tag2206": 2759,
+    "nom_tag2204": null,
+    "saldo_primary": 2780,
+    "saldo_splits": [
+      2785
+    ],
+    "saldo_tag150": 2769,
+    "saldo_tag2100": 2764,
+    "saldo_tag2206": 2779,
+    "saldo_tag2204": null,
+    "time_primary": 2805,
+    "time_splits": [],
+    "date_primary": 2825,
+    "date_splits": [
+      2830
+    ],
+    "orig_nom": "+500.000,00",
+    "orig_saldo": "1.231.955,00",
+    "orig_time": "0:54:27 WIB",
+    "orig_date": "02 Sep 2025"
+  },
+  {
+    "row_no": 10,
+    "nom_primary": 2942,
+    "nom_splits": [],
+    "nom_tag150": 2931,
+    "nom_tag2100": 2926,
+    "nom_tag2206": 2941,
+    "nom_tag2204": null,
+    "saldo_primary": 2962,
+    "saldo_splits": [
+      2967
+    ],
+    "saldo_tag150": 2951,
+    "saldo_tag2100": 2946,
+    "saldo_tag2206": 2961,
+    "saldo_tag2204": null,
+    "time_primary": 2987,
+    "time_splits": [],
+    "date_primary": 3007,
+    "date_splits": [
+      3012
+    ],
+    "orig_nom": "-600.000,00",
+    "orig_saldo": "631.955,00",
+    "orig_time": "20:59:57 WIB",
+    "orig_date": "02 Sep 2025"
+  },
+  {
+    "row_no": 11,
+    "nom_primary": 3971,
+    "nom_splits": [],
+    "nom_tag150": 3960,
+    "nom_tag2100": 3955,
+    "nom_tag2206": 3970,
+    "nom_tag2204": null,
+    "saldo_primary": 3991,
+    "saldo_splits": [
+      3996
+    ],
+    "saldo_tag150": 3980,
+    "saldo_tag2100": 3975,
+    "saldo_tag2206": 3990,
+    "saldo_tag2204": null,
+    "time_primary": 4016,
+    "time_splits": [],
+    "date_primary": 4036,
+    "date_splits": [
+      4041
+    ],
+    "orig_nom": "-100.000,00",
+    "orig_saldo": "531.955,00",
+    "orig_time": "9:41:50 WIB",
+    "orig_date": "03 Sep 2025"
+  },
+  {
+    "row_no": 12,
+    "nom_primary": 4124,
+    "nom_splits": [
+      4129
+    ],
+    "nom_tag150": 4113,
+    "nom_tag2100": 4108,
+    "nom_tag2206": 4123,
+    "nom_tag2204": null,
+    "saldo_primary": 4149,
+    "saldo_splits": [
+      4154
+    ],
+    "saldo_tag150": 4138,
+    "saldo_tag2100": 4133,
+    "saldo_tag2206": 4148,
+    "saldo_tag2204": null,
+    "time_primary": 4174,
+    "time_splits": [],
+    "date_primary": 4194,
+    "date_splits": [
+      4199
+    ],
+    "orig_nom": "-501.500,00",
+    "orig_saldo": "30.455,00",
+    "orig_time": "9:43:53 WIB",
+    "orig_date": "03 Sep 2025"
+  },
+  {
+    "row_no": 13,
+    "nom_primary": 4287,
+    "nom_splits": [
+      4292
+    ],
+    "nom_tag150": 4276,
+    "nom_tag2100": 4271,
+    "nom_tag2206": 4286,
+    "nom_tag2204": null,
+    "saldo_primary": 4312,
+    "saldo_splits": [
+      4317
+    ],
+    "saldo_tag150": 4301,
+    "saldo_tag2100": 4296,
+    "saldo_tag2206": 4311,
+    "saldo_tag2204": null,
+    "time_primary": 4337,
+    "time_splits": [],
+    "date_primary": 4357,
+    "date_splits": [
+      4362
+    ],
+    "orig_nom": "+519.000,00",
+    "orig_saldo": "549.455,00",
+    "orig_time": "3:15:49 WIB",
+    "orig_date": "03 Sep 2025"
+  },
+  {
+    "row_no": 14,
+    "nom_primary": 4454,
+    "nom_splits": [],
+    "nom_tag150": 4443,
+    "nom_tag2100": 4438,
+    "nom_tag2206": 4453,
+    "nom_tag2204": null,
+    "saldo_primary": 4474,
+    "saldo_splits": [
+      4479
+    ],
+    "saldo_tag150": 4463,
+    "saldo_tag2100": 4458,
+    "saldo_tag2206": 4473,
+    "saldo_tag2204": null,
+    "time_primary": 4499,
+    "time_splits": [],
+    "date_primary": 4519,
+    "date_splits": [
+      4524
+    ],
+    "orig_nom": "-400.000,00",
+    "orig_saldo": "149.455,00",
+    "orig_time": "5:22:37 WIB",
+    "orig_date": "03 Sep 2025"
+  },
+  {
+    "row_no": 15,
+    "nom_primary": 4612,
+    "nom_splits": [],
+    "nom_tag150": 4601,
+    "nom_tag2100": 4596,
+    "nom_tag2206": 4611,
+    "nom_tag2204": null,
+    "saldo_primary": 4632,
+    "saldo_splits": [
+      4637
+    ],
+    "saldo_tag150": 4621,
+    "saldo_tag2100": 4616,
+    "saldo_tag2206": 4631,
+    "saldo_tag2204": null,
+    "time_primary": 4657,
+    "time_splits": [
+      4662
+    ],
+    "date_primary": 4682,
+    "date_splits": [
+      4687
+    ],
+    "orig_nom": "+500.000,00",
+    "orig_saldo": "649.455,00",
+    "orig_time": "2:18:09 WIB",
+    "orig_date": "04 Sep 2025"
+  },
+  {
+    "row_no": 16,
+    "nom_primary": 4799,
+    "nom_splits": [],
+    "nom_tag150": 4788,
+    "nom_tag2100": 4783,
+    "nom_tag2206": 4798,
+    "nom_tag2204": null,
+    "saldo_primary": 4819,
+    "saldo_splits": [],
+    "saldo_tag150": 4808,
+    "saldo_tag2100": 4803,
+    "saldo_tag2206": 4818,
+    "saldo_tag2204": null,
+    "time_primary": 4839,
+    "time_splits": [
+      4844
+    ],
+    "date_primary": 4864,
+    "date_splits": [
+      4869
+    ],
+    "orig_nom": "-378.107,00",
+    "orig_saldo": "271.348,00",
+    "orig_time": "02:40:58 WIB",
+    "orig_date": "04 Sep 2025"
+  },
+  {
+    "row_no": 17,
+    "nom_primary": 4952,
+    "nom_splits": [],
+    "nom_tag150": 4941,
+    "nom_tag2100": 4936,
+    "nom_tag2206": 4951,
+    "nom_tag2204": null,
+    "saldo_primary": 4972,
+    "saldo_splits": [
+      4977
+    ],
+    "saldo_tag150": 4961,
+    "saldo_tag2100": 4956,
+    "saldo_tag2206": 4971,
+    "saldo_tag2204": null,
+    "time_primary": 4997,
+    "time_splits": [],
+    "date_primary": 5017,
+    "date_splits": [
+      5022
+    ],
+    "orig_nom": "-119.000,00",
+    "orig_saldo": "152.348,00",
+    "orig_time": "6:52:40 WIB",
+    "orig_date": "04 Sep 2025"
+  },
+  {
+    "row_no": 18,
+    "nom_primary": 5110,
+    "nom_splits": [
+      5115
+    ],
+    "nom_tag150": 5099,
+    "nom_tag2100": 5094,
+    "nom_tag2206": 5109,
+    "nom_tag2204": null,
+    "saldo_primary": 5135,
+    "saldo_splits": [
+      5140
+    ],
+    "saldo_tag150": 5124,
+    "saldo_tag2100": 5119,
+    "saldo_tag2206": 5134,
+    "saldo_tag2204": null,
+    "time_primary": 5160,
+    "time_splits": [],
+    "date_primary": 5180,
+    "date_splits": [
+      5185
+    ],
+    "orig_nom": "+642.000,00",
+    "orig_saldo": "794.348,00",
+    "orig_time": "2:21:33 WIB",
+    "orig_date": "04 Sep 2025"
+  },
+  {
+    "row_no": 19,
+    "nom_primary": 5277,
+    "nom_splits": [],
+    "nom_tag150": 5266,
+    "nom_tag2100": 5261,
+    "nom_tag2206": 5276,
+    "nom_tag2204": null,
+    "saldo_primary": 5297,
+    "saldo_splits": [
+      5302
+    ],
+    "saldo_tag150": 5286,
+    "saldo_tag2100": 5281,
+    "saldo_tag2206": 5296,
+    "saldo_tag2204": null,
+    "time_primary": 5322,
+    "time_splits": [
+      5327
+    ],
+    "date_primary": 5347,
+    "date_splits": [
+      5352
+    ],
+    "orig_nom": "-92.000,00",
+    "orig_saldo": "702.348,00",
+    "orig_time": "8:01:50 WIB",
+    "orig_date": "04 Sep 2025"
+  },
+  {
+    "row_no": 20,
+    "nom_primary": 5455,
+    "nom_splits": [],
+    "nom_tag150": 5444,
+    "nom_tag2100": 5439,
+    "nom_tag2206": 5454,
+    "nom_tag2204": null,
+    "saldo_primary": 5475,
+    "saldo_splits": [
+      5480
+    ],
+    "saldo_tag150": 5464,
+    "saldo_tag2100": 5459,
+    "saldo_tag2206": 5474,
+    "saldo_tag2204": null,
+    "time_primary": 5500,
+    "time_splits": [
+      5505
+    ],
+    "date_primary": 5525,
+    "date_splits": [
+      5530
+    ],
+    "orig_nom": "-300.000,00",
+    "orig_saldo": "402.348,00",
+    "orig_time": "8:06:28 WIB",
+    "orig_date": "04 Sep 2025"
+  },
+  {
+    "row_no": 21,
+    "nom_primary": 5637,
+    "nom_splits": [],
+    "nom_tag150": 5626,
+    "nom_tag2100": 5621,
+    "nom_tag2206": 5636,
+    "nom_tag2204": null,
+    "saldo_primary": 5657,
+    "saldo_splits": [
+      5662
+    ],
+    "saldo_tag150": 5646,
+    "saldo_tag2100": 5641,
+    "saldo_tag2206": 5656,
+    "saldo_tag2204": null,
+    "time_primary": 5682,
+    "time_splits": [],
+    "date_primary": 5702,
+    "date_splits": [
+      5707
+    ],
+    "orig_nom": "-40.000,00",
+    "orig_saldo": "362.348,00",
+    "orig_time": "21:43:18 WIB",
+    "orig_date": "04 Sep 2025"
+  },
+  {
+    "row_no": 22,
+    "nom_primary": 5805,
+    "nom_splits": [],
+    "nom_tag150": 5794,
+    "nom_tag2100": 5789,
+    "nom_tag2206": 5804,
+    "nom_tag2204": null,
+    "saldo_primary": 5825,
+    "saldo_splits": [
+      5830
+    ],
+    "saldo_tag150": 5814,
+    "saldo_tag2100": 5809,
+    "saldo_tag2206": 5824,
+    "saldo_tag2204": null,
+    "time_primary": 5850,
+    "time_splits": [],
+    "date_primary": 5870,
+    "date_splits": [
+      5875
+    ],
+    "orig_nom": "-30.000,00",
+    "orig_saldo": "332.348,00",
+    "orig_time": "02:40:47 WIB",
+    "orig_date": "05 Sep 2025"
+  },
+  {
+    "row_no": 23,
+    "nom_primary": 6856,
+    "nom_splits": [],
+    "nom_tag150": 6845,
+    "nom_tag2100": 6840,
+    "nom_tag2206": 6855,
+    "nom_tag2204": null,
+    "saldo_primary": 6876,
+    "saldo_splits": [
+      6881
+    ],
+    "saldo_tag150": 6865,
+    "saldo_tag2100": 6860,
+    "saldo_tag2206": 6875,
+    "saldo_tag2204": null,
+    "time_primary": 6901,
+    "time_splits": [],
+    "date_primary": 6921,
+    "date_splits": [
+      6926
+    ],
+    "orig_nom": "+70.000,00",
+    "orig_saldo": "402.348,00",
+    "orig_time": "3:14:55 WIB",
+    "orig_date": "05 Sep 2025"
+  },
+  {
+    "row_no": 24,
+    "nom_primary": 7034,
+    "nom_splits": [
+      7039
+    ],
+    "nom_tag150": 7023,
+    "nom_tag2100": 7018,
+    "nom_tag2206": 7033,
+    "nom_tag2204": null,
+    "saldo_primary": 7059,
+    "saldo_splits": [
+      7064
+    ],
+    "saldo_tag150": 7048,
+    "saldo_tag2100": 7043,
+    "saldo_tag2206": 7058,
+    "saldo_tag2204": null,
+    "time_primary": 7084,
+    "time_splits": [],
+    "date_primary": 7104,
+    "date_splits": [
+      7109
+    ],
+    "orig_nom": "-152.999,00",
+    "orig_saldo": "249.349,00",
+    "orig_time": "06:14:12 WIB",
+    "orig_date": "06 Sep 2025"
+  },
+  {
+    "row_no": 25,
+    "nom_primary": 7216,
+    "nom_splits": [
+      7221
+    ],
+    "nom_tag150": 7205,
+    "nom_tag2100": 7200,
+    "nom_tag2206": 7215,
+    "nom_tag2204": null,
+    "saldo_primary": 7246,
+    "saldo_splits": [
+      7241,
+      7251
+    ],
+    "saldo_tag150": 7230,
+    "saldo_tag2100": 7225,
+    "saldo_tag2206": 7240,
+    "saldo_tag2204": null,
+    "time_primary": 7271,
+    "time_splits": [
+      7276
+    ],
+    "date_primary": 7296,
+    "date_splits": [
+      7301
+    ],
+    "orig_nom": "-220.000,00",
+    "orig_saldo": "29.349,00",
+    "orig_time": "06:18:02 WIB",
+    "orig_date": "06 Sep 2025"
+  },
+  {
+    "row_no": 26,
+    "nom_primary": 7438,
+    "nom_splits": [
+      7443
+    ],
+    "nom_tag150": 7427,
+    "nom_tag2100": 7422,
+    "nom_tag2206": 7437,
+    "nom_tag2204": null,
+    "saldo_primary": 7463,
+    "saldo_splits": [],
+    "saldo_tag150": 7452,
+    "saldo_tag2100": 7447,
+    "saldo_tag2206": 7462,
+    "saldo_tag2204": null,
+    "time_primary": 7483,
+    "time_splits": [],
+    "date_primary": 7503,
+    "date_splits": [
+      7508
+    ],
+    "orig_nom": "+152.999,00",
+    "orig_saldo": "182.348,00",
+    "orig_time": "6:56:12 WIB",
+    "orig_date": "06 Sep 2025"
+  },
+  {
+    "row_no": 27,
+    "nom_primary": 7591,
+    "nom_splits": [],
+    "nom_tag150": 7580,
+    "nom_tag2100": 7575,
+    "nom_tag2206": 7590,
+    "nom_tag2204": null,
+    "saldo_primary": 7611,
+    "saldo_splits": [],
+    "saldo_tag150": 7600,
+    "saldo_tag2100": 7595,
+    "saldo_tag2206": 7610,
+    "saldo_tag2204": null,
+    "time_primary": 7631,
+    "time_splits": [],
+    "date_primary": 7651,
+    "date_splits": [
+      7656
+    ],
+    "orig_nom": "-50.500,00",
+    "orig_saldo": "131.848,00",
+    "orig_time": "7:46:39 WIB",
+    "orig_date": "06 Sep 2025"
+  },
+  {
+    "row_no": 28,
+    "nom_primary": 7772,
+    "nom_splits": [],
+    "nom_tag150": 7761,
+    "nom_tag2100": 7756,
+    "nom_tag2206": 7771,
+    "nom_tag2204": null,
+    "saldo_primary": 7792,
+    "saldo_splits": [
+      7797
+    ],
+    "saldo_tag150": 7781,
+    "saldo_tag2100": 7776,
+    "saldo_tag2206": 7791,
+    "saldo_tag2204": null,
+    "time_primary": 7817,
+    "time_splits": [],
+    "date_primary": 7837,
+    "date_splits": [
+      7842
+    ],
+    "orig_nom": "-100.257,00",
+    "orig_saldo": "31.591,00",
+    "orig_time": "07:55:03 WIB",
+    "orig_date": "06 Sep 2025"
+  },
+  {
+    "row_no": 29,
+    "nom_primary": 7949,
+    "nom_splits": [],
+    "nom_tag150": 7938,
+    "nom_tag2100": 7933,
+    "nom_tag2206": 7948,
+    "nom_tag2204": null,
+    "saldo_primary": 7969,
+    "saldo_splits": [
+      7974
+    ],
+    "saldo_tag150": 7958,
+    "saldo_tag2100": 7953,
+    "saldo_tag2206": 7968,
+    "saldo_tag2204": null,
+    "time_primary": 7994,
+    "time_splits": [],
+    "date_primary": 8014,
+    "date_splits": [
+      8019
+    ],
+    "orig_nom": "-6.000,00",
+    "orig_saldo": "25.591,00",
+    "orig_time": "20:38:12 WIB",
+    "orig_date": "06 Sep 2025"
+  },
+  {
+    "row_no": 30,
+    "nom_primary": 8126,
+    "nom_splits": [],
+    "nom_tag150": 8115,
+    "nom_tag2100": 8110,
+    "nom_tag2206": 8125,
+    "nom_tag2204": null,
+    "saldo_primary": 8146,
+    "saldo_splits": [
+      8151
+    ],
+    "saldo_tag150": 8135,
+    "saldo_tag2100": 8130,
+    "saldo_tag2206": 8145,
+    "saldo_tag2204": null,
+    "time_primary": 8171,
+    "time_splits": [],
+    "date_primary": 8191,
+    "date_splits": [
+      8196
+    ],
+    "orig_nom": "+500.000,00",
+    "orig_saldo": "525.591,00",
+    "orig_time": "21:07:33 WIB",
+    "orig_date": "06 Sep 2025"
+  },
+  {
+    "row_no": 31,
+    "nom_primary": 8317,
+    "nom_splits": [],
+    "nom_tag150": 8306,
+    "nom_tag2100": 8301,
+    "nom_tag2206": 8316,
+    "nom_tag2204": null,
+    "saldo_primary": 8337,
+    "saldo_splits": [
+      8342
+    ],
+    "saldo_tag150": 8326,
+    "saldo_tag2100": 8321,
+    "saldo_tag2206": 8336,
+    "saldo_tag2204": null,
+    "time_primary": 8362,
+    "time_splits": [],
+    "date_primary": 8382,
+    "date_splits": [
+      8387
+    ],
+    "orig_nom": "-500.000,00",
+    "orig_saldo": "25.591,00",
+    "orig_time": "22:50:06 WIB",
+    "orig_date": "06 Sep 2025"
+  },
+  {
+    "row_no": 32,
+    "nom_primary": 8494,
+    "nom_splits": [],
+    "nom_tag150": 8483,
+    "nom_tag2100": 8478,
+    "nom_tag2206": 8493,
+    "nom_tag2204": null,
+    "saldo_primary": 8514,
+    "saldo_splits": [
+      8519
+    ],
+    "saldo_tag150": 8503,
+    "saldo_tag2100": 8498,
+    "saldo_tag2206": 8513,
+    "saldo_tag2204": null,
+    "time_primary": 8539,
+    "time_splits": [],
+    "date_primary": 8559,
+    "date_splits": [
+      8564
+    ],
+    "orig_nom": "+500.000,00",
+    "orig_saldo": "525.591,00",
+    "orig_time": "02:10:44 WIB",
+    "orig_date": "08 Sep 2025"
+  },
+  {
+    "row_no": 33,
+    "nom_primary": 8671,
+    "nom_splits": [],
+    "nom_tag150": 8660,
+    "nom_tag2100": 8655,
+    "nom_tag2206": 8670,
+    "nom_tag2204": null,
+    "saldo_primary": 8691,
+    "saldo_splits": [],
+    "saldo_tag150": 8680,
+    "saldo_tag2100": 8675,
+    "saldo_tag2206": 8690,
+    "saldo_tag2204": null,
+    "time_primary": 8711,
+    "time_splits": [],
+    "date_primary": 8731,
+    "date_splits": [
+      8736
+    ],
+    "orig_nom": "-428.788,00",
+    "orig_saldo": "96.803,00",
+    "orig_time": "02:21:16 WIB",
+    "orig_date": "08 Sep 2025"
+  },
+  {
+    "row_no": 34,
+    "nom_primary": 8824,
+    "nom_splits": [],
+    "nom_tag150": 8813,
+    "nom_tag2100": 8808,
+    "nom_tag2206": 8823,
+    "nom_tag2204": null,
+    "saldo_primary": 8844,
+    "saldo_splits": [
+      8849
+    ],
+    "saldo_tag150": 8833,
+    "saldo_tag2100": 8828,
+    "saldo_tag2206": 8843,
+    "saldo_tag2204": null,
+    "time_primary": 8869,
+    "time_splits": [],
+    "date_primary": 8889,
+    "date_splits": [
+      8894
+    ],
+    "orig_nom": "-2.000,00",
+    "orig_saldo": "94.803,00",
+    "orig_time": "9:25:21 WIB",
+    "orig_date": "08 Sep 2025"
+  }
+]

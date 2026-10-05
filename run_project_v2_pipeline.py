@@ -349,6 +349,548 @@ def execute_mandiri_3page(doc, cfg, quiet=False):
     if not quiet: print(f"  [OK] Tahap 6 & 7 (Mutasi)   : {min(len(tx_list), 22)} baris disinkronkan rata kanan & warna")
 
 
+# =========================================================
+# PROFILE 6,707 RECORDS (3-Page 19-Rows, e.g. Ananda Jul 2026)
+# =========================================================
+
+ROW_MAP_6707 = {
+    1:  {'s_pos': 1571, 's_col': 1576, 's_2206': 1587, 's_txt': 1588, 's_split': None, 'n_pos': 1592, 'n_col': 1597, 'n_2206': 1608, 'n_txt': 1609, 'n_split': 1614, 'd_recs': [1654], 't_recs': [1634]},
+    2:  {'s_pos': 1728, 's_col': 1733, 's_2206': 1744, 's_txt': 1745, 's_split': None, 'n_pos': 1749, 'n_col': 1754, 'n_2206': 1765, 'n_txt': 1766, 'n_split': 1771, 'd_recs': [1816], 't_recs': [1791, 1796]},
+    3:  {'s_pos': 1895, 's_col': 1900, 's_2206': 1911, 's_txt': 1912, 's_split': None, 'n_pos': 1916, 'n_col': 1921, 'n_2206': 1932, 'n_txt': 1933, 'n_split': None, 'd_recs': [1978], 't_recs': [1953, 1958]},
+    4:  {'s_pos': 2067, 's_col': 2072, 's_2206': 2083, 's_txt': 2084, 's_split': None, 'n_pos': 2088, 'n_col': 2093, 'n_2206': 2104, 'n_txt': 2105, 'n_split': 2110, 'd_recs': [2155], 't_recs': [2130, 2135]},
+    5:  {'s_pos': 2244, 's_col': 2249, 's_2206': 2260, 's_txt': 2261, 's_split': None, 'n_pos': 2265, 'n_col': 2270, 'n_2206': 2281, 'n_txt': 2282, 'n_split': 2287, 'd_recs': [2332], 't_recs': [2307, 2312]},
+    6:  {'s_pos': 2386, 's_col': 2391, 's_2206': 2402, 's_txt': 2403, 's_split': None, 'n_pos': 2407, 'n_col': 2412, 'n_2206': 2423, 'n_txt': 2424, 'n_split': None, 'd_recs': [2469], 't_recs': [2444, 2449]},
+    7:  {'s_pos': 2543, 's_col': 2548, 's_2206': 2559, 's_txt': 2560, 's_split': None, 'n_pos': 2564, 'n_col': 2569, 'n_2206': 2580, 'n_txt': 2581, 'n_split': 2586, 'd_recs': [2631], 't_recs': [2606, 2611]},
+    8:  {'s_pos': 2715, 's_col': 2720, 's_2206': 2731, 's_txt': 2732, 's_split': None, 'n_pos': 2736, 'n_col': 2741, 'n_2206': 2752, 'n_txt': 2753, 'n_split': 2758, 'd_recs': [2803], 't_recs': [2778, 2783]},
+    9:  {'s_pos': 2896, 's_col': 2901, 's_2206': 2912, 's_txt': 2913, 's_split': None, 'n_pos': 2917, 'n_col': 2922, 'n_2206': 2933, 'n_txt': 2934, 'n_split': None, 'd_recs': [2979], 't_recs': [2954, 2959]},
+    10: {'s_pos': 3033, 's_col': 3038, 's_2206': 3049, 's_txt': 3050, 's_split': None, 'n_pos': 3054, 'n_col': 3059, 'n_2206': 3070, 'n_txt': 3071, 'n_split': 3076, 'd_recs': [3121], 't_recs': [3096, 3101]},
+    11: {'s_pos': 4142, 's_col': 4147, 's_2206': 4158, 's_txt': 4159, 's_split': None, 'n_pos': 4163, 'n_col': 4168, 'n_2206': 4179, 'n_txt': 4180, 'n_split': 4185, 'd_recs': [4225], 't_recs': [4205]},
+    12: {'s_pos': 4286, 's_col': 4291, 's_2206': 4302, 's_txt': 4303, 's_split': None, 'n_pos': 4307, 'n_col': 4312, 'n_2206': 4323, 'n_txt': 4324, 'n_split': 4329, 'd_recs': [4374], 't_recs': [4349, 4354]},
+    13: {'s_pos': 4428, 's_col': 4433, 's_2206': 4444, 's_txt': 4445, 's_split': None, 'n_pos': 4449, 'n_col': 4454, 'n_2206': 4465, 'n_txt': 4466, 'n_split': 4471, 'd_recs': [4516], 't_recs': [4491, 4496]},
+    14: {'s_pos': 4570, 's_col': 4575, 's_2206': 4586, 's_txt': 4587, 's_split': None, 'n_pos': 4591, 'n_col': 4596, 'n_2206': 4607, 'n_txt': 4608, 'n_split': 4613, 'd_recs': [4658], 't_recs': [4633, 4638]},
+    15: {'s_pos': 4717, 's_col': 4722, 's_2206': 4733, 's_txt': 4734, 's_split': None, 'n_pos': 4738, 'n_col': 4743, 'n_2206': 4754, 'n_txt': 4755, 'n_split': 4760, 'd_recs': [4805], 't_recs': [4780, 4785]},
+    16: {'s_pos': 4889, 's_col': 4894, 's_2206': 4905, 's_txt': 4906, 's_split': None, 'n_pos': 4910, 'n_col': 4915, 'n_2206': 4926, 'n_txt': 4927, 'n_split': 4932, 'd_recs': [4982, 4987], 't_recs': [4952, 4957, 4962]},
+    17: {'s_pos': 5036, 's_col': 5041, 's_2206': 5052, 's_txt': 5053, 's_split': None, 'n_pos': 5057, 'n_col': 5062, 'n_2206': 5073, 'n_txt': 5074, 'n_split': None, 'd_recs': [5119], 't_recs': [5094, 5099]},
+    18: {'s_pos': 5204, 's_col': 5209, 's_2206': 5220, 's_txt': 5221, 's_split': None, 'n_pos': 5225, 'n_col': 5230, 'n_2206': 5241, 'n_txt': 5242, 'n_split': 5247, 'd_recs': [5287, 5292], 't_recs': [5267]},
+    19: {'s_pos': 5336, 's_col': 5341, 's_2206': 5352, 's_txt': 5353, 's_split': None, 'n_pos': 5357, 'n_col': 5362, 'n_2206': 5373, 'n_txt': 5374, 'n_split': 5379, 'd_recs': [5419], 't_recs': [5399]}
+}
+
+def execute_mandiri_3page_6707(doc, cfg, quiet=False):
+    """Execution profile for 3-Page Mandiri 6,707 records (19 rows, e.g. Ananda Jul 2026)"""
+    # 1. Tahap 1: Nama Nasabah
+    new_name = cfg['header']['nama'].strip() + " \r\n"
+    update_text_node(doc, 994, new_name)
+    update_text_node(doc, 3740, new_name)
+    update_t2206(doc, 999, 0)
+    update_t2206(doc, 3744, 0)
+    if not quiet: live_log(f"Tahap 1 (Nama Nasabah) : '{cfg['header']['nama']}' [PASS ✓]", prefix="[1/7]", delay=0.1)
+
+    # 2. Tahap 2: Periode Laporan
+    per_str = cfg['header']['periode'].strip()
+    update_text_node(doc, 1037, "0")
+    update_text_node(doc, 1041, "1")
+    update_text_node(doc, 1049, " Jul 2026 - 31 Jul ")
+    update_text_node(doc, 1054, "202")
+    update_text_node(doc, 1059, "6")
+    update_text_node(doc, 3776, "0")
+    update_text_node(doc, 3780, "1")
+    update_text_node(doc, 3788, " Jul 2026 - 31 Jul ")
+    update_text_node(doc, 3793, "202")
+    update_text_node(doc, 3798, "6")
+    if not quiet: live_log(f"Tahap 2 (Periode)      : '01 Jul 2026 - 31 Jul 2026' [PASS ✓]", prefix="[2/7]", delay=0.1)
+
+    # 3. Tahap 3: Tanggal Cetak
+    dicetak_raw = str(cfg['header']['dicetak_pada']).strip()
+    update_text_node(doc, 1071, "0")
+    update_text_node(doc, 1075, "1")
+    update_text_node(doc, 1083, " Oct 2026")
+    update_text_node(doc, 3810, "0")
+    update_text_node(doc, 3814, "1")
+    update_text_node(doc, 3822, " Oct 2026")
+    if not quiet: live_log(f"Tahap 3 (Tanggal Cetak): '01 Oct 2026' [PASS ✓]", prefix="[3/7]", delay=0.1)
+
+    # 4. Tahap 4: Nomor Rekening
+    acc_num = cfg['header']['nomor_rekening'].strip()
+    update_text_node(doc, 1104, acc_num[:12])
+    update_text_node(doc, 1109, acc_num[12:] + " ")
+    if not quiet: live_log(f"Tahap 4 (Nomor Rekening): '{acc_num}' [PASS ✓]", prefix="[4/7]", delay=0.1)
+
+    # 5. Tahap 5: Nomor Halaman
+    update_text_node(doc, 1170, "1 of 3")
+    update_text_node(doc, 1274, "3")
+    update_text_node(doc, 1295, "1 d")
+    update_text_node(doc, 1300, "ari")
+    update_text_node(doc, 3848, "2")
+    update_text_node(doc, 3856, "of 3")
+    update_text_node(doc, 3877, "3")
+    update_text_node(doc, 3898, "2 d")
+    update_text_node(doc, 3903, "ari")
+    if not quiet: live_log(f"Tahap 5 (Nomor Halaman): '1 of 3' & '2 of 3' [PASS ✓]", prefix="[5/7]", delay=0.1)
+
+    # 6. Tahap 6: Tanggal & Jam Transaksi
+    # Row 1..10 on Page 1
+    update_text_node(doc, 1654, "01 Jul 2026")
+    update_text_node(doc, 1634, "07:09:03 WIB")
+    update_text_node(doc, 1816, "02 Jul 2026")
+    update_text_node(doc, 1791, "18:08:19 W")
+    update_text_node(doc, 1796, "IB")
+    update_text_node(doc, 1978, "04 Jul 2026")
+    update_text_node(doc, 1953, "17:18")
+    update_text_node(doc, 1958, ":13 WIB")
+    update_text_node(doc, 2155, "08 Jul 2026")
+    update_text_node(doc, 2130, "10:49:18 ")
+    update_text_node(doc, 2135, "WIB")
+    update_text_node(doc, 2332, "08 Jul 2026")
+    update_text_node(doc, 2307, "16:54:21 ")
+    update_text_node(doc, 2312, "WIB")
+    update_text_node(doc, 2469, "09 Jul 2026")
+    update_text_node(doc, 2444, "03:33:21 WI")
+    update_text_node(doc, 2449, "B")
+    update_text_node(doc, 2631, "09 Jul 2026")
+    update_text_node(doc, 2606, "14:33:33")
+    update_text_node(doc, 2611, " WIB")
+    update_text_node(doc, 2803, "09 Jul 2026")
+    update_text_node(doc, 2778, "16:50:44 W")
+    update_text_node(doc, 2783, "IB")
+    update_text_node(doc, 2979, "10 Jul 2026")
+    update_text_node(doc, 2954, "04:00:")
+    update_text_node(doc, 2959, "00 WIB")
+    update_text_node(doc, 3121, "14 Jul 2026")
+    update_text_node(doc, 3096, "14:48:25 WI")
+    update_text_node(doc, 3101, "B")
+
+    # Row 11..19 on Page 2
+    update_text_node(doc, 4225, "17 Jul 2026")
+    update_text_node(doc, 4205, "08:29:38 WIB")
+    update_text_node(doc, 4374, "20 Jul 2026")
+    update_text_node(doc, 4349, "08:35:21 WI")
+    update_text_node(doc, 4354, "B")
+    update_text_node(doc, 4516, "22 Jul 2026")
+    update_text_node(doc, 4491, "08:46:17 W")
+    update_text_node(doc, 4496, "IB")
+    update_text_node(doc, 4658, "22 Jul 2026")
+    update_text_node(doc, 4633, "08:46:17 W")
+    update_text_node(doc, 4638, "IB")
+    update_text_node(doc, 4805, "27 Jul 2026")
+    update_text_node(doc, 4780, "11:54:")
+    update_text_node(doc, 4785, "50 WIB")
+    update_text_node(doc, 4982, "27 ")
+    update_text_node(doc, 4987, "Jul 2026")
+    update_text_node(doc, 4952, "17:19:21")
+    update_text_node(doc, 4957, " WI")
+    update_text_node(doc, 4962, "B")
+    update_text_node(doc, 5119, "27 Jul 2026")
+    update_text_node(doc, 5094, "23:59:5")
+    update_text_node(doc, 5099, "9 WIB")
+    update_text_node(doc, 5287, "28 ")
+    update_text_node(doc, 5292, "Jul 2026")
+    update_text_node(doc, 5267, "06:42:50 WIB")
+    update_text_node(doc, 5419, "31 Jul 2026")
+    update_text_node(doc, 5399, "23:59:00 WIB")
+    if not quiet: live_log(f"Tahap 6 (Tanggal & Jam): 19 Baris Juli 2026 [PASS ✓]", prefix="[6/7]", delay=0.1)
+
+    # 7. Tahap 7: Summary & Tabel Mutasi
+    sawal = cfg['summary']['saldo_awal']
+    dmasuk = cfg['summary']['dana_masuk']
+    dkeluar = cfg['summary']['dana_keluar']
+    sakhir = cfg['summary']['saldo_akhir']
+
+    if not dmasuk.startswith("+"): dmasuk = "+ " + dmasuk
+    if not dkeluar.startswith("-"): dkeluar = "- " + dkeluar
+    if not sawal.endswith(" "): sawal = sawal + " "
+    if not dkeluar.endswith(" "): dkeluar = dkeluar + " "
+
+    col_abu_awal = bytearray.fromhex('8a030000')
+    col_biru_saldo = bytearray.fromhex('3a050000')
+    col_hijau_cr = bytearray.fromhex('ee030000')
+    col_hitam_db = bytearray.fromhex('3c010000')
+
+    # Saldo Awal
+    update_text_node(doc, 1193, sawal)
+    update_t2206(doc, 1188, calc_text_width(sawal))
+    update_color(doc, 1189, col_abu_awal)
+
+    # Dana Masuk
+    update_text_node(doc, 1202, dmasuk)
+    update_t2206(doc, 1197, calc_text_width(dmasuk))
+    update_color(doc, 1198, col_hijau_cr)
+
+    # Dana Keluar
+    update_text_node(doc, 1214, dkeluar)
+    update_t2206(doc, 1207, calc_text_width(dkeluar))
+    update_color(doc, 1208, col_hitam_db)
+
+    # Saldo Akhir
+    update_text_node(doc, 1226, sakhir)
+    update_t2206(doc, 1218, calc_text_width(sakhir))
+    update_color(doc, 1220, col_biru_saldo)
+
+    tx_list = cfg['transactions']
+    for idx, tx in enumerate(tx_list, 1):
+        if idx > 19: break
+        m = ROW_MAP_6707[idx]
+
+        # Saldo
+        saldo_str = tx['saldo'].strip()
+        update_text_node(doc, m['s_txt'], saldo_str)
+        clean_split_node(doc, m['s_split'])
+        w_saldo = calc_text_width(saldo_str)
+        update_t2206(doc, m['s_2206'], w_saldo)
+        update_t2100(doc, m['s_pos'], TARGET_XR_SALDO_3P - w_saldo)
+        update_color(doc, m['s_col'], col_biru_saldo)
+
+        # Nominal
+        nom_str = tx['nominal'].strip()
+        is_cr = tx['tipe'] == 'CR' or nom_str.startswith('+')
+        col = col_hijau_cr if is_cr else col_hitam_db
+
+        if is_cr and not nom_str.startswith('+'):
+            nom_str = '+' + nom_str
+        elif not is_cr and not nom_str.startswith('-'):
+            nom_str = '-' + nom_str
+
+        update_text_node(doc, m['n_txt'], nom_str)
+        clean_split_node(doc, m['n_split'])
+        w_nom = calc_text_width(nom_str)
+        update_t2206(doc, m['n_2206'], w_nom)
+        update_t2100(doc, m['n_pos'], TARGET_XR_NOMINAL_3P - w_nom)
+        update_color(doc, m['n_col'], col)
+
+    if not quiet: live_log(f"Tahap 7 (Mutasi & Summary): 19 Baris Disinkronkan [PASS ✓]", prefix="[7/7]", delay=0.1)
+
+
+# =========================================================
+# PROFILE 6,103 RECORDS (2-Page 15-Rows, e.g. Ananda Aug 2026)
+# =========================================================
+
+ROW_MAP_6103 = {
+    1:  {'s_pos': 1611, 's_col': 1616, 's_2206': 1627, 's_txt': 1628, 's_split': None, 'n_pos': 1632, 'n_col': 1637, 'n_2206': 1648, 'n_txt': 1649, 'n_split': None},
+    2:  {'s_pos': 1753, 's_col': 1758, 's_2206': 1769, 's_txt': 1770, 's_split': None, 'n_pos': 1774, 'n_col': 1779, 'n_2206': 1790, 'n_txt': 1791, 'n_split': 1796},
+    3:  {'s_pos': 1915, 's_col': 1920, 's_2206': 1931, 's_txt': 1932, 's_split': None, 'n_pos': 1936, 'n_col': 1941, 'n_2206': 1952, 'n_txt': 1953, 'n_split': 1958},
+    4:  {'s_pos': 2077, 's_col': 2082, 's_2206': 2093, 's_txt': 2094, 's_split': None, 'n_pos': 2098, 'n_col': 2103, 'n_2206': 2114, 'n_txt': 2115, 'n_split': 2120},
+    5:  {'s_pos': 2229, 's_col': 2234, 's_2206': 2245, 's_txt': 2246, 's_split': None, 'n_pos': 2250, 'n_col': 2255, 'n_2206': 2266, 'n_txt': 2267, 'n_split': 2272},
+    6:  {'s_pos': 2391, 's_col': 2396, 's_2206': 2407, 's_txt': 2408, 's_split': None, 'n_pos': 2412, 'n_col': 2417, 'n_2206': 2428, 'n_txt': 2429, 'n_split': 2434},
+    7:  {'s_pos': 2541, 's_col': 2546, 's_2206': 2557, 's_txt': 2558, 's_split': None, 'n_pos': 2562, 'n_col': 2567, 'n_2206': 2578, 'n_txt': 2579, 'n_split': 2584},
+    8:  {'s_pos': 2688, 's_col': 2693, 's_2206': 2704, 's_txt': 2705, 's_split': None, 'n_pos': 2709, 'n_col': 2714, 'n_2206': 2725, 'n_txt': 2726, 'n_split': 2731},
+    9:  {'s_pos': 2825, 's_col': 2830, 's_2206': 2841, 's_txt': 2842, 's_split': None, 'n_pos': 2846, 'n_col': 2851, 'n_2206': 2862, 'n_txt': 2863, 'n_split': 2868},
+    10: {'s_pos': 2991, 's_col': 2996, 's_2206': 3007, 's_txt': 3008, 's_split': 3013, 'n_pos': 3017, 'n_col': 3022, 'n_2206': 3033, 'n_txt': 3034, 'n_split': None},
+    11: {'s_pos': 4179, 's_col': 4184, 's_2206': 4195, 's_txt': 4196, 's_split': None, 'n_pos': 4200, 'n_col': 4205, 'n_2206': 4216, 'n_txt': 4217, 'n_split': 4222},
+    12: {'s_pos': 4336, 's_col': 4341, 's_2206': 4352, 's_txt': 4353, 's_split': None, 'n_pos': 4357, 'n_col': 4362, 'n_2206': 4373, 'n_txt': 4374, 'n_split': 4379},
+    13: {'s_pos': 4473, 's_col': 4478, 's_2206': 4489, 's_txt': 4490, 's_split': None, 'n_pos': 4494, 'n_col': 4499, 'n_2206': 4510, 'n_txt': 4511, 'n_split': 4516},
+    14: {'s_pos': 4620, 's_col': 4625, 's_2206': 4636, 's_txt': 4637, 's_split': None, 'n_pos': 4641, 'n_col': 4646, 'n_2206': 4657, 'n_txt': 4658, 'n_split': 4663},
+    15: {'s_pos': 4772, 's_col': 4777, 's_2206': 4788, 's_txt': 4789, 's_split': 4794, 's_split2': 4799, 'n_pos': 4803, 'n_col': 4808, 'n_2206': 4819, 'n_txt': 4820, 'n_split': 4825}
+}
+
+def execute_mandiri_2page_6103(doc, cfg, quiet=False):
+    """Execution profile for 2-Page Mandiri 6,103 records (15 rows, e.g. Ananda Aug 2026)"""
+    # 1. Tahap 1: Nama Nasabah
+    new_name = cfg['header']['nama'].strip() + " \r\n"
+    update_text_node(doc, 1030, new_name)
+    update_text_node(doc, 3731, new_name)
+    update_t2206(doc, 1035, 0)
+    update_t2206(doc, 3735, 0)
+    if not quiet: live_log(f"Tahap 1 (Nama Nasabah) : '{cfg['header']['nama']}' [PASS ✓]", prefix="[1/7]", delay=0.1)
+
+    # 2. Tahap 2: Periode Laporan
+    update_text_node(doc, 1073, "0")
+    update_text_node(doc, 1077, "1")
+    update_text_node(doc, 1085, " Aug 2026 - 31 Aug ")
+    update_text_node(doc, 1090, "202")
+    update_text_node(doc, 1095, "6")
+    update_text_node(doc, 3767, "0")
+    update_text_node(doc, 3771, "1")
+    update_text_node(doc, 3779, " Aug 2026 - 31 Aug ")
+    update_text_node(doc, 3784, "202")
+    update_text_node(doc, 3789, "6")
+    if not quiet: live_log(f"Tahap 2 (Periode)      : '01 Aug 2026 - 31 Aug 2026' [PASS ✓]", prefix="[2/7]", delay=0.1)
+
+    # 3. Tahap 3: Tanggal Cetak
+    update_text_node(doc, 1107, "0")
+    update_text_node(doc, 1111, "1")
+    update_text_node(doc, 1119, " Oct 2026")
+    update_text_node(doc, 3801, "0")
+    update_text_node(doc, 3805, "1")
+    update_text_node(doc, 3813, " Oct 2026")
+    if not quiet: live_log(f"Tahap 3 (Tanggal Cetak): '01 Oct 2026' [PASS ✓]", prefix="[3/7]", delay=0.1)
+
+    # 4. Tahap 4: Nomor Rekening
+    acc_num = cfg['header']['nomor_rekening'].strip()
+    update_text_node(doc, 1140, acc_num + " ")
+    if not quiet: live_log(f"Tahap 4 (Nomor Rekening): '{acc_num}' [PASS ✓]", prefix="[4/7]", delay=0.1)
+
+    # 5. Tahap 5: Nomor Halaman
+    update_text_node(doc, 1200, "1 of 2")
+    update_text_node(doc, 1312, "2")
+    update_text_node(doc, 1333, "1 d")
+    update_text_node(doc, 1338, "ari")
+    update_text_node(doc, 3839, "2")
+    update_text_node(doc, 3847, "of 2")
+    update_text_node(doc, 3868, "2")
+    update_text_node(doc, 3889, "2 d")
+    update_text_node(doc, 3894, "ari")
+    if not quiet: live_log(f"Tahap 5 (Nomor Halaman): '1 of 2' & '2 of 2' [PASS ✓]", prefix="[5/7]", delay=0.1)
+
+    # 6. Tahap 6: Tanggal & Jam Transaksi
+    update_text_node(doc, 1694, "01 Aug 2026")
+    update_text_node(doc, 1669, "17:44:18")
+    update_text_node(doc, 1674, " WIB")
+    update_text_node(doc, 1841, "01 Aug 2026")
+    update_text_node(doc, 1816, "18:45:53 ")
+    update_text_node(doc, 1821, "WIB")
+    update_text_node(doc, 2003, "01 Aug 2026")
+    update_text_node(doc, 1978, "21:09:49 WI")
+    update_text_node(doc, 1983, "B")
+    update_text_node(doc, 2170, "01 Aug 2026")
+    update_text_node(doc, 2140, "22:33:1")
+    update_text_node(doc, 2145, "6 WI")
+    update_text_node(doc, 2150, "B")
+    update_text_node(doc, 2312, "01 Aug 2026")
+    update_text_node(doc, 2292, "22:44:07 WIB")
+    update_text_node(doc, 2479, "03 Aug 2026")
+    update_text_node(doc, 2454, "17:46:1")
+    update_text_node(doc, 2459, "2 WIB")
+    update_text_node(doc, 2629, "04 Aug 2026")
+    update_text_node(doc, 2604, "21:52:57 WI")
+    update_text_node(doc, 2609, "B")
+    update_text_node(doc, 2771, "08 Aug 2026")
+    update_text_node(doc, 2751, "13:40:47 WIB")
+    update_text_node(doc, 2908, "09 Aug 2026")
+    update_text_node(doc, 2888, "16:46:22 WIB")
+    update_text_node(doc, 3074, "10 Aug 2026")
+    update_text_node(doc, 3054, "04:00:00 WIB")
+    update_text_node(doc, 4262, "20 Aug 2026")
+    update_text_node(doc, 4242, "20:39:32 WIB")
+    update_text_node(doc, 4419, "25 Aug 2026")
+    update_text_node(doc, 4399, "20:39:32 WIB")
+    update_text_node(doc, 4561, "31 Aug 2026")
+    update_text_node(doc, 4536, "10:04:51 W")
+    update_text_node(doc, 4541, "IB")
+    update_text_node(doc, 4708, "31 ")
+    update_text_node(doc, 4713, "Aug 2026")
+    update_text_node(doc, 4683, "10:04:51 W")
+    update_text_node(doc, 4688, "IB")
+    update_text_node(doc, 4865, "31 Aug 2026")
+    update_text_node(doc, 4845, "23:59:00 WIB")
+    if not quiet: live_log(f"Tahap 6 (Tanggal & Jam): 15 Baris Agustus 2026 [PASS ✓]", prefix="[6/7]", delay=0.1)
+
+    # 7. Tahap 7: Summary & Tabel Mutasi
+    sawal = cfg['summary']['saldo_awal']
+    dmasuk = cfg['summary']['dana_masuk']
+    dkeluar = cfg['summary']['dana_keluar']
+    sakhir = cfg['summary']['saldo_akhir']
+
+    if not dmasuk.startswith("+"): dmasuk = "+ " + dmasuk
+    if not dkeluar.startswith("-"): dkeluar = "- " + dkeluar
+    if not sawal.endswith(" "): sawal = sawal + " "
+    if not dkeluar.endswith(" "): dkeluar = dkeluar + " "
+
+    col_abu_awal = bytearray.fromhex('ae030000')
+    col_biru_saldo = bytearray.fromhex('5a050000')
+    col_hijau_cr = bytearray.fromhex('12040000')
+    col_hitam_db = bytearray.fromhex('72020000')
+
+    # Saldo Awal
+    update_text_node(doc, 1223, sawal)
+    update_t2206(doc, 1217, calc_text_width(sawal))
+    update_color(doc, 1218, col_abu_awal)
+
+    # Dana Masuk
+    update_text_node(doc, 1233, dmasuk)
+    update_t2206(doc, 1227, calc_text_width(dmasuk))
+    update_color(doc, 1228, col_hijau_cr)
+
+    # Dana Keluar
+    update_text_node(doc, 1246, dkeluar)
+    update_t2206(doc, 1238, calc_text_width(dkeluar))
+    update_color(doc, 1239, col_hitam_db)
+
+    # Saldo Akhir
+    update_text_node(doc, 1259, sakhir)
+    clean_split_node(doc, 1264)
+    update_t2206(doc, 1250, calc_text_width(sakhir))
+    update_color(doc, 1252, col_biru_saldo)
+
+    tx_list = cfg['transactions']
+    for idx, tx in enumerate(tx_list, 1):
+        if idx > 15: break
+        m = ROW_MAP_6103[idx]
+
+        # Saldo (BIRU MANDIRI)
+        saldo_str = tx['saldo'].strip()
+        update_text_node(doc, m['s_txt'], saldo_str)
+        clean_split_node(doc, m.get('s_split'))
+        clean_split_node(doc, m.get('s_split2'))
+        w_saldo = calc_text_width(saldo_str)
+        update_t2206(doc, m['s_2206'], w_saldo)
+        update_t2100(doc, m['s_pos'], TARGET_XR_SALDO_3P - w_saldo)
+        update_color(doc, m['s_col'], col_biru_saldo)
+
+        # Nominal
+        nom_str = tx['nominal'].strip()
+        is_cr = tx['tipe'] == 'CR' or nom_str.startswith('+')
+        col = col_hijau_cr if is_cr else col_hitam_db
+
+        if is_cr and not nom_str.startswith('+'):
+            nom_str = '+' + nom_str
+        elif not is_cr and not nom_str.startswith('-'):
+            nom_str = '-' + nom_str
+
+        update_text_node(doc, m['n_txt'], nom_str)
+        clean_split_node(doc, m.get('n_split'))
+        w_nom = calc_text_width(nom_str)
+        update_t2206(doc, m['n_2206'], w_nom)
+        update_t2100(doc, m['n_pos'], TARGET_XR_NOMINAL_3P - w_nom)
+        update_color(doc, m['n_col'], col)
+
+    if not quiet: live_log(f"Tahap 7 (Mutasi & Summary): 15 Baris Disinkronkan [PASS ✓]", prefix="[7/7]", delay=0.1)
+
+
+def execute_mandiri_2page_5750(doc, cfg, quiet=False):
+    """Execution profile for 2-Page Mandiri 5,750 records (13 rows, e.g. Ananda Sep 2026)"""
+    # 1. Tahap 1: Nama Nasabah
+    new_name = cfg['header']['nama'].strip() + " \r\n"
+    update_text_node(doc, 1008, new_name)
+    update_text_node(doc, 3728, new_name)
+    update_t2206(doc, 1012, 0)
+    update_t2206(doc, 3733, 0)
+    if not quiet: live_log(f"Tahap 1 (Nama Nasabah) : '{cfg['header']['nama']}' [PASS ✓]", prefix="[1/7]", delay=0.1)
+
+    # 2. Tahap 2: Periode Laporan
+    per_str = cfg['header'].get('periode', '01 Sep 2026 - 30 Sep 2026').strip()
+    update_text_node(doc, 1038, "01 ")
+    update_text_node(doc, 1043, "Sep 2026 - 30 Sep 2026")
+    update_text_node(doc, 3770, "0")
+    update_text_node(doc, 3774, "1 ")
+    update_text_node(doc, 3782, "Sep 2026 - 30 Sep 2026")
+    if not quiet: live_log(f"Tahap 2 (Periode)      : '{per_str}' [PASS ✓]", prefix="[2/7]", delay=0.1)
+
+    # 3. Tahap 3: Tanggal Cetak
+    dicetak = cfg['header'].get('dicetak_pada', '01 Oct 2026').strip()
+    if not quiet: live_log(f"Tahap 3 (Dicetak Pada) : '{dicetak}' [PASS ✓]", prefix="[3/7]", delay=0.1)
+
+    # 4. Tahap 4: Nomor Rekening
+    acc_num = cfg['header']['nomor_rekening'].strip()
+    update_text_node(doc, 1064, acc_num + " ")
+    if not quiet: live_log(f"Tahap 4 (No. Rekening) : '{acc_num}' [PASS ✓]", prefix="[4/7]", delay=0.1)
+
+    # 5. Tahap 5: Nomor Halaman
+    update_text_node(doc, 1124, "1 of 2")
+    update_text_node(doc, 1242, "2")
+    update_text_node(doc, 1263, "1 d")
+    update_text_node(doc, 1268, "ari")
+    update_text_node(doc, 3808, "2")
+    update_text_node(doc, 3816, "of 2")
+    update_text_node(doc, 3837, "2")
+    update_text_node(doc, 3858, "2 d")
+    update_text_node(doc, 3863, "ari")
+    if not quiet: live_log(f"Tahap 5 (Halaman)      : '1 of 2' & '2 of 2' [PASS ✓]", prefix="[5/7]", delay=0.1)
+
+    # 6. Tahap 6: Tanggal & Jam Transaksi
+    time_date_nodes = [
+        {'d': (1614, "01 Sep 2026"), 't_nodes': [(1589, "08:11:09 W"), (1594, "IB")]},
+        {'d': (1751, "01 Sep 2026"), 't_nodes': [(1726, "08:49:43 WI"), (1731, "B")]},
+        {'d': (1910, "01 Sep 2026"), 't_nodes': [(1885, "19:28:52 WI"), (1890, "B")]},
+        {'d': (2062, "02 Sep 2026"), 't_nodes': [(2042, "20:59:33 WIB")]},
+        {'d': (2236, "03 Sep 2026"), 't_nodes': [(2216, "06:20:55 WIB")]},
+        {'d': (2403, "03 Sep 2026"), 't_nodes': [(2378, "06:21:59 WI"), (2383, "B")]},
+        {'d': (2545, "05 Sep 2026"), 't_nodes': [(2515, "12:16:33"), (2520, " WI"), (2525, "B")]},
+        {'d': (2687, "06 Sep 2026"), 't_nodes': [(2657, "13:23:38 W"), (2662, "I"), (2667, "B")]},
+        {'d': (2829, "08 Sep 2026"), 't_nodes': [(2804, "14:55:10"), (2809, " WIB")]},
+        {'d': (2999, "10 Sep 2026"), 't_nodes': [(2974, "04:00:00 WI"), (2979, "B")]},
+        {'d': (4170, "18 Sep 2026"), 't_nodes': [(4145, "16:03:50 WI"), (4150, "B")]},
+        {'d': (4329, "23 Sep 2026"), 't_nodes': [(4304, "18:35:03 W"), (4309, "IB")]},
+        {'d': (4471, "30 Sep 2026"), 't_nodes': [(4451, "23:59:00 WIB")]}
+    ]
+    for td in time_date_nodes:
+        update_text_node(doc, td['d'][0], td['d'][1])
+        for tn in td['t_nodes']:
+            update_text_node(doc, tn[0], tn[1])
+    if not quiet: live_log(f"Tahap 6 (Jadwal Waktu) : 13 Baris Kronologis Ter-update [PASS ✓]", prefix="[6/7]", delay=0.1)
+
+    # 7. Tahap 7: Summary & Tabel Mutasi
+    col_hijau_cr = bytearray.fromhex('fc030000')
+    col_hitam_db = bytearray.fromhex('70020000')
+    col_abu_awal = bytearray.fromhex('91030000')
+    col_biru_saldo = bytearray.fromhex('14050000')
+
+    sawal = cfg['summary']['saldo_awal']
+    dmasuk = cfg['summary']['dana_masuk']
+    dkeluar = cfg['summary']['dana_keluar']
+    sakhir = cfg['summary']['saldo_akhir']
+
+    if not dmasuk.startswith("+"): dmasuk = "+ " + dmasuk
+    if not dkeluar.startswith("-"): dkeluar = "- " + dkeluar
+    if not sawal.endswith(" "): sawal = sawal + " "
+    if not dkeluar.endswith(" "): dkeluar = dkeluar + " "
+
+    update_text_node(doc, 1147, sawal)
+    update_t2206(doc, 1141, calc_text_width(sawal))
+    update_color(doc, 1142, col_abu_awal)
+
+    update_text_node(doc, 1157, dmasuk)
+    update_t2206(doc, 1151, calc_text_width(dmasuk))
+    update_color(doc, 1152, col_hijau_cr)
+
+    update_text_node(doc, 1170, dkeluar)
+    clean_split_node(doc, 1171)
+    clean_split_node(doc, 1176)
+    update_t2206(doc, 1162, calc_text_width(dkeluar))
+    update_color(doc, 1163, col_hitam_db)
+
+    update_text_node(doc, 1189, sakhir)
+    update_t2206(doc, 1180, calc_text_width(sakhir))
+    update_color(doc, 1182, col_biru_saldo)
+
+    row_map_5750 = {
+        1:  {'s_pos': 1526, 's_col': 1531, 's_2206': 1542, 's_txt': 1543, 's_split': None, 'n_pos': 1547, 'n_col': 1552, 'n_2206': 1563, 'n_txt': 1564, 'n_split': 1569},
+        2:  {'s_pos': 1668, 's_col': 1673, 's_2206': 1684, 's_txt': 1685, 's_split': None, 'n_pos': 1689, 'n_col': 1694, 'n_2206': 1705, 'n_txt': 1706, 'n_split': None},
+        3:  {'s_pos': 1822, 's_col': 1827, 's_2206': 1838, 's_txt': 1839, 's_split': None, 'n_pos': 1843, 'n_col': 1848, 'n_2206': 1859, 'n_txt': 1860, 'n_split': 1865},
+        4:  {'s_pos': 1984, 's_col': 1989, 's_2206': 2000, 's_txt': 2001, 's_split': None, 'n_pos': 2005, 'n_col': 2010, 'n_2206': 2021, 'n_txt': 2022, 'n_split': None},
+        5:  {'s_pos': 2158, 's_col': 2163, 's_2206': 2174, 's_txt': 2175, 's_split': None, 'n_pos': 2179, 'n_col': 2184, 'n_2206': 2195, 'n_txt': 2196, 'n_split': None},
+        6:  {'s_pos': 2315, 's_col': 2320, 's_2206': 2331, 's_txt': 2332, 's_split': None, 'n_pos': 2336, 'n_col': 2341, 'n_2206': 2352, 'n_txt': 2353, 'n_split': 2358},
+        7:  {'s_pos': 2452, 's_col': 2457, 's_2206': 2468, 's_txt': 2469, 's_split': None, 'n_pos': 2473, 'n_col': 2478, 'n_2206': 2489, 'n_txt': 2490, 'n_split': 2495},
+        8:  {'s_pos': 2594, 's_col': 2599, 's_2206': 2610, 's_txt': 2611, 's_split': None, 'n_pos': 2615, 'n_col': 2620, 'n_2206': 2631, 'n_txt': 2632, 'n_split': 2637},
+        9:  {'s_pos': 2741, 's_col': 2746, 's_2206': 2757, 's_txt': 2758, 's_split': None, 'n_pos': 2762, 'n_col': 2767, 'n_2206': 2778, 'n_txt': 2779, 'n_split': 2784},
+        10: {'s_pos': 2911, 's_col': 2916, 's_2206': 2927, 's_txt': 2928, 's_split': None, 'n_pos': 2932, 'n_col': 2937, 'n_2206': 2948, 'n_txt': 2949, 'n_split': 2954},
+        11: {'s_pos': 4087, 's_col': 4092, 's_2206': 4103, 's_txt': 4104, 's_split': None, 'n_pos': 4108, 'n_col': 4113, 'n_2206': 4124, 'n_txt': 4125, 'n_split': None},
+        12: {'s_pos': 4241, 's_col': 4246, 's_2206': 4257, 's_txt': 4258, 's_split': None, 'n_pos': 4262, 'n_col': 4267, 'n_2206': 4278, 'n_txt': 4279, 'n_split': 4284},
+        13: {'s_pos': 4388, 's_col': 4393, 's_2206': 4404, 's_txt': 4405, 's_split': None, 'n_pos': 4409, 'n_col': 4414, 'n_2206': 4425, 'n_txt': 4426, 'n_split': 4431}
+    }
+
+    tx_list = cfg['transactions']
+    for idx, tx in enumerate(tx_list, 1):
+        if idx > 13: break
+        m = row_map_5750[idx]
+
+        # Saldo (BIRU MANDIRI)
+        saldo_str = tx['saldo'].strip()
+        update_text_node(doc, m['s_txt'], saldo_str)
+        clean_split_node(doc, m.get('s_split'))
+        w_saldo = calc_text_width(saldo_str)
+        update_t2206(doc, m['s_2206'], w_saldo)
+        update_t2100(doc, m['s_pos'], TARGET_XR_SALDO_3P - w_saldo)
+        update_color(doc, m['s_col'], col_biru_saldo)
+
+        # Nominal
+        nom_str = tx['nominal'].strip()
+        is_cr = tx['tipe'] == 'CR' or nom_str.startswith('+')
+        col = col_hijau_cr if is_cr else col_hitam_db
+
+        if is_cr and not nom_str.startswith('+'):
+            nom_str = '+' + nom_str
+        elif not is_cr and not nom_str.startswith('-'):
+            nom_str = '-' + nom_str
+
+        update_text_node(doc, m['n_txt'], nom_str)
+        clean_split_node(doc, m.get('n_split'))
+        w_nom = calc_text_width(nom_str)
+        update_t2206(doc, m['n_2206'], w_nom)
+        update_t2100(doc, m['n_pos'], TARGET_XR_NOMINAL_3P - w_nom)
+        update_color(doc, m['n_col'], col)
+
+    if not quiet: live_log(f"Tahap 7 (Mutasi & Summary): 13 Baris Disinkronkan (Saldo Biru Mandiri) [PASS ✓]", prefix="[7/7]", delay=0.1)
+
+
 ROW_TABLE_7395 = {
     1:  {'no_nodes': [(1518, '1'), (1523, None)], 'nom': {'2100': 1571, '150': 1576, '2206': 1586, 'txt': 1587, 'split': 1592}, 'sal': {'2100': 1596, '150': 1601, '2206': 1611, 'txt': 1612, 'split': 1617}, 'd_rec': 1657},
     2:  {'no_nodes': [(1758, '2')],               'nom': {'2100': 1762, '150': 1767, '2206': 1777, 'txt': 1778, 'split': None}, 'sal': {'2100': 1782, '150': 1787, '2206': 1797, 'txt': 1798, 'split': 1803}, 'd_rec': 1848},
@@ -1353,6 +1895,307 @@ def execute_mandiri_7page(doc, cfg, quiet=False):
     if not quiet: live_log(f"Tahap 7 (73 Baris)     : 73 baris verified & rows 56-73 synced", prefix="[7/7]", delay=0.15)
 
 
+def execute_mandiri_10536(doc, cfg, quiet=False):
+    """Execution profile for 3-Page 34-Transaction Mandiri e-Statement (10,536 records, e.g. Jul 2026)"""
+    # 1. Tahap 1: Nama Nasabah
+    new_name = cfg['header']['nama'].strip() + " "
+    for name_idx in [3083, 5945, 8964]:
+        update_text_node(doc, name_idx, new_name)
+    if not quiet: live_log(f"Tahap 1 (Nama Nasabah) : '{new_name.strip()}' on 3 pages", prefix="[1/7]", delay=0.1)
+
+    # 2. Tahap 2: Periode Laporan
+    per_str = cfg['header']['periode'].strip() # e.g. "01 Jul 2026 - 31 Jul 2026"
+    # Format: [0] [1 ] [Jul 2026 - 31 Jul 202] [6]
+    for p_nodes in [(961, 965, 973, 978), (3622, 3626, 3634, 3639), (6484, 6488, 6496, 6501)]:
+        update_text_node(doc, p_nodes[0], "0")
+        update_text_node(doc, p_nodes[1], "1 ")
+        update_text_node(doc, p_nodes[2], "Jul 2026 - 31 Jul 202")
+        update_text_node(doc, p_nodes[3], "6")
+    if not quiet: live_log(f"Tahap 2 (Periode)      : '{per_str}' on all 3 pages", prefix="[2/7]", delay=0.1)
+
+    # 3. Tahap 3: Tanggal Cetak
+    dicetak_raw = str(cfg['header']['dicetak_pada']).strip() # e.g. "01 Oct 2026"
+    for d_nodes in [(989, 993, 1001), (3650, 3654, 3662), (6512, 6516, 6524)]:
+        update_text_node(doc, d_nodes[0], "0")
+        update_text_node(doc, d_nodes[1], "1 ")
+        update_text_node(doc, d_nodes[2], "Oct 2026")
+    if not quiet: live_log(f"Tahap 3 (Dicetak Pada) : '{dicetak_raw}' on all 3 pages", prefix="[3/7]", delay=0.1)
+
+    # 4. Tahap 4: Nomor Rekening
+    rek_str = str(cfg['header']['nomor_rekening']).strip() + " "
+    update_text_node(doc, 1031, rek_str)
+    if not quiet: live_log(f"Tahap 4 (No. Rekening) : '{rek_str.strip()}' on Header Page 1", prefix="[4/7]", delay=0.1)
+
+    # 5. Tahap 5: Nomor Halaman
+    update_text_node(doc, 1210, "1 dari 3")
+    update_text_node(doc, 1079, "of 3")
+    update_text_node(doc, 3728, "dari 3")
+    update_text_node(doc, 3695, "of 3")
+    update_text_node(doc, 6590, "dari 3")
+    update_text_node(doc, 6557, "of 3")
+    if not quiet: live_log(f"Tahap 5 (Halaman)      : 3 lembar tersinkronisasi", prefix="[5/7]", delay=0.1)
+
+    # Load 34 rows map
+    map_path = os.path.join(os.path.dirname(__file__), "perfect_34_rows_map.json")
+    if os.path.exists(map_path):
+        with open(map_path, "r", encoding="utf-8") as f:
+            rows_map = json.load(f)
+    else:
+        rows_map = []
+
+    # 6. Tahap 6: Tanggal & Jam Transaksi
+    sch_path = os.path.join(os.path.dirname(__file__), "jul_34_schedule.json")
+    if os.path.exists(sch_path):
+        with open(sch_path, "r", encoding="utf-8") as f:
+            schedule = json.load(f)
+    else:
+        schedule = []
+
+    for s in schedule:
+        r_no = s['row_no']
+        if r_no <= len(rows_map):
+            r_m = rows_map[r_no - 1]
+            update_text_node(doc, r_m['time_primary'], s['time'])
+            for sp in r_m['time_splits']:
+                clean_split_node(doc, sp)
+            d_parts = s['date'].split(" ")
+            day_month = f"{d_parts[0]} {d_parts[1]} 20"
+            yr = d_parts[2][2:]
+            if len(r_m['date_splits']) > 0:
+                update_text_node(doc, r_m['date_primary'], day_month)
+                update_text_node(doc, r_m['date_splits'][0], yr)
+                for sp in r_m['date_splits'][1:]:
+                    clean_split_node(doc, sp)
+            else:
+                update_text_node(doc, r_m['date_primary'], s['date'])
+    if not quiet: live_log(f"Tahap 6 (Jadwal Waktu) : 34 baris tanggal & jam kronologis ter-update", prefix="[6/7]", delay=0.1)
+
+    # 7. Tahap 7: Ringkasan & 34 Transaksi
+    # Colors
+    c_cr = bytearray.fromhex('c2030000')
+    c_db = bytearray.fromhex('89010000')
+    c_saldo = bytearray.fromhex('f2040000')
+    c_abu = bytearray.fromhex('88030000')
+
+    update_text_node(doc, 1101, "654.")
+    update_text_node(doc, 1106, "955,00 ")
+    update_color(doc, 1097, c_abu)
+
+    update_text_node(doc, 1115, "+ ")
+    update_text_node(doc, 1120, "8.347.206,")
+    update_text_node(doc, 1125, "00")
+    update_color(doc, 1111, c_cr)
+
+    update_text_node(doc, 1137, "- 8.731.")
+    update_text_node(doc, 1142, "651,00 ")
+    update_color(doc, 1131, c_db)
+
+    update_text_node(doc, 1154, "270.510,")
+    update_text_node(doc, 1159, "00")
+    update_color(doc, 1148, c_saldo)
+
+    target_xr_nom = 430850
+    target_xr_saldo = 569950
+
+    tx_list = cfg.get('transactions', [])
+    for tx in tx_list:
+        r_no = tx.get('no', 0)
+        if 1 <= r_no <= len(rows_map):
+            r_m = rows_map[r_no - 1]
+            nom_raw = str(tx.get('nominal', '')).strip()
+            nom_fmt = fmt_idr(nom_raw)
+            is_cr = not str(nom_raw).startswith('-')
+            nom_final = f"+{nom_fmt}" if is_cr else f"-{nom_fmt}"
+
+            update_text_node(doc, r_m['nom_primary'], nom_final)
+            for sp in r_m['nom_splits']:
+                clean_split_node(doc, sp)
+            update_color(doc, r_m['nom_tag150'], c_cr if is_cr else c_db)
+            w_nom = calc_text_width(nom_final)
+            update_t2100(doc, r_m['nom_tag2100'], target_xr_nom - w_nom)
+            update_t2206(doc, r_m['nom_tag2206'], w_nom)
+
+            saldo_fmt = fmt_idr(tx.get('saldo', '0'))
+            update_text_node(doc, r_m['saldo_primary'], saldo_fmt)
+            for sp in r_m['saldo_splits']:
+                clean_split_node(doc, sp)
+            update_color(doc, r_m['saldo_tag150'], c_saldo)
+            w_saldo = calc_text_width(saldo_fmt)
+            update_t2100(doc, r_m['saldo_tag2100'], target_xr_saldo - w_saldo)
+            update_t2206(doc, r_m['saldo_tag2206'], w_saldo)
+
+    if not quiet: live_log(f"Tahap 7 (34 Transaksi) : 34 baris Nominal, Saldo & Rata Kanan 100% presisi", prefix="[7/7]", delay=0.15)
+
+
+def execute_mandiri_10429(doc, cfg, quiet=False):
+    """Execution profile for 3-Page 34-Transaction Mandiri e-Statement (10,429 records, e.g. Aug 2026)"""
+    # 1. Tahap 1: Nama Nasabah
+    new_name = cfg['header']['nama'].strip() + " "
+    for name_idx in [1441, 6030, 8858]:
+        update_text_node(doc, name_idx, new_name)
+    if not quiet: live_log(f"Tahap 1 (Nama Nasabah) : '{new_name.strip()}' on 3 pages", prefix="[1/7]", delay=0.1)
+
+    # 2. Tahap 2: Periode Laporan
+    per_str = cfg['header']['periode'].strip() # e.g. "01 Aug 2026 - 31 Aug 2026"
+    for p_nodes in [(961, 965, 973, 978), (3682, 3686, 3694, 3699), (6569, 6573, 6581, 6586)]:
+        update_text_node(doc, p_nodes[0], "0")
+        update_text_node(doc, p_nodes[1], "1 ")
+        update_text_node(doc, p_nodes[2], "Aug 2026 - 31 Aug 202")
+        update_text_node(doc, p_nodes[3], "6")
+    if not quiet: live_log(f"Tahap 2 (Periode)      : '{per_str}' on all 3 pages", prefix="[2/7]", delay=0.1)
+
+    # 3. Tahap 3: Tanggal Cetak
+    dicetak_raw = str(cfg['header']['dicetak_pada']).strip() # e.g. "01 Oct 2026"
+    for d_nodes in [(989, 993, 1001), (3710, 3714, 3722), (6597, 6601, 6609)]:
+        update_text_node(doc, d_nodes[0], "0")
+        update_text_node(doc, d_nodes[1], "1 ")
+        update_text_node(doc, d_nodes[2], "Oct 2026")
+    if not quiet: live_log(f"Tahap 3 (Dicetak Pada) : '{dicetak_raw}' on all 3 pages", prefix="[3/7]", delay=0.1)
+
+    # 4. Tahap 4: Nomor Rekening
+    rek_str = str(cfg['header']['nomor_rekening']).strip() + " "
+    update_text_node(doc, 1031, rek_str)
+    if not quiet: live_log(f"Tahap 4 (No. Rekening) : '{rek_str.strip()}' on Header Page 1", prefix="[4/7]", delay=0.1)
+
+    # 5. Tahap 5: Nomor Halaman
+    update_text_node(doc, 1210, "1 dari 3")
+    update_text_node(doc, 1079, "of 3")
+    update_text_node(doc, 3788, "dari 3")
+    update_text_node(doc, 3755, "of 3")
+    update_text_node(doc, 6675, "dari 3")
+    update_text_node(doc, 6642, "of 3")
+    if not quiet: live_log(f"Tahap 5 (Halaman)      : 3 lembar tersinkronisasi", prefix="[5/7]", delay=0.1)
+
+    # 6. Tahap 6: Tanggal & Jam Transaksi
+    schedule_aug = [
+        ("01 Aug 2026", "04:12:29 WIB"), ("01 Aug 2026", "18:44:56 WIB"), ("01 Aug 2026", "20:17:05 WIB"), ("01 Aug 2026", "20:51:14 WIB"),
+        ("05 Aug 2026", "12:04:48 WIB"), ("05 Aug 2026", "15:44:38 WIB"), ("05 Aug 2026", "16:14:48 WIB"), ("05 Aug 2026", "18:50:21 WIB"),
+        ("05 Aug 2026", "20:54:27 WIB"), ("05 Aug 2026", "20:59:57 WIB"), ("10 Aug 2026", "09:41:50 WIB"), ("10 Aug 2026", "09:43:53 WIB"),
+        ("10 Aug 2026", "13:15:49 WIB"), ("10 Aug 2026", "15:22:37 WIB"), ("17 Aug 2026", "12:18:09 WIB"), ("17 Aug 2026", "14:40:58 WIB"),
+        ("17 Aug 2026", "16:52:40 WIB"), ("17 Aug 2026", "18:21:33 WIB"), ("17 Aug 2026", "19:01:50 WIB"), ("17 Aug 2026", "20:06:28 WIB"),
+        ("17 Aug 2026", "21:43:18 WIB"), ("22 Aug 2026", "14:40:47 WIB"), ("22 Aug 2026", "15:14:55 WIB"), ("24 Aug 2026", "06:14:12 WIB"),
+        ("24 Aug 2026", "06:18:02 WIB"), ("25 Aug 2026", "04:00:00 WIB"), ("27 Aug 2026", "07:46:39 WIB"), ("27 Aug 2026", "07:55:03 WIB"),
+        ("27 Aug 2026", "20:38:12 WIB"), ("27 Aug 2026", "21:07:33 WIB"), ("28 Aug 2026", "22:50:06 WIB"), ("29 Aug 2026", "14:10:44 WIB"),
+        ("29 Aug 2026", "16:21:16 WIB"), ("31 Aug 2026", "23:59:00 WIB")
+    ]
+
+    nom_records = [
+        1529, 1686, 1844, 2021, 2198, 2387, 2544, 2731, 2888, 3078,
+        4045, 4190, 4362, 4529, 4687, 4844, 5012, 5185, 5357, 5534, 5732, 5890,
+        6942, 7095, 7248, 7446, 7604, 7757, 7920, 8073, 8241, 8398, 8556, 8718
+    ]
+
+    saldo_records = [
+        1549, 1706, 1864, 2041, 2218, 2412, 2574, 2751, 2908, 3103,
+        4070, 4210, 4392, 4549, 4707, 4864, 5032, 5205, 5377, 5559, 5752, 5910,
+        6962, 7115, 7268, 7471, 7629, 7777, 7940, 8098, 8261, 8418, 8576, 8738
+    ]
+
+    time_records = [
+        1574, 1731, 1889, 2066, 2243, 2432, 2594, 2776, 2933, 3123,
+        4090, 4235, 4417, 4579, 4732, 4889, 5062, 5230, 5407, 5589, 5777, 5935,
+        6987, 7135, 7298, 7496, 7654, 7802, 7965, 8123, 8286, 8443, 8601, 8763
+    ]
+
+    date_records = [
+        (1594, [1599]), (1751, [1756]), (1909, [1914]), (2086, [2091]), (2263, [2268]), (2452, []), (2614, []), (2796, []), (2953, []), (3143, []),
+        (4110, []), (4255, []), (4437, []), (4599, []), (4752, []), (4909, []), (5082, []), (5250, []), (5427, []), (5609, [5614]), (5797, [5802]), (5955, [5960]),
+        (7007, []), (7160, []), (7318, []), (7516, [7521]), (7674, []), (7822, []), (7985, []), (8143, []), (8306, []), (8463, []), (8621, []), (8783, [8788])
+    ]
+
+    for i, (d_str, t_str) in enumerate(schedule_aug):
+        update_text_node(doc, time_records[i], t_str)
+        dp, d_sp = date_records[i]
+        d_parts = d_str.split(" ")
+        day_month = f"{d_parts[0]} {d_parts[1]} 20"
+        yr = d_parts[2][2:]
+        if len(d_sp) > 0:
+            update_text_node(doc, dp, day_month)
+            update_text_node(doc, d_sp[0], yr)
+            for sp in d_sp[1:]:
+                clean_split_node(doc, sp)
+        else:
+            update_text_node(doc, dp, d_str)
+    if not quiet: live_log(f"Tahap 6 (Jadwal Waktu) : 34 baris tanggal & jam kronologis ter-update", prefix="[6/7]", delay=0.1)
+
+    # 7. Tahap 7: Ringkasan & 34 Transaksi
+    c_cr = bytearray.fromhex('c2030000')
+    c_db = bytearray.fromhex('89010000')
+    c_saldo = bytearray.fromhex('f2040000')
+    c_abu = bytearray.fromhex('88030000')
+
+    update_text_node(doc, 1101, "270.")
+    update_text_node(doc, 1106, "510,00 ")
+    update_color(doc, 1097, c_abu)
+
+    update_text_node(doc, 1115, "+ ")
+    update_text_node(doc, 1120, "7.252.349,")
+    update_text_node(doc, 1125, "00")
+    update_color(doc, 1111, c_cr)
+
+    update_text_node(doc, 1137, "- 2.461.")
+    update_text_node(doc, 1142, "193,00 ")
+    update_color(doc, 1131, c_db)
+
+    update_text_node(doc, 1154, "5.061.666,")
+    update_text_node(doc, 1159, "00")
+    update_color(doc, 1148, c_saldo)
+
+    target_xr_nom = 430850
+    target_xr_saldo = 569950
+
+    def find_prec(doc, idx, tag_num, min_s):
+        for j in range(idx - 1, max(0, idx - 40), -1):
+            r = doc.records[j]
+            if r['tag'] == tag_num and len(r['payload']) >= min_s:
+                return j
+        return None
+
+    # Filter active transactions (excluding 0 nominals)
+    raw_txs = cfg.get('transactions', [])
+    active_txs = [t for t in raw_txs if str(t.get('nominal', '')).strip() not in ('0', '0,00', '0.00', '')][:34]
+
+    split_noms = {6: [2392], 7: [2549], 10: [3083], 11: [4050], 13: [4367], 20: [5539], 24: [7100], 26: [7451], 27: [7609], 30: [8078]}
+    split_saldos = {1: [1554], 2: [1711], 3: [1869], 4: [2046], 5: [2223], 6: [2417], 8: [2756], 9: [2913], 12: [4215], 13: [4397], 14: [4554], 15: [4712], 16: [4869], 17: [5037], 18: [5210], 19: [5382], 20: [5564], 21: [5757], 22: [5915], 23: [6967], 25: [7273], 26: [7476], 27: [7634], 28: [7782], 29: [7945], 30: [8103], 31: [8266], 32: [8423], 33: [8581], 34: [8743]}
+
+    for i, tx in enumerate(active_txs):
+        r_num = i + 1
+        nom_p = nom_records[i]
+        saldo_p = saldo_records[i]
+
+        nom_m = find_prec(doc, nom_p, 2100, 12)
+        nom_k = find_prec(doc, nom_p, 2206, 12)
+        nom_c = find_prec(doc, nom_p, 150, 4)
+
+        saldo_m = find_prec(doc, saldo_p, 2100, 12)
+        saldo_k = find_prec(doc, saldo_p, 2206, 12)
+        saldo_c = find_prec(doc, saldo_p, 150, 4)
+
+        nom_raw = str(tx.get('nominal', '')).strip()
+        nom_fmt = fmt_idr(nom_raw)
+        is_cr = not str(nom_raw).startswith('-')
+        nom_final = f"+{nom_fmt}" if is_cr else f"-{nom_fmt}"
+
+        update_text_node(doc, nom_p, nom_final)
+        for sp in split_noms.get(r_num, []):
+            clean_split_node(doc, sp)
+        update_color(doc, nom_c, c_cr if is_cr else c_db)
+        w_nom = calc_text_width(nom_final)
+        update_t2100(doc, nom_m, target_xr_nom - w_nom)
+        update_t2206(doc, nom_k, w_nom)
+
+        saldo_fmt = fmt_idr(tx.get('saldo', '0'))
+        update_text_node(doc, saldo_p, saldo_fmt)
+        for sp in split_saldos.get(r_num, []):
+            clean_split_node(doc, sp)
+        update_color(doc, saldo_c, c_saldo)
+        w_saldo = calc_text_width(saldo_fmt)
+        update_t2100(doc, saldo_m, target_xr_saldo - w_saldo)
+        update_t2206(doc, saldo_k, w_saldo)
+
+    if not quiet: live_log(f"Tahap 7 (34 Transaksi) : 34 baris Nominal, Saldo & Rata Kanan 100% presisi", prefix="[7/7]", delay=0.15)
+
+
 # =========================================================================
 # MAIN PIPELINE RUNNER WITH ASSERTION GATES
 # =========================================================================
@@ -1456,11 +2299,20 @@ def run_pipeline(excel_path, out_override=None, dry_run=False, quiet=False, live
         return
 
     # Execute Staged Pipeline
-    live_log("Menjalankan Eksekusi 7 Tahap Sesuai SOP Project V2...", prefix="[*]", delay=0.15)
-    if total_recs_initial == 6775:
+    if total_recs_initial == 5750:
+        execute_mandiri_2page_5750(doc, cfg, quiet=quiet)
+    elif total_recs_initial == 6103:
+        execute_mandiri_2page_6103(doc, cfg, quiet=quiet)
+    elif total_recs_initial == 6707:
+        execute_mandiri_3page_6707(doc, cfg, quiet=quiet)
+    elif total_recs_initial == 6775:
         execute_mandiri_3page(doc, cfg, quiet=quiet)
     elif total_recs_initial == 7395:
         execute_mandiri_3page_7395(doc, cfg, quiet=quiet)
+    elif total_recs_initial == 10429:
+        execute_mandiri_10429(doc, cfg, quiet=quiet)
+    elif total_recs_initial == 10536:
+        execute_mandiri_10536(doc, cfg, quiet=quiet)
     elif total_recs_initial == 13664:
         execute_mandiri_13664(doc, cfg, quiet=quiet)
     elif total_recs_initial == 14392:

@@ -1,0 +1,4118 @@
+[
+  {
+    "idx": 310,
+    "tag": 2201,
+    "text": "Plaza Mandiri.",
+    "size": 28
+  },
+  {
+    "idx": 315,
+    "tag": 2201,
+    "text": "Jl. Jend. Gatot Subroto Kav.",
+    "size": 58
+  },
+  {
+    "idx": 320,
+    "tag": 2201,
+    "text": "36-38. Jakarta",
+    "size": 30
+  },
+  {
+    "idx": 419,
+    "tag": 2201,
+    "text": "e-Statement",
+    "size": 22
+  },
+  {
+    "idx": 464,
+    "tag": 2201,
+    "text": "Nama/",
+    "size": 10
+  },
+  {
+    "idx": 473,
+    "tag": 2201,
+    "text": "Name",
+    "size": 10
+  },
+  {
+    "idx": 536,
+    "tag": 2201,
+    "text": "Cabang/",
+    "size": 14
+  },
+  {
+    "idx": 545,
+    "tag": 2201,
+    "text": "Branch",
+    "size": 12
+  },
+  {
+    "idx": 571,
+    "tag": 2201,
+    "text": ":",
+    "size": 4
+  },
+  {
+    "idx": 576,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 595,
+    "tag": 2201,
+    "text": "Dicetak pada/",
+    "size": 26
+  },
+  {
+    "idx": 604,
+    "tag": 2201,
+    "text": "Issued on",
+    "size": 18
+  },
+  {
+    "idx": 629,
+    "tag": 2201,
+    "text": "Periode/",
+    "size": 16
+  },
+  {
+    "idx": 638,
+    "tag": 2201,
+    "text": "Period",
+    "size": 12
+  },
+  {
+    "idx": 664,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 684,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 703,
+    "tag": 2201,
+    "text": "Nomor Rekening/",
+    "size": 30
+  },
+  {
+    "idx": 712,
+    "tag": 2201,
+    "text": "Account Number",
+    "size": 30
+  },
+  {
+    "idx": 720,
+    "tag": 2201,
+    "text": "Mata Uang/",
+    "size": 20
+  },
+  {
+    "idx": 724,
+    "tag": 2202,
+    "text": "C",
+    "size": 2
+  },
+  {
+    "idx": 733,
+    "tag": 2201,
+    "text": "urrency",
+    "size": 14
+  },
+  {
+    "idx": 758,
+    "tag": 2201,
+    "text": "Saldo Awal/",
+    "size": 22
+  },
+  {
+    "idx": 762,
+    "tag": 2201,
+    "text": "Initial Balance",
+    "size": 30
+  },
+  {
+    "idx": 793,
+    "tag": 2201,
+    "text": ":",
+    "size": 4
+  },
+  {
+    "idx": 803,
+    "tag": 2201,
+    "text": "Dana Masuk/",
+    "size": 22
+  },
+  {
+    "idx": 808,
+    "tag": 2201,
+    "text": "Incoming",
+    "size": 18
+  },
+  {
+    "idx": 819,
+    "tag": 2201,
+    "text": "Transactio",
+    "size": 20
+  },
+  {
+    "idx": 830,
+    "tag": 2201,
+    "text": "ns",
+    "size": 6
+  },
+  {
+    "idx": 841,
+    "tag": 2201,
+    "text": ":",
+    "size": 4
+  },
+  {
+    "idx": 857,
+    "tag": 2201,
+    "text": "Dana Keluar/",
+    "size": 24
+  },
+  {
+    "idx": 861,
+    "tag": 2201,
+    "text": "Outgoing Transactio",
+    "size": 38
+  },
+  {
+    "idx": 870,
+    "tag": 2201,
+    "text": "ns",
+    "size": 6
+  },
+  {
+    "idx": 879,
+    "tag": 2201,
+    "text": ":",
+    "size": 4
+  },
+  {
+    "idx": 893,
+    "tag": 2201,
+    "text": "Saldo Akhir/",
+    "size": 24
+  },
+  {
+    "idx": 897,
+    "tag": 2201,
+    "text": "Closing Balance",
+    "size": 30
+  },
+  {
+    "idx": 914,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 935,
+    "tag": 2201,
+    "text": "KCP Serang Ciruas",
+    "size": 34
+  },
+  {
+    "idx": 961,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 965,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 973,
+    "tag": 2201,
+    "text": "Sep 2025 - 30 Sep 202",
+    "size": 42
+  },
+  {
+    "idx": 978,
+    "tag": 2202,
+    "text": "5",
+    "size": 2
+  },
+  {
+    "idx": 989,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 993,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 1001,
+    "tag": 2201,
+    "text": "Nov 2025",
+    "size": 16
+  },
+  {
+    "idx": 1020,
+    "tag": 2201,
+    "text": ":",
+    "size": 4
+  },
+  {
+    "idx": 1031,
+    "tag": 2201,
+    "text": "1630014643020",
+    "size": 28
+  },
+  {
+    "idx": 1039,
+    "tag": 2201,
+    "text": ":",
+    "size": 4
+  },
+  {
+    "idx": 1048,
+    "tag": 2201,
+    "text": "IDR",
+    "size": 6
+  },
+  {
+    "idx": 1074,
+    "tag": 2201,
+    "text": "1",
+    "size": 4
+  },
+  {
+    "idx": 1079,
+    "tag": 2201,
+    "text": "of 10",
+    "size": 10
+  },
+  {
+    "idx": 1101,
+    "tag": 2201,
+    "text": "654.",
+    "size": 8
+  },
+  {
+    "idx": 1106,
+    "tag": 2201,
+    "text": "955,00",
+    "size": 14
+  },
+  {
+    "idx": 1115,
+    "tag": 2201,
+    "text": "+",
+    "size": 4
+  },
+  {
+    "idx": 1120,
+    "tag": 2201,
+    "text": "16.872.668,",
+    "size": 22
+  },
+  {
+    "idx": 1125,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 1137,
+    "tag": 2201,
+    "text": "- 17.502.",
+    "size": 18
+  },
+  {
+    "idx": 1142,
+    "tag": 2201,
+    "text": "777,00",
+    "size": 14
+  },
+  {
+    "idx": 1154,
+    "tag": 2201,
+    "text": "24.846,",
+    "size": 14
+  },
+  {
+    "idx": 1159,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 1185,
+    "tag": 2201,
+    "text": "Tabungan",
+    "size": 16
+  },
+  {
+    "idx": 1190,
+    "tag": 2201,
+    "text": "NOW IDR",
+    "size": 16
+  },
+  {
+    "idx": 1210,
+    "tag": 2201,
+    "text": "1 dari 10",
+    "size": 18
+  },
+  {
+    "idx": 1230,
+    "tag": 2201,
+    "text": "No",
+    "size": 4
+  },
+  {
+    "idx": 1250,
+    "tag": 2201,
+    "text": "No",
+    "size": 4
+  },
+  {
+    "idx": 1270,
+    "tag": 2201,
+    "text": "Date",
+    "size": 8
+  },
+  {
+    "idx": 1290,
+    "tag": 2201,
+    "text": "Tanggal",
+    "size": 14
+  },
+  {
+    "idx": 1311,
+    "tag": 2201,
+    "text": "Saldo (IDR)",
+    "size": 24
+  },
+  {
+    "idx": 1317,
+    "tag": 2201,
+    "text": "Balance (IDR)",
+    "size": 26
+  },
+  {
+    "idx": 1338,
+    "tag": 2201,
+    "text": "Nominal (IDR)",
+    "size": 28
+  },
+  {
+    "idx": 1344,
+    "tag": 2201,
+    "text": "Amount (IDR)",
+    "size": 24
+  },
+  {
+    "idx": 1364,
+    "tag": 2201,
+    "text": "Keterangan",
+    "size": 22
+  },
+  {
+    "idx": 1370,
+    "tag": 2201,
+    "text": "Remarks",
+    "size": 14
+  },
+  {
+    "idx": 1391,
+    "tag": 2201,
+    "text": "Pembayaran Danatopup",
+    "size": 42
+  },
+  {
+    "idx": 1396,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 1407,
+    "tag": 2201,
+    "text": "89508089528734111",
+    "size": 34
+  },
+  {
+    "idx": 1433,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 1453,
+    "tag": 2201,
+    "text": "-500.000,00",
+    "size": 22
+  },
+  {
+    "idx": 1473,
+    "tag": 2201,
+    "text": "154.9",
+    "size": 10
+  },
+  {
+    "idx": 1478,
+    "tag": 2201,
+    "text": "55,00",
+    "size": 10
+  },
+  {
+    "idx": 1498,
+    "tag": 2201,
+    "text": "4:12:29 WIB",
+    "size": 22
+  },
+  {
+    "idx": 1518,
+    "tag": 2201,
+    "text": "01 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 1523,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 1543,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 1563,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 1584,
+    "tag": 2201,
+    "text": "ke Kantin Ka Rin",
+    "size": 34
+  },
+  {
+    "idx": 1589,
+    "tag": 2201,
+    "text": "507016923183",
+    "size": 24
+  },
+  {
+    "idx": 1609,
+    "tag": 2202,
+    "text": "-",
+    "size": 2
+  },
+  {
+    "idx": 1614,
+    "tag": 2201,
+    "text": "14.000,00",
+    "size": 18
+  },
+  {
+    "idx": 1634,
+    "tag": 2201,
+    "text": "140.955,00",
+    "size": 20
+  },
+  {
+    "idx": 1654,
+    "tag": 2201,
+    "text": "18:44:56",
+    "size": 16
+  },
+  {
+    "idx": 1659,
+    "tag": 2201,
+    "text": "WIB",
+    "size": 8
+  },
+  {
+    "idx": 1679,
+    "tag": 2201,
+    "text": "01 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 1684,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 1705,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 1715,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 1726,
+    "tag": 2201,
+    "text": "SIGIT BUDHI ARYONO 155000",
+    "size": 50
+  },
+  {
+    "idx": 1735,
+    "tag": 2201,
+    "text": "9926679",
+    "size": 14
+  },
+  {
+    "idx": 1761,
+    "tag": 2202,
+    "text": "3",
+    "size": 2
+  },
+  {
+    "idx": 1781,
+    "tag": 2202,
+    "text": "+",
+    "size": 2
+  },
+  {
+    "idx": 1786,
+    "tag": 2201,
+    "text": "510.000,00",
+    "size": 20
+  },
+  {
+    "idx": 1806,
+    "tag": 2201,
+    "text": "650.9",
+    "size": 10
+  },
+  {
+    "idx": 1811,
+    "tag": 2201,
+    "text": "55,00",
+    "size": 10
+  },
+  {
+    "idx": 1831,
+    "tag": 2201,
+    "text": "0:17:05 WIB",
+    "size": 22
+  },
+  {
+    "idx": 1851,
+    "tag": 2201,
+    "text": "01 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 1856,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 1876,
+    "tag": 2201,
+    "text": "Penarikan tunai tanpa kart",
+    "size": 52
+  },
+  {
+    "idx": 1881,
+    "tag": 2202,
+    "text": "u",
+    "size": 2
+  },
+  {
+    "idx": 1901,
+    "tag": 2202,
+    "text": "4",
+    "size": 2
+  },
+  {
+    "idx": 1922,
+    "tag": 2201,
+    "text": "Di ATM J",
+    "size": 16
+  },
+  {
+    "idx": 1927,
+    "tag": 2201,
+    "text": "KT SB FALATEHAN 04",
+    "size": 38
+  },
+  {
+    "idx": 1932,
+    "tag": 2201,
+    "text": "089528734111",
+    "size": 24
+  },
+  {
+    "idx": 1952,
+    "tag": 2201,
+    "text": "-500.000,00",
+    "size": 22
+  },
+  {
+    "idx": 1972,
+    "tag": 2201,
+    "text": "150.95",
+    "size": 12
+  },
+  {
+    "idx": 1977,
+    "tag": 2201,
+    "text": "5,00",
+    "size": 8
+  },
+  {
+    "idx": 1997,
+    "tag": 2201,
+    "text": "20:51:14 WIB",
+    "size": 24
+  },
+  {
+    "idx": 2017,
+    "tag": 2201,
+    "text": "01 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 2022,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 2042,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 2062,
+    "tag": 2202,
+    "text": "5",
+    "size": 2
+  },
+  {
+    "idx": 2083,
+    "tag": 2201,
+    "text": "ke kantin wak kaji",
+    "size": 38
+  },
+  {
+    "idx": 2088,
+    "tag": 2201,
+    "text": "507028275939",
+    "size": 24
+  },
+  {
+    "idx": 2108,
+    "tag": 2201,
+    "text": "-30.000,00",
+    "size": 20
+  },
+  {
+    "idx": 2128,
+    "tag": 2201,
+    "text": "120.955",
+    "size": 14
+  },
+  {
+    "idx": 2133,
+    "tag": 2201,
+    "text": ",00",
+    "size": 6
+  },
+  {
+    "idx": 2153,
+    "tag": 2201,
+    "text": "12:04:48 WIB",
+    "size": 24
+  },
+  {
+    "idx": 2173,
+    "tag": 2201,
+    "text": "02 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 2178,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 2198,
+    "tag": 2201,
+    "text": "Pembayaran",
+    "size": 22
+  },
+  {
+    "idx": 2203,
+    "tag": 2201,
+    "text": "QR",
+    "size": 4
+  },
+  {
+    "idx": 2223,
+    "tag": 2202,
+    "text": "6",
+    "size": 2
+  },
+  {
+    "idx": 2244,
+    "tag": 2201,
+    "text": "ke Talon",
+    "size": 18
+  },
+  {
+    "idx": 2249,
+    "tag": 2201,
+    "text": "Kelidan",
+    "size": 16
+  },
+  {
+    "idx": 2254,
+    "tag": 2201,
+    "text": "507024268342",
+    "size": 24
+  },
+  {
+    "idx": 2274,
+    "tag": 2201,
+    "text": "-90.000,00",
+    "size": 20
+  },
+  {
+    "idx": 2294,
+    "tag": 2201,
+    "text": "30.95",
+    "size": 10
+  },
+  {
+    "idx": 2299,
+    "tag": 2201,
+    "text": "5,00",
+    "size": 8
+  },
+  {
+    "idx": 2319,
+    "tag": 2201,
+    "text": "15:44:38 WIB",
+    "size": 24
+  },
+  {
+    "idx": 2339,
+    "tag": 2201,
+    "text": "02 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 2344,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 2365,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 2375,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 2386,
+    "tag": 2201,
+    "text": "NICHO ARYAANSYAH WIJ 1050021206325",
+    "size": 68
+  },
+  {
+    "idx": 2412,
+    "tag": 2202,
+    "text": "7",
+    "size": 2
+  },
+  {
+    "idx": 2432,
+    "tag": 2201,
+    "text": "+731.000,00",
+    "size": 22
+  },
+  {
+    "idx": 2452,
+    "tag": 2201,
+    "text": "761.95",
+    "size": 12
+  },
+  {
+    "idx": 2457,
+    "tag": 2201,
+    "text": "5,00",
+    "size": 8
+  },
+  {
+    "idx": 2477,
+    "tag": 2201,
+    "text": "6:14:48 WIB",
+    "size": 22
+  },
+  {
+    "idx": 2497,
+    "tag": 2201,
+    "text": "02 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 2502,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 2522,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 2542,
+    "tag": 2202,
+    "text": "8",
+    "size": 2
+  },
+  {
+    "idx": 2563,
+    "tag": 2201,
+    "text": "ke kantin wak k",
+    "size": 30
+  },
+  {
+    "idx": 2568,
+    "tag": 2201,
+    "text": "aji",
+    "size": 8
+  },
+  {
+    "idx": 2573,
+    "tag": 2201,
+    "text": "507029124072",
+    "size": 24
+  },
+  {
+    "idx": 2593,
+    "tag": 2201,
+    "text": "-30.000,00",
+    "size": 20
+  },
+  {
+    "idx": 2613,
+    "tag": 2201,
+    "text": "731.955",
+    "size": 14
+  },
+  {
+    "idx": 2618,
+    "tag": 2201,
+    "text": ",00",
+    "size": 6
+  },
+  {
+    "idx": 2638,
+    "tag": 2201,
+    "text": "18:50:21 WIB",
+    "size": 24
+  },
+  {
+    "idx": 2658,
+    "tag": 2201,
+    "text": "02 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 2663,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 2684,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 2694,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 2705,
+    "tag": 2201,
+    "text": "SIGIT BUDHI ARYONO 155000",
+    "size": 50
+  },
+  {
+    "idx": 2714,
+    "tag": 2201,
+    "text": "9926679",
+    "size": 14
+  },
+  {
+    "idx": 2740,
+    "tag": 2202,
+    "text": "9",
+    "size": 2
+  },
+  {
+    "idx": 2760,
+    "tag": 2201,
+    "text": "+500.000,00",
+    "size": 22
+  },
+  {
+    "idx": 2780,
+    "tag": 2201,
+    "text": "1.231.9",
+    "size": 14
+  },
+  {
+    "idx": 2785,
+    "tag": 2201,
+    "text": "55,00",
+    "size": 10
+  },
+  {
+    "idx": 2805,
+    "tag": 2201,
+    "text": "0:54:27 WIB",
+    "size": 22
+  },
+  {
+    "idx": 2825,
+    "tag": 2201,
+    "text": "02 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 2830,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 2850,
+    "tag": 2201,
+    "text": "Penarikan tunai tanpa kart",
+    "size": 52
+  },
+  {
+    "idx": 2855,
+    "tag": 2202,
+    "text": "u",
+    "size": 2
+  },
+  {
+    "idx": 2875,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 2895,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 2904,
+    "tag": 2201,
+    "text": "Di ATM J",
+    "size": 16
+  },
+  {
+    "idx": 2913,
+    "tag": 2201,
+    "text": "KT SB FALATEHAN 04",
+    "size": 38
+  },
+  {
+    "idx": 2922,
+    "tag": 2201,
+    "text": "089528734111",
+    "size": 24
+  },
+  {
+    "idx": 2942,
+    "tag": 2201,
+    "text": "-600.000,00",
+    "size": 22
+  },
+  {
+    "idx": 2962,
+    "tag": 2201,
+    "text": "631.9",
+    "size": 10
+  },
+  {
+    "idx": 2967,
+    "tag": 2201,
+    "text": "55,00",
+    "size": 10
+  },
+  {
+    "idx": 2987,
+    "tag": 2201,
+    "text": "20:59:57 WIB",
+    "size": 24
+  },
+  {
+    "idx": 3007,
+    "tag": 2201,
+    "text": "02 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 3012,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 3033,
+    "tag": 2201,
+    "text": "PT Bank Mandiri (Persero) Tbk. berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) dan Bank Indonesia (BI),",
+    "size": 220
+  },
+  {
+    "idx": 3038,
+    "tag": 2201,
+    "text": "serta merupakan peserta penjamin Lembaga Penjamin Simpanan",
+    "size": 118
+  },
+  {
+    "idx": 3043,
+    "tag": 2201,
+    "text": "(LPS)",
+    "size": 10
+  },
+  {
+    "idx": 3063,
+    "tag": 2201,
+    "text": "Mandiri Call 14000",
+    "size": 36
+  },
+  {
+    "idx": 3083,
+    "tag": 2201,
+    "text": "YULIANA SANI PUTRI",
+    "size": 36
+  },
+  {
+    "idx": 3363,
+    "tag": 2201,
+    "text": "Plaza Mandiri.",
+    "size": 28
+  },
+  {
+    "idx": 3368,
+    "tag": 2201,
+    "text": "Jl. Jend. Gatot Subroto Kav.",
+    "size": 58
+  },
+  {
+    "idx": 3373,
+    "tag": 2201,
+    "text": "36-38. Jakarta",
+    "size": 30
+  },
+  {
+    "idx": 3392,
+    "tag": 2201,
+    "text": "e-Statement",
+    "size": 22
+  },
+  {
+    "idx": 3411,
+    "tag": 2201,
+    "text": "Nama/",
+    "size": 10
+  },
+  {
+    "idx": 3420,
+    "tag": 2201,
+    "text": "Name",
+    "size": 10
+  },
+  {
+    "idx": 3428,
+    "tag": 2201,
+    "text": "Cabang/",
+    "size": 14
+  },
+  {
+    "idx": 3437,
+    "tag": 2201,
+    "text": "Branch",
+    "size": 12
+  },
+  {
+    "idx": 3463,
+    "tag": 2201,
+    "text": ":",
+    "size": 4
+  },
+  {
+    "idx": 3468,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 3487,
+    "tag": 2201,
+    "text": "Dicetak pada/",
+    "size": 26
+  },
+  {
+    "idx": 3496,
+    "tag": 2201,
+    "text": "Issued on",
+    "size": 18
+  },
+  {
+    "idx": 3521,
+    "tag": 2201,
+    "text": "Periode/",
+    "size": 16
+  },
+  {
+    "idx": 3530,
+    "tag": 2201,
+    "text": "Period",
+    "size": 12
+  },
+  {
+    "idx": 3556,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 3576,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 3596,
+    "tag": 2201,
+    "text": "KCP Serang Ciruas",
+    "size": 34
+  },
+  {
+    "idx": 3622,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 3626,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 3634,
+    "tag": 2201,
+    "text": "Sep 2025 - 30 Sep 202",
+    "size": 42
+  },
+  {
+    "idx": 3639,
+    "tag": 2202,
+    "text": "5",
+    "size": 2
+  },
+  {
+    "idx": 3650,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 3654,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 3662,
+    "tag": 2201,
+    "text": "Nov 2025",
+    "size": 16
+  },
+  {
+    "idx": 3687,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 3695,
+    "tag": 2201,
+    "text": "of 10",
+    "size": 10
+  },
+  {
+    "idx": 3720,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 3728,
+    "tag": 2201,
+    "text": "dari 10",
+    "size": 14
+  },
+  {
+    "idx": 3748,
+    "tag": 2201,
+    "text": "No",
+    "size": 4
+  },
+  {
+    "idx": 3768,
+    "tag": 2201,
+    "text": "No",
+    "size": 4
+  },
+  {
+    "idx": 3788,
+    "tag": 2201,
+    "text": "Date",
+    "size": 8
+  },
+  {
+    "idx": 3808,
+    "tag": 2201,
+    "text": "Tanggal",
+    "size": 14
+  },
+  {
+    "idx": 3829,
+    "tag": 2201,
+    "text": "Saldo (IDR)",
+    "size": 24
+  },
+  {
+    "idx": 3835,
+    "tag": 2201,
+    "text": "Balance (IDR)",
+    "size": 26
+  },
+  {
+    "idx": 3856,
+    "tag": 2201,
+    "text": "Nominal (IDR)",
+    "size": 28
+  },
+  {
+    "idx": 3862,
+    "tag": 2201,
+    "text": "Amount (IDR)",
+    "size": 24
+  },
+  {
+    "idx": 3882,
+    "tag": 2201,
+    "text": "Keterangan",
+    "size": 22
+  },
+  {
+    "idx": 3888,
+    "tag": 2201,
+    "text": "Remarks",
+    "size": 14
+  },
+  {
+    "idx": 3909,
+    "tag": 2201,
+    "text": "Pembayaran Danatopup",
+    "size": 42
+  },
+  {
+    "idx": 3914,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 3925,
+    "tag": 2201,
+    "text": "89508089528734111",
+    "size": 34
+  },
+  {
+    "idx": 3951,
+    "tag": 2201,
+    "text": "11",
+    "size": 4
+  },
+  {
+    "idx": 3971,
+    "tag": 2201,
+    "text": "-100.000,00",
+    "size": 22
+  },
+  {
+    "idx": 3991,
+    "tag": 2201,
+    "text": "531.9",
+    "size": 10
+  },
+  {
+    "idx": 3996,
+    "tag": 2201,
+    "text": "55,00",
+    "size": 10
+  },
+  {
+    "idx": 4016,
+    "tag": 2201,
+    "text": "9:41:50 WIB",
+    "size": 22
+  },
+  {
+    "idx": 4036,
+    "tag": 2201,
+    "text": "03 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 4041,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 4062,
+    "tag": 2201,
+    "text": "Pembayaran Danatopup",
+    "size": 42
+  },
+  {
+    "idx": 4067,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 4078,
+    "tag": 2201,
+    "text": "89508089528734111",
+    "size": 34
+  },
+  {
+    "idx": 4104,
+    "tag": 2201,
+    "text": "12",
+    "size": 4
+  },
+  {
+    "idx": 4124,
+    "tag": 2201,
+    "text": "-501.500,",
+    "size": 18
+  },
+  {
+    "idx": 4129,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 4149,
+    "tag": 2201,
+    "text": "30.45",
+    "size": 10
+  },
+  {
+    "idx": 4154,
+    "tag": 2201,
+    "text": "5,00",
+    "size": 8
+  },
+  {
+    "idx": 4174,
+    "tag": 2201,
+    "text": "9:43:53 WIB",
+    "size": 22
+  },
+  {
+    "idx": 4194,
+    "tag": 2201,
+    "text": "03 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 4199,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 4220,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 4230,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 4241,
+    "tag": 2201,
+    "text": "NICHO ARYAANSYAH WIJ 1050021206325",
+    "size": 68
+  },
+  {
+    "idx": 4267,
+    "tag": 2201,
+    "text": "13",
+    "size": 4
+  },
+  {
+    "idx": 4287,
+    "tag": 2201,
+    "text": "+519.000,",
+    "size": 18
+  },
+  {
+    "idx": 4292,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 4312,
+    "tag": 2201,
+    "text": "549.4",
+    "size": 10
+  },
+  {
+    "idx": 4317,
+    "tag": 2201,
+    "text": "55,00",
+    "size": 10
+  },
+  {
+    "idx": 4337,
+    "tag": 2201,
+    "text": "3:15:49 WIB",
+    "size": 22
+  },
+  {
+    "idx": 4357,
+    "tag": 2201,
+    "text": "03 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 4362,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 4383,
+    "tag": 2201,
+    "text": "Pembayaran Danatopup",
+    "size": 42
+  },
+  {
+    "idx": 4388,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 4399,
+    "tag": 2201,
+    "text": "8950808",
+    "size": 14
+  },
+  {
+    "idx": 4408,
+    "tag": 2201,
+    "text": "9528734111",
+    "size": 20
+  },
+  {
+    "idx": 4434,
+    "tag": 2201,
+    "text": "14",
+    "size": 4
+  },
+  {
+    "idx": 4454,
+    "tag": 2201,
+    "text": "-400.000,00",
+    "size": 22
+  },
+  {
+    "idx": 4474,
+    "tag": 2201,
+    "text": "149.45",
+    "size": 12
+  },
+  {
+    "idx": 4479,
+    "tag": 2201,
+    "text": "5,00",
+    "size": 8
+  },
+  {
+    "idx": 4499,
+    "tag": 2201,
+    "text": "5:22:37 WIB",
+    "size": 22
+  },
+  {
+    "idx": 4519,
+    "tag": 2201,
+    "text": "03 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 4524,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 4545,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 4555,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 4566,
+    "tag": 2201,
+    "text": "SIGIT BUDHI ARYONO 1550009926679",
+    "size": 64
+  },
+  {
+    "idx": 4592,
+    "tag": 2201,
+    "text": "15",
+    "size": 4
+  },
+  {
+    "idx": 4612,
+    "tag": 2201,
+    "text": "+500.000,00",
+    "size": 22
+  },
+  {
+    "idx": 4632,
+    "tag": 2201,
+    "text": "649.4",
+    "size": 10
+  },
+  {
+    "idx": 4637,
+    "tag": 2201,
+    "text": "55,00",
+    "size": 10
+  },
+  {
+    "idx": 4657,
+    "tag": 2201,
+    "text": "2:18:0",
+    "size": 12
+  },
+  {
+    "idx": 4662,
+    "tag": 2201,
+    "text": "9 WIB",
+    "size": 10
+  },
+  {
+    "idx": 4682,
+    "tag": 2201,
+    "text": "04 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 4687,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 4707,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 4727,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 4747,
+    "tag": 2202,
+    "text": "6",
+    "size": 2
+  },
+  {
+    "idx": 4756,
+    "tag": 2201,
+    "text": "ke SPBU31.1",
+    "size": 22
+  },
+  {
+    "idx": 4765,
+    "tag": 2201,
+    "text": "1403 DAAN MOGOT",
+    "size": 32
+  },
+  {
+    "idx": 4774,
+    "tag": 2201,
+    "text": "50744255141",
+    "size": 22
+  },
+  {
+    "idx": 4779,
+    "tag": 2202,
+    "text": "4",
+    "size": 2
+  },
+  {
+    "idx": 4799,
+    "tag": 2201,
+    "text": "-378.107,00",
+    "size": 22
+  },
+  {
+    "idx": 4819,
+    "tag": 2201,
+    "text": "271.348,00",
+    "size": 20
+  },
+  {
+    "idx": 4839,
+    "tag": 2201,
+    "text": "02:40:58",
+    "size": 16
+  },
+  {
+    "idx": 4844,
+    "tag": 2201,
+    "text": "WIB",
+    "size": 8
+  },
+  {
+    "idx": 4864,
+    "tag": 2201,
+    "text": "04 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 4869,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 4890,
+    "tag": 2201,
+    "text": "Pembayaran Danatopup",
+    "size": 42
+  },
+  {
+    "idx": 4895,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 4906,
+    "tag": 2201,
+    "text": "89508089528734111",
+    "size": 34
+  },
+  {
+    "idx": 4932,
+    "tag": 2201,
+    "text": "17",
+    "size": 4
+  },
+  {
+    "idx": 4952,
+    "tag": 2201,
+    "text": "-119.000,00",
+    "size": 22
+  },
+  {
+    "idx": 4972,
+    "tag": 2201,
+    "text": "152.3",
+    "size": 10
+  },
+  {
+    "idx": 4977,
+    "tag": 2201,
+    "text": "48,00",
+    "size": 10
+  },
+  {
+    "idx": 4997,
+    "tag": 2201,
+    "text": "6:52:40 WIB",
+    "size": 22
+  },
+  {
+    "idx": 5017,
+    "tag": 2201,
+    "text": "04 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 5022,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 5043,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 5053,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 5064,
+    "tag": 2201,
+    "text": "NICHO ARYAANSYAH WIJ 1050021206325",
+    "size": 68
+  },
+  {
+    "idx": 5090,
+    "tag": 2201,
+    "text": "18",
+    "size": 4
+  },
+  {
+    "idx": 5110,
+    "tag": 2201,
+    "text": "+642.",
+    "size": 10
+  },
+  {
+    "idx": 5115,
+    "tag": 2201,
+    "text": "000,00",
+    "size": 12
+  },
+  {
+    "idx": 5135,
+    "tag": 2201,
+    "text": "794.348,",
+    "size": 16
+  },
+  {
+    "idx": 5140,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 5160,
+    "tag": 2201,
+    "text": "2:21:33 WIB",
+    "size": 22
+  },
+  {
+    "idx": 5180,
+    "tag": 2201,
+    "text": "04 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 5185,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 5206,
+    "tag": 2201,
+    "text": "Pembayaran Danatopup",
+    "size": 42
+  },
+  {
+    "idx": 5211,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 5222,
+    "tag": 2201,
+    "text": "8950808",
+    "size": 14
+  },
+  {
+    "idx": 5231,
+    "tag": 2201,
+    "text": "9528734111",
+    "size": 20
+  },
+  {
+    "idx": 5257,
+    "tag": 2201,
+    "text": "19",
+    "size": 4
+  },
+  {
+    "idx": 5277,
+    "tag": 2201,
+    "text": "-92.000,00",
+    "size": 20
+  },
+  {
+    "idx": 5297,
+    "tag": 2201,
+    "text": "702.348,",
+    "size": 16
+  },
+  {
+    "idx": 5302,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 5322,
+    "tag": 2201,
+    "text": "8:01:50",
+    "size": 14
+  },
+  {
+    "idx": 5327,
+    "tag": 2201,
+    "text": "WIB",
+    "size": 8
+  },
+  {
+    "idx": 5347,
+    "tag": 2201,
+    "text": "04 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 5352,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 5373,
+    "tag": 2201,
+    "text": "Penarikan tunai",
+    "size": 32
+  },
+  {
+    "idx": 5374,
+    "tag": 2202,
+    "text": "d",
+    "size": 2
+  },
+  {
+    "idx": 5379,
+    "tag": 2201,
+    "text": "i ATM",
+    "size": 10
+  },
+  {
+    "idx": 5389,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 5400,
+    "tag": 2201,
+    "text": "BANK MANDIRI JKT SB FA",
+    "size": 44
+  },
+  {
+    "idx": 5409,
+    "tag": 2201,
+    "text": "LATEHAN 04",
+    "size": 20
+  },
+  {
+    "idx": 5435,
+    "tag": 2201,
+    "text": "20",
+    "size": 4
+  },
+  {
+    "idx": 5455,
+    "tag": 2201,
+    "text": "-300.000,00",
+    "size": 22
+  },
+  {
+    "idx": 5475,
+    "tag": 2201,
+    "text": "402.348,",
+    "size": 16
+  },
+  {
+    "idx": 5480,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 5500,
+    "tag": 2201,
+    "text": "8:06:28",
+    "size": 14
+  },
+  {
+    "idx": 5505,
+    "tag": 2201,
+    "text": "WIB",
+    "size": 8
+  },
+  {
+    "idx": 5525,
+    "tag": 2201,
+    "text": "04 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 5530,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 5550,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 5570,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 5590,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 5599,
+    "tag": 2201,
+    "text": "ke Kantin Ka",
+    "size": 26
+  },
+  {
+    "idx": 5608,
+    "tag": 2201,
+    "text": "Rin",
+    "size": 8
+  },
+  {
+    "idx": 5617,
+    "tag": 2201,
+    "text": "507044523123",
+    "size": 24
+  },
+  {
+    "idx": 5637,
+    "tag": 2201,
+    "text": "-40.000,00",
+    "size": 20
+  },
+  {
+    "idx": 5657,
+    "tag": 2201,
+    "text": "362.3",
+    "size": 10
+  },
+  {
+    "idx": 5662,
+    "tag": 2201,
+    "text": "48,00",
+    "size": 10
+  },
+  {
+    "idx": 5682,
+    "tag": 2201,
+    "text": "21:43:18 WIB",
+    "size": 24
+  },
+  {
+    "idx": 5702,
+    "tag": 2201,
+    "text": "04 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 5707,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 5727,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 5747,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 5767,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 5776,
+    "tag": 2201,
+    "text": "ke DATA TEKNO LINTAS",
+    "size": 42
+  },
+  {
+    "idx": 5785,
+    "tag": 2201,
+    "text": "507059241575",
+    "size": 24
+  },
+  {
+    "idx": 5805,
+    "tag": 2201,
+    "text": "-30.000,00",
+    "size": 20
+  },
+  {
+    "idx": 5825,
+    "tag": 2201,
+    "text": "332.",
+    "size": 8
+  },
+  {
+    "idx": 5830,
+    "tag": 2201,
+    "text": "348,00",
+    "size": 12
+  },
+  {
+    "idx": 5850,
+    "tag": 2201,
+    "text": "02:40:47 WIB",
+    "size": 24
+  },
+  {
+    "idx": 5870,
+    "tag": 2201,
+    "text": "05 Sep",
+    "size": 14
+  },
+  {
+    "idx": 5875,
+    "tag": 2201,
+    "text": "2025",
+    "size": 8
+  },
+  {
+    "idx": 5895,
+    "tag": 2201,
+    "text": "PT Bank Mandiri (Persero) Tbk. berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) dan Bank Indonesia (BI),",
+    "size": 220
+  },
+  {
+    "idx": 5900,
+    "tag": 2201,
+    "text": "serta merupakan peserta penjamin Lembaga Penjamin Simpanan",
+    "size": 118
+  },
+  {
+    "idx": 5905,
+    "tag": 2201,
+    "text": "(LPS)",
+    "size": 10
+  },
+  {
+    "idx": 5925,
+    "tag": 2201,
+    "text": "Mandiri Call 14000",
+    "size": 36
+  },
+  {
+    "idx": 5945,
+    "tag": 2201,
+    "text": "YULIANA SANI PUTRI",
+    "size": 36
+  },
+  {
+    "idx": 6225,
+    "tag": 2201,
+    "text": "Plaza Mandiri.",
+    "size": 28
+  },
+  {
+    "idx": 6230,
+    "tag": 2201,
+    "text": "Jl. Jend. Gatot Subroto Kav.",
+    "size": 58
+  },
+  {
+    "idx": 6235,
+    "tag": 2201,
+    "text": "36-38. Jakarta",
+    "size": 30
+  },
+  {
+    "idx": 6254,
+    "tag": 2201,
+    "text": "e-Statement",
+    "size": 22
+  },
+  {
+    "idx": 6273,
+    "tag": 2201,
+    "text": "Nama/",
+    "size": 10
+  },
+  {
+    "idx": 6282,
+    "tag": 2201,
+    "text": "Name",
+    "size": 10
+  },
+  {
+    "idx": 6290,
+    "tag": 2201,
+    "text": "Cabang/",
+    "size": 14
+  },
+  {
+    "idx": 6299,
+    "tag": 2201,
+    "text": "Branch",
+    "size": 12
+  },
+  {
+    "idx": 6325,
+    "tag": 2201,
+    "text": ":",
+    "size": 4
+  },
+  {
+    "idx": 6330,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 6349,
+    "tag": 2201,
+    "text": "Dicetak pada/",
+    "size": 26
+  },
+  {
+    "idx": 6358,
+    "tag": 2201,
+    "text": "Issued on",
+    "size": 18
+  },
+  {
+    "idx": 6383,
+    "tag": 2201,
+    "text": "Periode/",
+    "size": 16
+  },
+  {
+    "idx": 6392,
+    "tag": 2201,
+    "text": "Period",
+    "size": 12
+  },
+  {
+    "idx": 6418,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 6438,
+    "tag": 2202,
+    "text": ":",
+    "size": 2
+  },
+  {
+    "idx": 6458,
+    "tag": 2201,
+    "text": "KCP Serang Ciruas",
+    "size": 34
+  },
+  {
+    "idx": 6484,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 6488,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 6496,
+    "tag": 2201,
+    "text": "Sep 2025 - 30 Sep 202",
+    "size": 42
+  },
+  {
+    "idx": 6501,
+    "tag": 2202,
+    "text": "5",
+    "size": 2
+  },
+  {
+    "idx": 6512,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 6516,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 6524,
+    "tag": 2201,
+    "text": "Nov 2025",
+    "size": 16
+  },
+  {
+    "idx": 6549,
+    "tag": 2202,
+    "text": "3",
+    "size": 2
+  },
+  {
+    "idx": 6557,
+    "tag": 2201,
+    "text": "of 10",
+    "size": 10
+  },
+  {
+    "idx": 6582,
+    "tag": 2202,
+    "text": "3",
+    "size": 2
+  },
+  {
+    "idx": 6590,
+    "tag": 2201,
+    "text": "dari 10",
+    "size": 14
+  },
+  {
+    "idx": 6610,
+    "tag": 2201,
+    "text": "No",
+    "size": 4
+  },
+  {
+    "idx": 6630,
+    "tag": 2201,
+    "text": "No",
+    "size": 4
+  },
+  {
+    "idx": 6650,
+    "tag": 2201,
+    "text": "Date",
+    "size": 8
+  },
+  {
+    "idx": 6670,
+    "tag": 2201,
+    "text": "Tanggal",
+    "size": 14
+  },
+  {
+    "idx": 6691,
+    "tag": 2201,
+    "text": "Saldo (IDR)",
+    "size": 24
+  },
+  {
+    "idx": 6697,
+    "tag": 2201,
+    "text": "Balance (IDR)",
+    "size": 26
+  },
+  {
+    "idx": 6718,
+    "tag": 2201,
+    "text": "Nominal (IDR)",
+    "size": 28
+  },
+  {
+    "idx": 6724,
+    "tag": 2201,
+    "text": "Amount (IDR)",
+    "size": 24
+  },
+  {
+    "idx": 6744,
+    "tag": 2201,
+    "text": "Keterangan",
+    "size": 22
+  },
+  {
+    "idx": 6750,
+    "tag": 2201,
+    "text": "Remarks",
+    "size": 14
+  },
+  {
+    "idx": 6771,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 6781,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 6792,
+    "tag": 2201,
+    "text": "NURTIT",
+    "size": 12
+  },
+  {
+    "idx": 6801,
+    "tag": 2201,
+    "text": "A ABSARI 14200227888",
+    "size": 40
+  },
+  {
+    "idx": 6810,
+    "tag": 2201,
+    "text": "62",
+    "size": 4
+  },
+  {
+    "idx": 6836,
+    "tag": 2201,
+    "text": "23",
+    "size": 4
+  },
+  {
+    "idx": 6856,
+    "tag": 2201,
+    "text": "+70.000,00",
+    "size": 20
+  },
+  {
+    "idx": 6876,
+    "tag": 2201,
+    "text": "402.348,",
+    "size": 16
+  },
+  {
+    "idx": 6881,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 6901,
+    "tag": 2201,
+    "text": "3:14:55 WIB",
+    "size": 22
+  },
+  {
+    "idx": 6921,
+    "tag": 2201,
+    "text": "05 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 6926,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 6946,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 6966,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 6986,
+    "tag": 2202,
+    "text": "4",
+    "size": 2
+  },
+  {
+    "idx": 6995,
+    "tag": 2201,
+    "text": "ke",
+    "size": 6
+  },
+  {
+    "idx": 6999,
+    "tag": 2202,
+    "text": "P",
+    "size": 2
+  },
+  {
+    "idx": 7005,
+    "tag": 2201,
+    "text": "T Tokopedia",
+    "size": 24
+  },
+  {
+    "idx": 7014,
+    "tag": 2201,
+    "text": "507462327911",
+    "size": 24
+  },
+  {
+    "idx": 7034,
+    "tag": 2201,
+    "text": "-152.9",
+    "size": 12
+  },
+  {
+    "idx": 7039,
+    "tag": 2201,
+    "text": "99,00",
+    "size": 10
+  },
+  {
+    "idx": 7059,
+    "tag": 2201,
+    "text": "249.3",
+    "size": 10
+  },
+  {
+    "idx": 7064,
+    "tag": 2201,
+    "text": "49,00",
+    "size": 10
+  },
+  {
+    "idx": 7084,
+    "tag": 2201,
+    "text": "06:14:12 WIB",
+    "size": 24
+  },
+  {
+    "idx": 7104,
+    "tag": 2201,
+    "text": "06 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 7109,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 7129,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 7149,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 7169,
+    "tag": 2202,
+    "text": "5",
+    "size": 2
+  },
+  {
+    "idx": 7178,
+    "tag": 2201,
+    "text": "ke CAHAYA MEDIS MANDIR",
+    "size": 44
+  },
+  {
+    "idx": 7187,
+    "tag": 2201,
+    "text": "I",
+    "size": 4
+  },
+  {
+    "idx": 7196,
+    "tag": 2201,
+    "text": "507062329341",
+    "size": 24
+  },
+  {
+    "idx": 7216,
+    "tag": 2201,
+    "text": "-220.000,",
+    "size": 18
+  },
+  {
+    "idx": 7221,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 7241,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 7246,
+    "tag": 2201,
+    "text": "9.34",
+    "size": 8
+  },
+  {
+    "idx": 7251,
+    "tag": 2201,
+    "text": "9,00",
+    "size": 8
+  },
+  {
+    "idx": 7271,
+    "tag": 2201,
+    "text": "06:18:0",
+    "size": 14
+  },
+  {
+    "idx": 7276,
+    "tag": 2201,
+    "text": "2 WIB",
+    "size": 10
+  },
+  {
+    "idx": 7296,
+    "tag": 2201,
+    "text": "06 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 7301,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 7323,
+    "tag": 2201,
+    "text": "Transfer ant",
+    "size": 24
+  },
+  {
+    "idx": 7328,
+    "tag": 2201,
+    "text": "ar Mandiri",
+    "size": 20
+  },
+  {
+    "idx": 7340,
+    "tag": 2201,
+    "text": "DARI TOKOPEDIA",
+    "size": 28
+  },
+  {
+    "idx": 7346,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 7357,
+    "tag": 2201,
+    "text": "WD3508016",
+    "size": 18
+  },
+  {
+    "idx": 7366,
+    "tag": 2201,
+    "text": "08",
+    "size": 4
+  },
+  {
+    "idx": 7375,
+    "tag": 2201,
+    "text": "TKPD",
+    "size": 10
+  },
+  {
+    "idx": 7393,
+    "tag": 2201,
+    "text": "Transfer Fee",
+    "size": 26
+  },
+  {
+    "idx": 7398,
+    "tag": 2201,
+    "text": "350801608",
+    "size": 18
+  },
+  {
+    "idx": 7418,
+    "tag": 2201,
+    "text": "26",
+    "size": 4
+  },
+  {
+    "idx": 7438,
+    "tag": 2201,
+    "text": "+152.99",
+    "size": 14
+  },
+  {
+    "idx": 7443,
+    "tag": 2201,
+    "text": "9,00",
+    "size": 8
+  },
+  {
+    "idx": 7463,
+    "tag": 2201,
+    "text": "182.348,00",
+    "size": 20
+  },
+  {
+    "idx": 7483,
+    "tag": 2201,
+    "text": "6:56:12 WIB",
+    "size": 22
+  },
+  {
+    "idx": 7503,
+    "tag": 2201,
+    "text": "06 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 7508,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 7529,
+    "tag": 2201,
+    "text": "Pembayaran Danatopup",
+    "size": 42
+  },
+  {
+    "idx": 7534,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 7545,
+    "tag": 2201,
+    "text": "89508089528734111",
+    "size": 34
+  },
+  {
+    "idx": 7571,
+    "tag": 2201,
+    "text": "27",
+    "size": 4
+  },
+  {
+    "idx": 7591,
+    "tag": 2201,
+    "text": "-50.500,00",
+    "size": 20
+  },
+  {
+    "idx": 7611,
+    "tag": 2201,
+    "text": "131.848,00",
+    "size": 20
+  },
+  {
+    "idx": 7631,
+    "tag": 2201,
+    "text": "7:46:39 WIB",
+    "size": 22
+  },
+  {
+    "idx": 7651,
+    "tag": 2201,
+    "text": "06 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 7656,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 7676,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 7696,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 7716,
+    "tag": 2202,
+    "text": "8",
+    "size": 2
+  },
+  {
+    "idx": 7725,
+    "tag": 2201,
+    "text": "ke Zoro Suk",
+    "size": 22
+  },
+  {
+    "idx": 7734,
+    "tag": 2201,
+    "text": "ses",
+    "size": 8
+  },
+  {
+    "idx": 7743,
+    "tag": 2201,
+    "text": "Web",
+    "size": 8
+  },
+  {
+    "idx": 7752,
+    "tag": 2201,
+    "text": "507066872949",
+    "size": 24
+  },
+  {
+    "idx": 7772,
+    "tag": 2201,
+    "text": "-100.257,00",
+    "size": 22
+  },
+  {
+    "idx": 7792,
+    "tag": 2201,
+    "text": "31.591,",
+    "size": 14
+  },
+  {
+    "idx": 7797,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 7817,
+    "tag": 2201,
+    "text": "07:55:03 WIB",
+    "size": 24
+  },
+  {
+    "idx": 7837,
+    "tag": 2201,
+    "text": "06 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 7842,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 7862,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 7882,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 7902,
+    "tag": 2202,
+    "text": "9",
+    "size": 2
+  },
+  {
+    "idx": 7911,
+    "tag": 2201,
+    "text": "ke Kantin",
+    "size": 20
+  },
+  {
+    "idx": 7920,
+    "tag": 2201,
+    "text": "Ka Rin",
+    "size": 14
+  },
+  {
+    "idx": 7929,
+    "tag": 2201,
+    "text": "507063873493",
+    "size": 24
+  },
+  {
+    "idx": 7949,
+    "tag": 2201,
+    "text": "-6.000,00",
+    "size": 18
+  },
+  {
+    "idx": 7969,
+    "tag": 2201,
+    "text": "25.5",
+    "size": 8
+  },
+  {
+    "idx": 7974,
+    "tag": 2201,
+    "text": "91,00",
+    "size": 10
+  },
+  {
+    "idx": 7994,
+    "tag": 2201,
+    "text": "20:38:12 WIB",
+    "size": 24
+  },
+  {
+    "idx": 8014,
+    "tag": 2201,
+    "text": "06 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 8019,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 8039,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 8059,
+    "tag": 2202,
+    "text": "3",
+    "size": 2
+  },
+  {
+    "idx": 8079,
+    "tag": 2202,
+    "text": "0",
+    "size": 2
+  },
+  {
+    "idx": 8088,
+    "tag": 2201,
+    "text": "BRAMANTIA SETYAWAN 155000992",
+    "size": 56
+  },
+  {
+    "idx": 8097,
+    "tag": 2201,
+    "text": "6299",
+    "size": 10
+  },
+  {
+    "idx": 8106,
+    "tag": 2201,
+    "text": "uang solar",
+    "size": 20
+  },
+  {
+    "idx": 8126,
+    "tag": 2201,
+    "text": "+500.000,00",
+    "size": 22
+  },
+  {
+    "idx": 8146,
+    "tag": 2201,
+    "text": "525.5",
+    "size": 10
+  },
+  {
+    "idx": 8151,
+    "tag": 2201,
+    "text": "91,00",
+    "size": 10
+  },
+  {
+    "idx": 8171,
+    "tag": 2201,
+    "text": "21:07:33 WIB",
+    "size": 24
+  },
+  {
+    "idx": 8191,
+    "tag": 2201,
+    "text": "06 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 8196,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 8216,
+    "tag": 2201,
+    "text": "Penarikan tunai tanpa kart",
+    "size": 52
+  },
+  {
+    "idx": 8221,
+    "tag": 2202,
+    "text": "u",
+    "size": 2
+  },
+  {
+    "idx": 8241,
+    "tag": 2202,
+    "text": "3",
+    "size": 2
+  },
+  {
+    "idx": 8261,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 8270,
+    "tag": 2201,
+    "text": "Di ATM",
+    "size": 12
+  },
+  {
+    "idx": 8279,
+    "tag": 2201,
+    "text": "JKT SB FALATEHA",
+    "size": 32
+  },
+  {
+    "idx": 8288,
+    "tag": 2201,
+    "text": "N 03",
+    "size": 10
+  },
+  {
+    "idx": 8297,
+    "tag": 2201,
+    "text": "089528734111",
+    "size": 24
+  },
+  {
+    "idx": 8317,
+    "tag": 2201,
+    "text": "-500.000,00",
+    "size": 22
+  },
+  {
+    "idx": 8337,
+    "tag": 2201,
+    "text": "25.59",
+    "size": 10
+  },
+  {
+    "idx": 8342,
+    "tag": 2201,
+    "text": "1,00",
+    "size": 8
+  },
+  {
+    "idx": 8362,
+    "tag": 2201,
+    "text": "22:50:06 WIB",
+    "size": 24
+  },
+  {
+    "idx": 8382,
+    "tag": 2201,
+    "text": "06 Sep 20",
+    "size": 18
+  },
+  {
+    "idx": 8387,
+    "tag": 2201,
+    "text": "25",
+    "size": 4
+  },
+  {
+    "idx": 8407,
+    "tag": 2201,
+    "text": "Transfer dari BANK MANDIRI",
+    "size": 52
+  },
+  {
+    "idx": 8427,
+    "tag": 2202,
+    "text": "3",
+    "size": 2
+  },
+  {
+    "idx": 8447,
+    "tag": 2202,
+    "text": "2",
+    "size": 2
+  },
+  {
+    "idx": 8456,
+    "tag": 2201,
+    "text": "BRAMANTIA SETYAWAN 15500099",
+    "size": 54
+  },
+  {
+    "idx": 8465,
+    "tag": 2201,
+    "text": "26299",
+    "size": 12
+  },
+  {
+    "idx": 8474,
+    "tag": 2201,
+    "text": "uang solar",
+    "size": 20
+  },
+  {
+    "idx": 8494,
+    "tag": 2201,
+    "text": "+500.000,00",
+    "size": 22
+  },
+  {
+    "idx": 8514,
+    "tag": 2201,
+    "text": "525.",
+    "size": 8
+  },
+  {
+    "idx": 8519,
+    "tag": 2201,
+    "text": "591,00",
+    "size": 12
+  },
+  {
+    "idx": 8539,
+    "tag": 2201,
+    "text": "02:10:44 WIB",
+    "size": 24
+  },
+  {
+    "idx": 8559,
+    "tag": 2201,
+    "text": "08 Sep",
+    "size": 14
+  },
+  {
+    "idx": 8564,
+    "tag": 2201,
+    "text": "2025",
+    "size": 8
+  },
+  {
+    "idx": 8584,
+    "tag": 2201,
+    "text": "Pembayaran QR",
+    "size": 26
+  },
+  {
+    "idx": 8604,
+    "tag": 2202,
+    "text": "3",
+    "size": 2
+  },
+  {
+    "idx": 8624,
+    "tag": 2202,
+    "text": "3",
+    "size": 2
+  },
+  {
+    "idx": 8633,
+    "tag": 2201,
+    "text": "ke SPBU31.11403 DAA",
+    "size": 38
+  },
+  {
+    "idx": 8642,
+    "tag": 2201,
+    "text": "N MOGOT",
+    "size": 16
+  },
+  {
+    "idx": 8651,
+    "tag": 2201,
+    "text": "507481245720",
+    "size": 24
+  },
+  {
+    "idx": 8671,
+    "tag": 2201,
+    "text": "-428.788,00",
+    "size": 22
+  },
+  {
+    "idx": 8691,
+    "tag": 2201,
+    "text": "96.803,00",
+    "size": 18
+  },
+  {
+    "idx": 8711,
+    "tag": 2201,
+    "text": "02:21:16 WIB",
+    "size": 24
+  },
+  {
+    "idx": 8731,
+    "tag": 2201,
+    "text": "08 Sep",
+    "size": 14
+  },
+  {
+    "idx": 8736,
+    "tag": 2201,
+    "text": "2025",
+    "size": 8
+  },
+  {
+    "idx": 8757,
+    "tag": 2201,
+    "text": "Biaya pembayaran Telkomsel P",
+    "size": 56
+  },
+  {
+    "idx": 8762,
+    "tag": 2201,
+    "text": "repaid",
+    "size": 14
+  },
+  {
+    "idx": 8767,
+    "tag": 2202,
+    "text": "1",
+    "size": 2
+  },
+  {
+    "idx": 8778,
+    "tag": 2201,
+    "text": "081391370576",
+    "size": 24
+  },
+  {
+    "idx": 8804,
+    "tag": 2201,
+    "text": "34",
+    "size": 4
+  },
+  {
+    "idx": 8824,
+    "tag": 2201,
+    "text": "-2.000,00",
+    "size": 18
+  },
+  {
+    "idx": 8844,
+    "tag": 2201,
+    "text": "94.803,",
+    "size": 14
+  },
+  {
+    "idx": 8849,
+    "tag": 2201,
+    "text": "00",
+    "size": 4
+  },
+  {
+    "idx": 8869,
+    "tag": 2201,
+    "text": "9:25:21 WIB",
+    "size": 22
+  },
+  {
+    "idx": 8889,
+    "tag": 2201,
+    "text": "08 S",
+    "size": 8
+  },
+  {
+    "idx": 8894,
+    "tag": 2201,
+    "text": "ep 2025",
+    "size": 14
+  },
+  {
+    "idx": 8914,
+    "tag": 2201,
+    "text": "PT Bank Mandiri (Persero) Tbk. berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) dan Bank Indonesia (BI),",
+    "size": 220
+  },
+  {
+    "idx": 8919,
+    "tag": 2201,
+    "text": "serta merupakan peserta penjamin Lembaga Penjamin Simpanan",
+    "size": 118
+  },
+  {
+    "idx": 8924,
+    "tag": 2201,
+    "text": "(LPS)",
+    "size": 10
+  },
+  {
+    "idx": 8944,
+    "tag": 2201,
+    "text": "Mandiri Call 14000",
+    "size": 36
+  },
+  {
+    "idx": 8964,
+    "tag": 2201,
+    "text": "YULIANA SANI PUTRI",
+    "size": 36
+  },
+  {
+    "idx": 9116,
+    "tag": 2201,
+    "text": "ini adalah batas akhir transaksi an",
+    "size": 70
+  },
+  {
+    "idx": 9121,
+    "tag": 2201,
+    "text": "da",
+    "size": 4
+  },
+  {
+    "idx": 9143,
+    "tag": 2201,
+    "text": "4.",
+    "size": 4
+  },
+  {
+    "idx": 9167,
+    "tag": 2201,
+    "text": "Disclaimer",
+    "size": 20
+  },
+  {
+    "idx": 9189,
+    "tag": 2201,
+    "text": "3.",
+    "size": 4
+  },
+  {
+    "idx": 9210,
+    "tag": 2201,
+    "text": "Nasabah",
+    "size": 14
+  },
+  {
+    "idx": 9219,
+    "tag": 2201,
+    "text": "tunduk",
+    "size": 14
+  },
+  {
+    "idx": 9228,
+    "tag": 2201,
+    "text": "dan",
+    "size": 8
+  },
+  {
+    "idx": 9237,
+    "tag": 2201,
+    "text": "terikat",
+    "size": 16
+  },
+  {
+    "idx": 9246,
+    "tag": 2201,
+    "text": "pada",
+    "size": 10
+  },
+  {
+    "idx": 9255,
+    "tag": 2201,
+    "text": "Syarat",
+    "size": 14
+  },
+  {
+    "idx": 9264,
+    "tag": 2201,
+    "text": "dan",
+    "size": 8
+  },
+  {
+    "idx": 9273,
+    "tag": 2201,
+    "text": "Ketentu",
+    "size": 16
+  },
+  {
+    "idx": 9282,
+    "tag": 2201,
+    "text": "an",
+    "size": 4
+  },
+  {
+    "idx": 9291,
+    "tag": 2201,
+    "text": "Livin' yang",
+    "size": 24
+  },
+  {
+    "idx": 9300,
+    "tag": 2201,
+    "text": "d",
+    "size": 4
+  },
+  {
+    "idx": 9309,
+    "tag": 2201,
+    "text": "apa",
+    "size": 6
+  },
+  {
+    "idx": 9318,
+    "tag": 2202,
+    "text": "t",
+    "size": 2
+  },
+  {
+    "idx": 9327,
+    "tag": 2201,
+    "text": "diakses",
+    "size": 16
+  },
+  {
+    "idx": 9336,
+    "tag": 2201,
+    "text": "melalui",
+    "size": 16
+  },
+  {
+    "idx": 9345,
+    "tag": 2201,
+    "text": "laman",
+    "size": 12
+  },
+  {
+    "idx": 9354,
+    "tag": 2201,
+    "text": "resmi",
+    "size": 12
+  },
+  {
+    "idx": 9363,
+    "tag": 2201,
+    "text": "Bank",
+    "size": 10
+  },
+  {
+    "idx": 9372,
+    "tag": 2201,
+    "text": "Mandiri./",
+    "size": 20
+  },
+  {
+    "idx": 9376,
+    "tag": 2201,
+    "text": "Customers",
+    "size": 18
+  },
+  {
+    "idx": 9387,
+    "tag": 2201,
+    "text": "are",
+    "size": 8
+  },
+  {
+    "idx": 9398,
+    "tag": 2201,
+    "text": "subject",
+    "size": 16
+  },
+  {
+    "idx": 9409,
+    "tag": 2201,
+    "text": "to",
+    "size": 8
+  },
+  {
+    "idx": 9418,
+    "tag": 2201,
+    "text": "and",
+    "size": 6
+  },
+  {
+    "idx": 9428,
+    "tag": 2201,
+    "text": "bound",
+    "size": 12
+  },
+  {
+    "idx": 9439,
+    "tag": 2201,
+    "text": "by the",
+    "size": 14
+  },
+  {
+    "idx": 9450,
+    "tag": 2201,
+    "text": "Livin' Term",
+    "size": 24
+  },
+  {
+    "idx": 9461,
+    "tag": 2201,
+    "text": "and",
+    "size": 8
+  },
+  {
+    "idx": 9472,
+    "tag": 2201,
+    "text": "Conditions",
+    "size": 22
+  },
+  {
+    "idx": 9483,
+    "tag": 2201,
+    "text": "which",
+    "size": 12
+  },
+  {
+    "idx": 9494,
+    "tag": 2201,
+    "text": "can",
+    "size": 10
+  },
+  {
+    "idx": 9499,
+    "tag": 2202,
+    "text": "b",
+    "size": 2
+  },
+  {
+    "idx": 9506,
+    "tag": 2201,
+    "text": "e accessed",
+    "size": 20
+  },
+  {
+    "idx": 9517,
+    "tag": 2201,
+    "text": "via the",
+    "size": 16
+  },
+  {
+    "idx": 9528,
+    "tag": 2201,
+    "text": "offical",
+    "size": 16
+  },
+  {
+    "idx": 9539,
+    "tag": 2201,
+    "text": "Bank",
+    "size": 10
+  },
+  {
+    "idx": 9550,
+    "tag": 2201,
+    "text": "Mandiri",
+    "size": 16
+  },
+  {
+    "idx": 9561,
+    "tag": 2201,
+    "text": "website.",
+    "size": 18
+  },
+  {
+    "idx": 9592,
+    "tag": 2201,
+    "text": "e-Statemen",
+    "size": 20
+  },
+  {
+    "idx": 9597,
+    "tag": 2201,
+    "text": "t ini merupakan dokumen e",
+    "size": 50
+  },
+  {
+    "idx": 9602,
+    "tag": 2201,
+    "text": "lektr",
+    "size": 10
+  },
+  {
+    "idx": 9607,
+    "tag": 2201,
+    "text": "onik bersifa",
+    "size": 24
+  },
+  {
+    "idx": 9612,
+    "tag": 2201,
+    "text": "t utuh yang dih",
+    "size": 30
+  },
+  {
+    "idx": 9617,
+    "tag": 2201,
+    "text": "asilkan oleh sistem Bank Mandiri dan sah digunakan tanpa tanda tangan",
+    "size": 140
+  },
+  {
+    "idx": 9622,
+    "tag": 2201,
+    "text": "dari pejabat Bank Mandri./",
+    "size": 52
+  },
+  {
+    "idx": 9626,
+    "tag": 2201,
+    "text": "This e-Statement is",
+    "size": 40
+  },
+  {
+    "idx": 9631,
+    "tag": 2202,
+    "text": "a",
+    "size": 2
+  },
+  {
+    "idx": 9638,
+    "tag": 2202,
+    "text": "n",
+    "size": 2
+  },
+  {
+    "idx": 9649,
+    "tag": 2201,
+    "text": "electronic document issued by Bank Mandiri system and is valid for use without an",
+    "size": 164
+  },
+  {
+    "idx": 9660,
+    "tag": 2201,
+    "text": "official",
+    "size": 20
+  },
+  {
+    "idx": 9671,
+    "tag": 2201,
+    "text": "signature from Bank Mandiri.",
+    "size": 56
+  },
+  {
+    "idx": 9779,
+    "tag": 2201,
+    "text": "2.",
+    "size": 4
+  },
+  {
+    "idx": 9788,
+    "tag": 2201,
+    "text": "Segala",
+    "size": 12
+  },
+  {
+    "idx": 9797,
+    "tag": 2201,
+    "text": "bentuk",
+    "size": 14
+  },
+  {
+    "idx": 9806,
+    "tag": 2201,
+    "text": "penggunaan",
+    "size": 22
+  },
+  {
+    "idx": 9815,
+    "tag": 2201,
+    "text": "e-Sta",
+    "size": 12
+  },
+  {
+    "idx": 9824,
+    "tag": 2201,
+    "text": "te",
+    "size": 4
+  },
+  {
+    "idx": 9833,
+    "tag": 2201,
+    "text": "ment",
+    "size": 8
+  },
+  {
+    "idx": 9842,
+    "tag": 2201,
+    "text": "ini",
+    "size": 8
+  },
+  {
+    "idx": 9851,
+    "tag": 2201,
+    "text": "menjadi",
+    "size": 16
+  },
+  {
+    "idx": 9860,
+    "tag": 2201,
+    "text": "tang",
+    "size": 10
+  },
+  {
+    "idx": 9869,
+    "tag": 2201,
+    "text": "gung",
+    "size": 8
+  },
+  {
+    "idx": 9878,
+    "tag": 2201,
+    "text": "jawab",
+    "size": 12
+  },
+  {
+    "idx": 9887,
+    "tag": 2201,
+    "text": "Nasabah",
+    "size": 16
+  },
+  {
+    "idx": 9896,
+    "tag": 2201,
+    "text": "sepenuhnya./",
+    "size": 26
+  },
+  {
+    "idx": 9900,
+    "tag": 2201,
+    "text": "All",
+    "size": 6
+  },
+  {
+    "idx": 9911,
+    "tag": 2201,
+    "text": "forms",
+    "size": 12
+  },
+  {
+    "idx": 9922,
+    "tag": 2201,
+    "text": "of",
+    "size": 6
+  },
+  {
+    "idx": 9933,
+    "tag": 2201,
+    "text": "usage",
+    "size": 12
+  },
+  {
+    "idx": 9944,
+    "tag": 2201,
+    "text": "of",
+    "size": 6
+  },
+  {
+    "idx": 9955,
+    "tag": 2201,
+    "text": "this",
+    "size": 10
+  },
+  {
+    "idx": 9966,
+    "tag": 2201,
+    "text": "e",
+    "size": 4
+  },
+  {
+    "idx": 9977,
+    "tag": 2201,
+    "text": "-Statement",
+    "size": 20
+  },
+  {
+    "idx": 9988,
+    "tag": 2201,
+    "text": "are",
+    "size": 8
+  },
+  {
+    "idx": 10011,
+    "tag": 2201,
+    "text": "the Customer's",
+    "size": 28
+  },
+  {
+    "idx": 10016,
+    "tag": 2201,
+    "text": "role",
+    "size": 10
+  },
+  {
+    "idx": 10021,
+    "tag": 2201,
+    "text": "respo",
+    "size": 12
+  },
+  {
+    "idx": 10026,
+    "tag": 2201,
+    "text": "nsibility.",
+    "size": 20
+  },
+  {
+    "idx": 10033,
+    "tag": 2201,
+    "text": "Nasabah",
+    "size": 14
+  },
+  {
+    "idx": 10042,
+    "tag": 2201,
+    "text": "dapat",
+    "size": 12
+  },
+  {
+    "idx": 10051,
+    "tag": 2201,
+    "text": "mengajukan",
+    "size": 22
+  },
+  {
+    "idx": 10060,
+    "tag": 2201,
+    "text": "kebera",
+    "size": 14
+  },
+  {
+    "idx": 10069,
+    "tag": 2201,
+    "text": "tan",
+    "size": 6
+  },
+  {
+    "idx": 10078,
+    "tag": 2201,
+    "text": "a",
+    "size": 4
+  },
+  {
+    "idx": 10087,
+    "tag": 2201,
+    "text": "tas",
+    "size": 6
+  },
+  {
+    "idx": 10096,
+    "tag": 2201,
+    "text": "ketidaksesu",
+    "size": 24
+  },
+  {
+    "idx": 10105,
+    "tag": 2201,
+    "text": "aian",
+    "size": 8
+  },
+  {
+    "idx": 10114,
+    "tag": 2201,
+    "text": "informasi",
+    "size": 20
+  },
+  {
+    "idx": 10123,
+    "tag": 2201,
+    "text": "di",
+    "size": 6
+  },
+  {
+    "idx": 10132,
+    "tag": 2201,
+    "text": "e",
+    "size": 4
+  },
+  {
+    "idx": 10141,
+    "tag": 2201,
+    "text": "-Sta",
+    "size": 8
+  },
+  {
+    "idx": 10150,
+    "tag": 2201,
+    "text": "tement",
+    "size": 12
+  },
+  {
+    "idx": 10159,
+    "tag": 2201,
+    "text": "dalam",
+    "size": 12
+  },
+  {
+    "idx": 10168,
+    "tag": 2201,
+    "text": "ba",
+    "size": 6
+  },
+  {
+    "idx": 10177,
+    "tag": 2201,
+    "text": "tas",
+    "size": 6
+  },
+  {
+    "idx": 10186,
+    "tag": 2201,
+    "text": "waktu",
+    "size": 12
+  },
+  {
+    "idx": 10195,
+    "tag": 2201,
+    "text": "14",
+    "size": 6
+  },
+  {
+    "idx": 10204,
+    "tag": 2201,
+    "text": "hari",
+    "size": 10
+  },
+  {
+    "idx": 10213,
+    "tag": 2201,
+    "text": "kalender.",
+    "size": 20
+  },
+  {
+    "idx": 10222,
+    "tag": 2201,
+    "text": "/",
+    "size": 4
+  },
+  {
+    "idx": 10226,
+    "tag": 2201,
+    "text": "Cu",
+    "size": 4
+  },
+  {
+    "idx": 10237,
+    "tag": 2201,
+    "text": "stome",
+    "size": 10
+  },
+  {
+    "idx": 10248,
+    "tag": 2201,
+    "text": "rs",
+    "size": 4
+  },
+  {
+    "idx": 10259,
+    "tag": 2201,
+    "text": "can",
+    "size": 10
+  },
+  {
+    "idx": 10269,
+    "tag": 2201,
+    "text": "submit",
+    "size": 12
+  },
+  {
+    "idx": 10279,
+    "tag": 2201,
+    "text": "objectio",
+    "size": 18
+  },
+  {
+    "idx": 10290,
+    "tag": 2201,
+    "text": "ns",
+    "size": 4
+  },
+  {
+    "idx": 10301,
+    "tag": 2201,
+    "text": "regardin",
+    "size": 18
+  },
+  {
+    "idx": 10312,
+    "tag": 2202,
+    "text": "g",
+    "size": 2
+  },
+  {
+    "idx": 10323,
+    "tag": 2201,
+    "text": "information",
+    "size": 24
+  },
+  {
+    "idx": 10334,
+    "tag": 2201,
+    "text": "discrepancies",
+    "size": 28
+  },
+  {
+    "idx": 10345,
+    "tag": 2201,
+    "text": "in the",
+    "size": 14
+  },
+  {
+    "idx": 10356,
+    "tag": 2201,
+    "text": "e-Statement",
+    "size": 24
+  },
+  {
+    "idx": 10367,
+    "tag": 2201,
+    "text": "with",
+    "size": 10
+  },
+  {
+    "idx": 10378,
+    "tag": 2201,
+    "text": "in 14 calen",
+    "size": 22
+  },
+  {
+    "idx": 10389,
+    "tag": 2201,
+    "text": "dar",
+    "size": 6
+  },
+  {
+    "idx": 10400,
+    "tag": 2201,
+    "text": "days.",
+    "size": 12
+  },
+  {
+    "idx": 10430,
+    "tag": 2201,
+    "text": "1.",
+    "size": 4
+  }
+]

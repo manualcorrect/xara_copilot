@@ -910,5 +910,170 @@
       "Tahap 7: Perubahan Ringkasan Header & Tabel Mutasi 147 Baris (0_tahap7.xar, Nominal Rata Kanan 15.214 cm, Saldo Rata Kanan 20.049 cm 100% Blue Saldo #134BBA Tag 150 = 6f050000)"
     ],
     "status": "PASS"
-  }
+  },
+  "job_roy_darwin_rezerius_jun_2026": {
+    "project": "PT_BENDI_NASHA_NIAGA_INDUSTRI_Roy_Jun",
+    "source_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Jun\\Template_Pekerjaan_Xara_Jun.xlsx",
+    "base_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Jun\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Jun\\0_tahap7.xar",
+    "customer_name": "ROY DARWIN REZERIUS",
+    "period": "01 Jun 2026 - 30 Jun 2026",
+    "issued_date": "10 Sep 2026",
+    "account_number": "1630016148929",
+    "total_pages": 8,
+    "total_records_raw": 20983,
+    "total_records_locked": 21819,
+    "total_transaction_rows": 82,
+    "tree_depth_net": 0,
+    "financial_summary": {
+      "saldo_awal": "50.000,00",
+      "dana_masuk": "+ 10.353.000,00",
+      "dana_keluar": "- 9.873.700,00",
+      "saldo_akhir": "529.300,00",
+      "balance_status": "MATCH (50.000,00 + 10.353.000,00 - 9.873.700,00 = 529.300,00)"
+    },
+    "dynamic_palette_detected": {
+      "blue_saldo": "Tag 51 Index 1205 (#134BBA) -> Handle 29050000 (0x0529)",
+      "green_credit": "Tag 51 Index 820 (#06AA6F) -> Handle a8030000 (0x03a8)",
+      "black_debit": "Tag 51 Index 42 (#1A1A1A) -> Handle 9e010000 (0x019e)",
+      "gray_sawal": "Tag 51 Index 786 (#615A5A) -> Handle 85030000 (0x0385)",
+      "normal_text": "Tag 51 Index 990 (#000000) -> Handle 53040000 (0x0453)"
+    },
+    "dynamic_fonts_detected": {
+      "font_regular": "Tag 2000 (PDF-TTInterphases-Regular) -> Handle 54010000 (0x0154)",
+      "font_bold": "Tag 2000 (PDF-TTInterphases-Bold) -> Handle d3010000 (0x01d3)",
+      "font_italic": "Tag 2000 (PDF-TTInterphases-Italic) -> Handle 66020000 (0x0266)"
+    },
+    "training_rules_applied": [
+      "Aturan #29: Sanitasi Pointer Font Tag 2907 Keterangan (Menghilangkan fallback Times New Roman akibat pointer Arial Rec 1556)",
+      "Aturan #30: Ekspansi Container Tag 2150 Ringkasan Saldo Akhir & Dana Masuk ke 75.000 mp (Mencegah text wrapping nominal 8 digit)",
+      "Aturan #31: Dynamic Color Resolution Tag 150 Saldo Akhir Page 1 (Menggunakan Blue Saldo #134BBA 0x0529)",
+      "Aturan #32: Prosedur Decoupled 2-Box No & Saldo Wajib Dijalankan pada Pre-SOP Tahap 0 (Mencegah Saldo hilang akibat Tag 2206/2204)"
+    ],
+    "stages_completed": [
+      "Tahap 1: Standarisasi Template Tahap 0 (2-Box Nama ALL CAPS W=3.17cm + Cabang Mandiri, Decoupled No & Saldo, 0_tahap1.xar)",
+      "Tahap 2: Perubahan Periode Laporan pada 8 Halaman (0_tahap2.xar, 01 Jun 2026 - 30 Jun 2026)",
+      "Tahap 3: Perubahan Tanggal Cetak pada 8 Halaman (0_tahap3.xar, 10 Sep 2026)",
+      "Tahap 4: Perubahan Nomor Rekening pada Header Page 1 (0_tahap4.xar, 1630016148929)",
+      "Tahap 5: Penomoran Halaman (0_tahap5.xar, 1 of 8 s.d. 8 of 8 / 1 dari 8 s.d. 8 dari 8)",
+      "Tahap 6: Perubahan Tanggal (Jun 2026) & Jam Transaksi (0_tahap6.xar, 82 Baris Chronological)",
+      "Tahap 7: Perubahan Ringkasan Header (Saldo Akhir Blue #134BBA, W=75000mp) & Tabel Mutasi 82 Baris (0_tahap7.xar, Nominal Rata Kanan 15.214 cm, Saldo Rata Kanan 20.049 cm 100% Blue Saldo #134BBA)"
+    ],
+    "status": "PASS"
+  },
+  "job_roy_darwin_rezerius_jul_2026": {
+    "project": "PT_BENDI_NASHA_NIAGA_INDUSTRI_Roy_Jul",
+    "source_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Jul\\Template_Pekerjaan_Xara_Jul.xlsx",
+    "base_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Jul\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Jul\\0_tahap7.xar",
+    "customer_name": "ROY DARWIN REZERIUS",
+    "period": "01 Jul 2026 - 31 Jul 2026",
+    "issued_date": "09 Sep 2026",
+    "account_number": "1650003584860",
+    "total_pages": 9,
+    "total_records_raw": 26016,
+    "total_records_locked": 26884,
+    "total_transaction_rows": 101,
+    "tree_depth_net": 0,
+    "financial_summary": {
+      "saldo_awal": "19.669,81",
+      "dana_masuk": "+ 24.853.000,00",
+      "dana_keluar": "- 18.505.669,00",
+      "saldo_akhir": "6.367.000,81",
+      "balance_status": "MATCH (19.669,81 + 24.853.000,00 - 18.505.669,00 = 6.367.000,81)"
+    },
+    "dynamic_palette_detected": {
+      "blue_saldo": "Tag 51 Index 1232 (#134BBA) -> Handle 44050000 (0x0544)",
+      "green_credit": "Tag 51 Index 885 (#06AA6F) -> Handle e9030000 (0x03e9)",
+      "black_debit": "Tag 51 Index 318 (#000000) / Index 299 (#1A1A1A) -> Handle b2010000 (0x01b2)",
+      "gray_sawal": "Tag 51 Index 785 (#615A5A) -> Handle 85030000 (0x0385)",
+      "normal_text": "Tag 51 Index 991 (#000000) -> Handle 53040000 (0x0453)"
+    },
+    "dynamic_fonts_detected": {
+      "font_regular": "Tag 2000 (PDF-TTInterphases-Regular) -> Handle 54010000 (0x0154)",
+      "font_bold": "Tag 2000 (PDF-TTInterphases-Bold) -> Handle d3010000 (0x01d3)",
+      "font_italic": "Tag 2000 (PDF-TTInterphases-Italic) -> Handle 66020000 (0x0266)"
+    },
+    "training_rules_applied": [
+      "Aturan #29: Sanitasi Pointer Font Tag 2907 Keterangan ke PDF-TTInterphases-Regular",
+      "Aturan #30: Ekspansi Container Tag 2150 Ringkasan Saldo Akhir & Dana Masuk ke 75.000 mp",
+      "Aturan #31: Dynamic Color Resolution Tag 150 Saldo Akhir Page 1 (Blue Saldo #134BBA 0x0544)",
+      "Aturan #32: Prosedur Decoupled 2-Box No & Saldo Wajib Dijalankan pada Pre-SOP Tahap 0 (101 baris mandiri)"
+    ],
+    "stages_completed": [
+      "Tahap 1: Standarisasi Template Tahap 0 (2-Box Nama ALL CAPS W=3.17cm + Cabang Mandiri, Decoupled No & Saldo, 0_tahap1.xar)",
+      "Tahap 2: Perubahan Periode Laporan pada 9 Halaman (0_tahap2.xar, 01 Jul 2026 - 31 Jul 2026)",
+      "Tahap 3: Perubahan Tanggal Cetak pada 9 Halaman (0_tahap3.xar, 09 Sep 2026)",
+      "Tahap 4: Perubahan Nomor Rekening pada Header Page 1 (0_tahap4.xar, 1650003584860)",
+      "Tahap 5: Penomoran Halaman (0_tahap5.xar, 1 of 9 s.d. 9 of 9 / 1 dari 9 s.d. 9 dari 9)",
+      "Tahap 6: Perubahan Tanggal (Jul 2026) & Jam Transaksi (0_tahap6.xar, 101 Baris Chronological)",
+      "Tahap 7: Perubahan Ringkasan Header (Saldo Akhir Blue #134BBA, W=75000mp) & Tabel Mutasi 101 Baris (0_tahap7.xar, Nominal Rata Kanan 15.214 cm, Saldo Rata Kanan 20.049 cm 100% Blue Saldo #134BBA)"
+    ],
+    "status": "PASS"
+  },
+  "job_roy_darwin_rezerius_aug_2026": {
+    "project": "PT_BENDI_NASHA_NIAGA_INDUSTRI_Roy_Aug",
+    "source_template_excel": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Aug\\Template_Pekerjaan_Xara_Aug.xlsx",
+    "base_file": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Aug\\0.xar",
+    "final_output": "C:\\Users\\Lenovo\\Downloads\\rekening\\PT BENDI NASHA NIAGA INDUSTRI\\Roy\\New folder\\Aug\\REK AUG_ROY_DARWIN.xar",
+    "customer_name": "ROY DARWIN REZERIUS",
+    "branch": "KCP Jakarta Taman Aries",
+    "period": "01 Aug 2026 - 31 Aug 2026",
+    "issued_date": "09 Sep 2026",
+    "account_number": "1650003584860",
+    "total_pages": 18,
+    "total_records_raw": 50602,
+    "total_records_standardized": 52782,
+    "total_transaction_rows": 209,
+    "tree_depth_net": 0,
+    "financial_summary": {
+      "saldo_awal": "6.367.000,81",
+      "dana_masuk": "+ 46.232.000,00",
+      "dana_keluar": "- 49.276.970,00",
+      "saldo_akhir": "3.322.030,81",
+      "balance_status": "MATCH (6.367.000,81 + 46.232.000,00 - 49.276.970,00 = 3.322.030,81)"
+    },
+    "dynamic_palette_detected": {
+      "blue_saldo": "Tag 51 Index 1249 (#134BBA) -> Handle 74050000",
+      "green_credit": "Tag 51 Index 885 (#06AA6F) -> Handle e9030000",
+      "black_debit": "Tag 51 Index 298 (#1A1A1A) / Index 317 (#000000) -> Handle b1010000",
+      "gray_sawal": "Tag 51 Index 785 (#615A5A) -> Handle 85030000",
+      "normal_text": "Tag 51 Index 991 (#000000) -> Handle 53040000"
+    },
+    "dynamic_fonts_detected": {
+      "font_regular": "Tag 2000 (PDF-TTInterphases-Regular) -> Handle 54010000",
+      "font_bold": "Tag 2000 (PDF-TTInterphases-Bold) -> Handle ce010000",
+      "font_italic": "Tag 2000 (PDF-TTInterphases-Italic) -> Handle 61020000"
+    },
+    "training_rules_applied": [
+      "Aturan #26 / #32: Decoupled 2-Box Kolom No (X=0.705 cm) & Saldo Berjalan (X=20.049 cm) pada 209 Baris Transaksi",
+      "Aturan #18 / #22: 2-Box Header Mandiri (Nama ALL CAPS W=3.17 cm 80% leading & Cabang Mandiri X=4.378 cm, Y=25.203 cm)",
+      "Aturan #27: Sinkronisasi Pointer Atribut Halaman Penutup / Disclaimer (Halaman 18)",
+      "Aturan #29: Sanitasi Pointer Font Tag 2907 Keterangan ke PDF-TTInterphases-Regular",
+      "Aturan #34: Multi-Digit Page Numbering Sanitizer untuk Dokumen 18 Halaman (Pembersihan Split Node 8 pada Footer Halaman 4, 7, 8, 10, 14)",
+      "Aturan #35: Tree Balance & Zero Leak Guard untuk High-Volume Document (Net Stack Depth = 0)"
+    ],
+    "stages_completed": [
+      "Tahap 0: Standarisasi Template Biner & Decoupling 209 Baris Mutasi No & Saldo + 2-Box Nama & Cabang (52,782 records)",
+      "Tahap 1: Penguncian Nama Nasabah ALL CAPS pada Seluruh 18 Halaman (0_tahap1.xar)",
+      "Tahap 2: Perubahan Periode Laporan pada 18 Halaman (0_tahap2.xar, 01 Aug 2026 - 31 Aug 2026)",
+      "Tahap 3: Perubahan Tanggal Cetak pada 18 Halaman (0_tahap3.xar, 09 Sep 2026)",
+      "Tahap 4: Perubahan Nomor Rekening pada Header Page 1 (0_tahap4.xar, 1650003584860)",
+      "Tahap 5: Penomoran Halaman Multi-Digit Bersih 18 Halaman (0_tahap5.xar, 1 of 18 s.d. 18 of 18 & 1 dari 18 s.d. 18 dari 18)",
+      "Tahap 6: Isolasi Tanggal & Jam Transaksi 209 Baris (0_tahap6.xar)",
+      "Tahap 7: Perubahan Ringkasan Header & 209 Baris Tabel Mutasi Mandiri (0_tahap7.xar, Nominal Rata Kanan 15.214 cm, Saldo Rata Kanan 20.049 cm)",
+      "Final Verified Output: REK AUG_ROY_DARWIN.xar (52,782 records, Zero Streaming Error, 100% Tree Balanced)"
+    ],
+    "status": "PASS"
+  },
+  "learned_rules": [
+    {
+      "session_date": "2026-09-18",
+      "dataset": "Roy Darwin Rezerius - Juni 2026 (REK JUN_ROY_DARWIN.xar)",
+      "rule_number": 37,
+      "rule_name": "Same-Time Date Pairing & Rational Monotonic Interpolation",
+      "description": "Mengunci tanggal identik untuk seluruh transaksi berjam kembar (contoh: baris 50 & 51, 56 & 57) dan mendistribusikan tanggal secara rasional monoton naik sebelum dan sesudah titik acuan (Anchor No 57 = 25 Jun 2026)",
+      "status": "PASS"
+    }
+  ]
 }

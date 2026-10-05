@@ -1,0 +1,566 @@
+[
+  {
+    "row_no": 1,
+    "nom_nodes": [
+      1529
+    ],
+    "saldo_nodes": [
+      1549
+    ],
+    "time_nodes": [
+      1569
+    ],
+    "date_nodes": [
+      1589,
+      1594
+    ]
+  },
+  {
+    "row_no": 2,
+    "nom_nodes": [
+      1686
+    ],
+    "saldo_nodes": [
+      1706,
+      1711
+    ],
+    "time_nodes": [
+      1731
+    ],
+    "date_nodes": [
+      1751,
+      1756
+    ]
+  },
+  {
+    "row_no": 3,
+    "nom_nodes": [
+      1844
+    ],
+    "saldo_nodes": [
+      1864,
+      1869
+    ],
+    "time_nodes": [
+      1889
+    ],
+    "date_nodes": [
+      1909,
+      1914
+    ]
+  },
+  {
+    "row_no": 4,
+    "nom_nodes": [
+      2021
+    ],
+    "saldo_nodes": [
+      2041,
+      2046
+    ],
+    "time_nodes": [
+      2066
+    ],
+    "date_nodes": [
+      2086,
+      2091
+    ]
+  },
+  {
+    "row_no": 5,
+    "nom_nodes": [
+      2198
+    ],
+    "saldo_nodes": [
+      2218,
+      2223
+    ],
+    "time_nodes": [
+      2243
+    ],
+    "date_nodes": [
+      2263,
+      2268
+    ]
+  },
+  {
+    "row_no": 6,
+    "nom_nodes": [
+      2387,
+      2392
+    ],
+    "saldo_nodes": [
+      2412
+    ],
+    "time_nodes": [
+      2432
+    ],
+    "date_nodes": [
+      2452
+    ]
+  },
+  {
+    "row_no": 7,
+    "nom_nodes": [
+      2544,
+      2549
+    ],
+    "saldo_nodes": [
+      2569,
+      2574
+    ],
+    "time_nodes": [
+      2594
+    ],
+    "date_nodes": [
+      2614
+    ]
+  },
+  {
+    "row_no": 8,
+    "nom_nodes": [
+      2731
+    ],
+    "saldo_nodes": [
+      2751,
+      2756
+    ],
+    "time_nodes": [
+      2776
+    ],
+    "date_nodes": [
+      2796
+    ]
+  },
+  {
+    "row_no": 9,
+    "nom_nodes": [
+      2888
+    ],
+    "saldo_nodes": [
+      2908,
+      2913
+    ],
+    "time_nodes": [
+      2933
+    ],
+    "date_nodes": [
+      2953
+    ]
+  },
+  {
+    "row_no": 10,
+    "nom_nodes": [
+      3078,
+      3083
+    ],
+    "saldo_nodes": [
+      3103
+    ],
+    "time_nodes": [
+      3123
+    ],
+    "date_nodes": [
+      3143
+    ]
+  },
+  {
+    "row_no": 11,
+    "nom_nodes": [
+      4045,
+      4050
+    ],
+    "saldo_nodes": [
+      4070
+    ],
+    "time_nodes": [
+      4090
+    ],
+    "date_nodes": [
+      4110
+    ]
+  },
+  {
+    "row_no": 12,
+    "nom_nodes": [
+      4190
+    ],
+    "saldo_nodes": [
+      4210,
+      4215
+    ],
+    "time_nodes": [
+      4235
+    ],
+    "date_nodes": [
+      4255
+    ]
+  },
+  {
+    "row_no": 13,
+    "nom_nodes": [
+      4362,
+      4367
+    ],
+    "saldo_nodes": [
+      4387,
+      4392
+    ],
+    "time_nodes": [
+      4412,
+      4417
+    ],
+    "date_nodes": [
+      4437
+    ]
+  },
+  {
+    "row_no": 14,
+    "nom_nodes": [
+      4529
+    ],
+    "saldo_nodes": [
+      4549,
+      4554
+    ],
+    "time_nodes": [
+      4574,
+      4579
+    ],
+    "date_nodes": [
+      4599
+    ]
+  },
+  {
+    "row_no": 15,
+    "nom_nodes": [
+      4687
+    ],
+    "saldo_nodes": [
+      4707
+    ],
+    "time_nodes": [
+      4727,
+      4732
+    ],
+    "date_nodes": [
+      4752
+    ]
+  },
+  {
+    "row_no": 16,
+    "nom_nodes": [
+      4844
+    ],
+    "saldo_nodes": [
+      4864,
+      4869
+    ],
+    "time_nodes": [
+      4889
+    ],
+    "date_nodes": [
+      4909
+    ]
+  },
+  {
+    "row_no": 17,
+    "nom_nodes": [
+      5012
+    ],
+    "saldo_nodes": [
+      5032,
+      5037
+    ],
+    "time_nodes": [
+      5057,
+      5062
+    ],
+    "date_nodes": [
+      5082
+    ]
+  },
+  {
+    "row_no": 18,
+    "nom_nodes": [
+      5185
+    ],
+    "saldo_nodes": [
+      5205,
+      5210
+    ],
+    "time_nodes": [
+      5230
+    ],
+    "date_nodes": [
+      5250
+    ]
+  },
+  {
+    "row_no": 19,
+    "nom_nodes": [
+      5357
+    ],
+    "saldo_nodes": [
+      5377,
+      5382
+    ],
+    "time_nodes": [
+      5402,
+      5407
+    ],
+    "date_nodes": [
+      5427
+    ]
+  },
+  {
+    "row_no": 20,
+    "nom_nodes": [
+      5534,
+      5539
+    ],
+    "saldo_nodes": [
+      5559,
+      5564
+    ],
+    "time_nodes": [
+      5584
+    ],
+    "date_nodes": [
+      5604,
+      5609
+    ]
+  },
+  {
+    "row_no": 21,
+    "nom_nodes": [
+      5732
+    ],
+    "saldo_nodes": [
+      5752,
+      5757
+    ],
+    "time_nodes": [
+      5777
+    ],
+    "date_nodes": [
+      5797,
+      5802
+    ]
+  },
+  {
+    "row_no": 22,
+    "nom_nodes": [
+      5890
+    ],
+    "saldo_nodes": [
+      5910,
+      5915
+    ],
+    "time_nodes": [
+      5935
+    ],
+    "date_nodes": [
+      5955,
+      5960
+    ]
+  },
+  {
+    "row_no": 23,
+    "nom_nodes": [
+      6942
+    ],
+    "saldo_nodes": [
+      6962,
+      6967
+    ],
+    "time_nodes": [
+      6987
+    ],
+    "date_nodes": [
+      7007
+    ]
+  },
+  {
+    "row_no": 24,
+    "nom_nodes": [
+      7095
+    ],
+    "saldo_nodes": [
+      7115
+    ],
+    "time_nodes": [
+      7135,
+      7140
+    ],
+    "date_nodes": [
+      7160
+    ]
+  },
+  {
+    "row_no": 25,
+    "nom_nodes": [
+      7248
+    ],
+    "saldo_nodes": [
+      7268,
+      7273
+    ],
+    "time_nodes": [
+      7293,
+      7298
+    ],
+    "date_nodes": [
+      7318
+    ]
+  },
+  {
+    "row_no": 26,
+    "nom_nodes": [
+      7446,
+      7451
+    ],
+    "saldo_nodes": [
+      7471,
+      7476
+    ],
+    "time_nodes": [
+      7496
+    ],
+    "date_nodes": [
+      7516,
+      7521
+    ]
+  },
+  {
+    "row_no": 27,
+    "nom_nodes": [
+      7604,
+      7609
+    ],
+    "saldo_nodes": [
+      7629,
+      7634
+    ],
+    "time_nodes": [
+      7654
+    ],
+    "date_nodes": [
+      7674
+    ]
+  },
+  {
+    "row_no": 28,
+    "nom_nodes": [
+      7757
+    ],
+    "saldo_nodes": [
+      7777,
+      7782
+    ],
+    "time_nodes": [
+      7802
+    ],
+    "date_nodes": [
+      7822
+    ]
+  },
+  {
+    "row_no": 29,
+    "nom_nodes": [
+      7920
+    ],
+    "saldo_nodes": [
+      7940,
+      7945
+    ],
+    "time_nodes": [
+      7965
+    ],
+    "date_nodes": [
+      7985
+    ]
+  },
+  {
+    "row_no": 30,
+    "nom_nodes": [
+      8073
+    ],
+    "saldo_nodes": [
+      8078,
+      8098,
+      8103
+    ],
+    "time_nodes": [
+      8123
+    ],
+    "date_nodes": [
+      8143
+    ]
+  },
+  {
+    "row_no": 31,
+    "nom_nodes": [
+      8241
+    ],
+    "saldo_nodes": [
+      8261,
+      8266
+    ],
+    "time_nodes": [
+      8286
+    ],
+    "date_nodes": [
+      8306
+    ]
+  },
+  {
+    "row_no": 32,
+    "nom_nodes": [
+      8398
+    ],
+    "saldo_nodes": [
+      8418,
+      8423
+    ],
+    "time_nodes": [
+      8443
+    ],
+    "date_nodes": [
+      8463
+    ]
+  },
+  {
+    "row_no": 33,
+    "nom_nodes": [
+      8556
+    ],
+    "saldo_nodes": [
+      8576,
+      8581
+    ],
+    "time_nodes": [
+      8601
+    ],
+    "date_nodes": [
+      8621
+    ]
+  },
+  {
+    "row_no": 34,
+    "nom_nodes": [
+      8718
+    ],
+    "saldo_nodes": [
+      8738,
+      8743
+    ],
+    "time_nodes": [
+      8763
+    ],
+    "date_nodes": [
+      8783,
+      8788
+    ]
+  }
+]

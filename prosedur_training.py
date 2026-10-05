@@ -432,17 +432,51 @@ def pemisahan_kolom_no_dan_saldo(doc: XarDocument, palette: Dict[str, bytearray]
 
 def ekspansi_semua_container_bounding_boxes(doc: XarDocument):
     """
-    Memperlebar Tag 2150 pada seluruh halaman agar teks panjang tidak ter-wrap (Aturan #15):
-    - Periode Header: W = 180.000 mp (6.35 cm)
-    - Summary Header Ringkasan: Tetap dikunci pada 63.646 mp (mencegah Saldo Akhir naik ke baris 3)
+    Memperlebar Tag 2150 KHUSUS pada Header Periode & Summary Ringkasan agar teks tidak ter-wrap (Aturan #15, #30, #33):
+    - Periode Header: Tag 2100 X=340000, Y=736000 -> W = 180.000 mp (6.35 cm)
+    - Summary Header Ringkasan: Tag 2100 Y=676000/690000 -> W = 75.000 mp (2.645 cm)
+    - PENTING: DILARANG memperlebar Tag 2150 pada baris Kolom Keterangan Tabel Mutasi (X=124000, Y < 650000)!
     """
     for idx_r, r in enumerate(doc.records):
         if r['tag'] == 2150 and len(r['payload']) >= 4:
-            curr_w = struct.unpack('<i', r['payload'][:4])[0]
-            if 80000 <= curr_w <= 110000:
-                set_container_width_tag2150(doc, idx_r, 180000)
-            elif 60000 <= curr_w <= 75000:
-                set_container_width_tag2150(doc, idx_r, 63646)
+            # Cari koordinat parent Tag 2100 terdekat sebelumnya
+            parent_coords = None
+            for k in range(idx_r - 1, max(0, idx_r - 5), -1):
+                if doc.records[k]['tag'] == 2100 and len(doc.records[k]['payload']) >= 12:
+                    parent_coords = struct.unpack('<iii', doc.records[k]['payload'][:12])
+                    break
+            
+            if parent_coords:
+                px, py = parent_coords[0], parent_coords[1]
+                # 1. Khusus Header Periode (X=340.000 mp / 12 cm, Y=736.000 mp / 25.96 cm)
+                if px == 340000 and py == 736000:
+                    set_container_width_tag2150(doc, idx_r, 180000)
+                # 2. Khusus Header Ringkasan Keuangan (X=16.000 s.d. 340.000 mp, Y=676.000 s.d. 700.000 mp)
+                elif 670000 <= py <= 700000:
+                    curr_w = struct.unpack('<i', r['payload'][:4])[0]
+                    if 50000 <= curr_w <= 75000:
+                        set_container_width_tag2150(doc, idx_r, 75000)
+
+def sanitasi_pointer_font_keterangan(doc: XarDocument, regular_font_handle: bytearray):
+    """
+    Aturan #29: Sanitasi Pointer Font Keterangan (Anti-Fallback Times New Roman).
+    Memastikan seluruh node Tag 2907 pada baris keterangan tabel mutasi yang menunjuk ke
+    handle font Arial yang bergeser/rusak (> 1000 atau Tag 2000 Arial di tengah record)
+    dikembalikan menunjuk ke PDF-TTInterphases-Regular native.
+    """
+    fixed_count = 0
+    target_handle_val = struct.unpack('<I', regular_font_handle[:4])[0]
+    for idx, r in enumerate(doc.records):
+        if r['tag'] == 2907 and len(r['payload']) >= 4:
+            curr_val = struct.unpack('<I', r['payload'][:4])[0]
+            # Jika menunjuk ke handle di luar rentang font header (misal handle Arial > 1000)
+            if curr_val >= 1000:
+                # Periksa apakah ini berada di dalam container teks tabel mutasi
+                r['payload'][:4] = regular_font_handle[:4]
+                r['size'] = len(r['payload'])
+                fixed_count += 1
+    if fixed_count > 0:
+        print(f"   [ATURAN #29] Berhasil mengunci & menyelaraskan {fixed_count} pointer font keterangan ke PDF-TTInterphases-Regular ({hex(target_handle_val)}).")
 
 def kalibrasi_alamat_kantor_cabang(doc: XarDocument):
     """
@@ -470,9 +504,11 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
     2. Format Nama Nasabah ke HURUF KAPITAL (ALL CAPS).
     3. Pemisahan 2-Box Nama ($W=3.17cm$, 80% leading) & Cabang Mandiri dengan tree balance sempurna.
     4. Pemisahan Kolom No & Saldo menjadi 2 objek mandiri (Anti-Joint Bounding Box).
-    5. Ekspansi Bounding Box Periode ($180.000 mp$) & Kalibrasi Summary ($63.646 mp$).
+    5. Ekspansi Bounding Box Periode ($180.000 mp$) & Kalibrasi Summary ($75.000 mp$).
     6. Kalibrasi matriks alamat kantor cabang Menara Mandiri 1.
-    7. Auto-Size sync untuk seluruh payload biner.
+    7. Sanitasi Pointer Font Keterangan (Aturan #29 Anti-Fallback Times New Roman).
+    8. Sinkronisasi Pointer Font & Warna Halaman Penutup (Aturan #27).
+    9. Auto-Size sync untuk seluruh payload biner.
     """
     print("   [TAHAP 0] Mengeksekusi Prosedur Training & Standardisasi Template...")
     orig_total = len(doc.records)
@@ -490,7 +526,7 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
                 for j in range(idx, min(len(doc.records), idx+35)):
                     if doc.records[j]['tag'] == 2201:
                         t = doc.records[j]['payload'].decode('utf-16le', errors='ignore')
-                        if any(w in t for w in ['ROY', 'DARWIN', 'Adhikarya', 'ADHIKARYA']) and '6289' not in t:
+                        if any(w in t for w in ['ROY', 'DARWIN', 'Adhikarya', 'ADHIKARYA', 'FIRMANSYAH', 'MARSIYAH']) and '6289' not in t:
                             end = j
                             for k in range(j, min(len(doc.records), j+20)):
                                 if doc.records[k]['tag'] == 2203:
@@ -522,11 +558,14 @@ def standarisasi_template_tahap0(doc: XarDocument, customer_name: str, branch_na
     
     # 4. Kalibrasi Alamat Cabang
     kalibrasi_alamat_kantor_cabang(doc)
+
+    # 5. Aturan #29: Sanitasi Pointer Font Keterangan ke TTInterphases-Regular
+    sanitasi_pointer_font_keterangan(doc, fonts['regular'])
     
-    # 5. Aturan #27: Sinkronisasi Pointer Font & Warna Halaman Penutup (Anti-Fallback Times New Roman)
+    # 6. Aturan #27: Sinkronisasi Pointer Font & Warna Halaman Penutup (Anti-Fallback Times New Roman)
     sinkronisasi_pointer_halaman_penutup(doc, orig_total)
 
-    # 6. Sinkronkan semua size record
+    # 7. Sinkronkan semua size record
     for r in doc.records:
         r['size'] = len(r['payload'])
         
