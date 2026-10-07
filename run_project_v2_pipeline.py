@@ -1936,7 +1936,9 @@ def execute_mandiri_10536(doc, cfg, quiet=False):
     if not quiet: live_log(f"Tahap 5 (Halaman)      : 3 lembar tersinkronisasi", prefix="[5/7]", delay=0.1)
 
     # Load 34 rows map
-    map_path = os.path.join(os.path.dirname(__file__), "perfect_34_rows_map.json")
+    map_path = os.path.join(os.path.dirname(__file__), "data", "mappings", "perfect_34_rows_map.json")
+    if not os.path.exists(map_path):
+        map_path = os.path.join(os.path.dirname(__file__), "perfect_34_rows_map.json")
     if os.path.exists(map_path):
         with open(map_path, "r", encoding="utf-8") as f:
             rows_map = json.load(f)
@@ -1944,7 +1946,9 @@ def execute_mandiri_10536(doc, cfg, quiet=False):
         rows_map = []
 
     # 6. Tahap 6: Tanggal & Jam Transaksi
-    sch_path = os.path.join(os.path.dirname(__file__), "jul_34_schedule.json")
+    sch_path = os.path.join(os.path.dirname(__file__), "data", "mappings", "jul_34_schedule.json")
+    if not os.path.exists(sch_path):
+        sch_path = os.path.join(os.path.dirname(__file__), "jul_34_schedule.json")
     if os.path.exists(sch_path):
         with open(sch_path, "r", encoding="utf-8") as f:
             schedule = json.load(f)

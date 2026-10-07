@@ -3,7 +3,7 @@ setlocal
 title XARA PROJECT V2 - AUTOMATED PIPELINE LAUNCHER
 color 0A
 
-cd /d "C:\Users\Lenovo\xara_copilot"
+cd /d "%~dp0"
 
 echo =========================================================================
 echo       XARA PROJECT V2: AUTOMATED SINGLE-RUNNER PIPELINE ENGINE
@@ -44,7 +44,12 @@ echo [*] Memulai eksekusi LIVE REALTIME...
 echo [*] Target : "%EXCEL_PATH%"
 echo.
 
-python -u run_project_v2_pipeline.py --excel "%EXCEL_PATH%"
+where python >nul 2>&1
+if %ERRORLEVEL% equ 0 (
+    python -u run_project_v2_pipeline.py --excel "%EXCEL_PATH%"
+) else (
+    py -u run_project_v2_pipeline.py --excel "%EXCEL_PATH%"
+)
 
 if %ERRORLEVEL% equ 0 (
     color 0A

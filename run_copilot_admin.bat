@@ -1,6 +1,6 @@
 @echo off
 setlocal
-cd /d "C:\Users\Lenovo\xara_copilot"
+cd /d "%~dp0"
 
 net session >nul 2>&1
 if %errorlevel% neq 0 goto :NOT_ADMIN
@@ -15,7 +15,7 @@ echo.
 echo Menjalankan pengujian otomatis...
 echo.
 
-python test_engine.py
+python scripts\tests\test_engine.py
 
 echo.
 echo =========================================================
@@ -29,5 +29,5 @@ exit /b
 echo =========================================================
 echo   Meminta Hak Akses Administrator via UAC Prompt
 echo =========================================================
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process cmd.exe -ArgumentList '/k cd /d C:\Users\Lenovo\xara_copilot && python test_engine.py' -Verb RunAs"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process cmd.exe -ArgumentList '/k cd /d %~dp0 && python scripts\tests\test_engine.py' -Verb RunAs"
 exit /b
