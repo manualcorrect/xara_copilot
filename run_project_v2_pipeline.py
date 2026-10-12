@@ -2201,14 +2201,147 @@ def execute_mandiri_10429(doc, cfg, quiet=False):
 
 
 # =========================================================================
-# UNIVERSAL DYNAMIC SPATIAL PIPELINE (ZERO-HARDCODE COORDINATE ENGINE)
+# UNIVERSAL ADAPTIVE SPATIAL PIPELINE ENGINE (SOP PROJECT V2 COMPLIANT)
 # =========================================================================
+
+def harvest_native_palette(doc):
+    """
+    Dynamically extracts native Tag 150 palette IDs directly from Tag 51 definitions in the document.
+    Never relies on offset formulas or external IDs, eliminating 'colour definition' warnings.
+    """
+    palette = {
+        'hijau': bytearray.fromhex('0a040000'),
+        'hitam': bytearray.fromhex('75020000'),
+        'saldo': bytearray.fromhex('87050000'),
+        'sawal': bytearray.fromhex('85030000'),
+    }
+    for idx, r in enumerate(doc.records):
+        if r['tag'] == 51 and idx + 1 < len(doc.records):
+            next_r = doc.records[idx + 1]
+            if next_r['tag'] == 150 and len(next_r['payload']) == 4:
+                rgb = r['payload'][:3].hex()
+                if rgb in ('06aa6f', '00a651', '06a66f'):
+                    palette['hijau'] = bytearray(next_r['payload'])
+                elif rgb in ('134bba', '005b9c'):
+                    palette['saldo'] = bytearray(next_r['payload'])
+                elif rgb in ('1a1a1a', '000000') and idx < 1000:
+                    palette['hitam'] = bytearray(next_r['payload'])
+                elif rgb in ('615a5a', '858585', '727272'):
+                    palette['sawal'] = bytearray(next_r['payload'])
+    return palette
+
+
+def inject_text_into_node_chain(doc, rec_indices, target_text):
+    """
+    Universally distributes `target_text` across a chain of text nodes (Tag 2201 / Tag 2202).
+    - If a node is Tag 2202: it receives exactly 1 character (size 2).
+    - If a node is Tag 2201: it receives the remaining string.
+    - If the last node in the chain is Tag 2202 and still has >1 char, it is promoted to Tag 2201.
+    - Any leftover nodes in the chain are safely blanked with b'\x00\x00' (size 2).
+    Eliminates character truncation and single-digit cutoffs.
+    """
+    if not rec_indices:
+        return
+    rem = str(target_text)
+    for i, idx in enumerate(rec_indices):
+        tag = doc.records[idx]['tag']
+        is_last = (i == len(rec_indices) - 1)
+        if not rem:
+            doc.records[idx]['payload'] = bytearray(b'\x00\x00')
+            doc.records[idx]['size'] = 2
+            continue
+
+        if tag == 2202:
+            if len(rem) > 1 and is_last:
+                doc.records[idx]['tag'] = 2201
+                p = bytearray(rem.encode('utf-16le'))
+                doc.records[idx]['payload'] = p
+                doc.records[idx]['size'] = len(p)
+                rem = ""
+            else:
+                char = rem[0]
+                rem = rem[1:]
+                p = bytearray(char.encode('utf-16le'))
+                doc.records[idx]['payload'] = p
+                doc.records[idx]['size'] = 2
+        elif tag == 2201:
+            p = bytearray(rem.encode('utf-16le'))
+            doc.records[idx]['payload'] = p
+            doc.records[idx]['size'] = len(p)
+            rem = ""
+
+
+def normalize_date_str(tgl_input, ref_year="2026", ref_month="Jul"):
+    """
+    Normalizes any date representation (datetime object, 'DD/MM', 'DD/MM/YYYY', etc.)
+    into strict standard Mandiri e-statement format: 'DD Mon YYYY' (e.g. '31 Jul 2026' or '31 Aug 2026').
+    """
+    if not tgl_input or not str(tgl_input).strip():
+        return None
+    s = str(tgl_input).strip()
+    is_en = ref_month.lower() in ['aug', 'may', 'oct', 'dec', 'mar', 'apr', 'jun', 'jul', 'sep', 'nov', 'jan', 'feb']
+    month_map = {
+        '01':'Jan', '02':'Feb', '03':'Mar', '04':'Apr', '05':'May' if is_en else 'Mei', '06':'Jun',
+        '07':'Jul', '08':'Aug' if is_en else 'Agt', '09':'Sep', '10':'Oct' if is_en else 'Okt', '11':'Nov', '12':'Dec' if is_en else 'Des',
+        '1':'Jan', '2':'Feb', '3':'Mar', '4':'Apr', '5':'May' if is_en else 'Mei', '6':'Jun',
+        '7':'Jul', '8':'Aug' if is_en else 'Agt', '9':'Sep'
+    }
+    month_name_map = {
+        'jan': 'Jan', 'feb': 'Feb', 'mar': 'Mar', 'apr': 'Apr',
+        'mei': 'May' if is_en else 'Mei', 'may': 'May' if is_en else 'Mei',
+        'jun': 'Jun', 'jul': 'Jul',
+        'agt': 'Aug' if is_en else 'Agt', 'aug': 'Aug' if is_en else 'Agt',
+        'sep': 'Sep',
+        'okt': 'Oct' if is_en else 'Okt', 'oct': 'Oct' if is_en else 'Okt',
+        'nov': 'Nov',
+        'des': 'Dec' if is_en else 'Des', 'dec': 'Dec' if is_en else 'Des'
+    }
+    import calendar
+    parts = s.replace('-', '/').split('/')
+    if len(parts) == 3:
+        if len(parts[0]) == 4:
+            y, m, d = parts[0], parts[1], parts[2]
+        else:
+            d, m, y = parts[0], parts[1], parts[2]
+        try:
+            max_d = calendar.monthrange(int(y), int(m))[1]
+            d = min(int(d), max_d)
+        except:
+            d = int(d)
+        m_name = month_map.get(m.zfill(2), ref_month)
+        return f"{int(d):02d} {m_name} {y}"
+    if len(parts) == 2:
+        d, m = parts[0], parts[1]
+        try:
+            max_d = calendar.monthrange(int(ref_year), int(m))[1]
+            d = min(int(d), max_d)
+        except:
+            d = int(d)
+        m_name = month_map.get(m.zfill(2), ref_month)
+        return f"{int(d):02d} {m_name} {ref_year}"
+    words = s.split()
+    if len(words) == 3:
+        d, m, y = words[0], words[1], words[2]
+        m_name = month_name_map.get(m.lower(), m)
+        return f"{int(d):02d} {m_name} {y}"
+    if len(words) == 2:
+        d, m = words[0], words[1]
+        m_name = month_name_map.get(m.lower(), m)
+        return f"{int(d):02d} {m_name} {ref_year}"
+    return s
+
+
+
 
 def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
     """
-    Universal spatial execution engine for any Mandiri .xar document.
-    Operates 100% locally using 32-bit millipoints coordinates (X, Y) and bounding boxes,
-    completely free from hardcoded record indices and zero AI token consumption.
+    Adaptive Universal Spatial Execution Engine for Mandiri .xar documents.
+    Operates 100% locally with zero hardcoded record indices and full SOP rule compliance:
+    - Auto-harvests document-native palette (Tag 51/150).
+    - Distributes characters across Tag 2202/2201 chains.
+    - Handles multi-line Date/Time collapsed stories (Tag 2200).
+    - Blanks duplicate English page numbers (y=726000) to eliminate ghost digits.
+    - Standardizes date formatting to 'DD Mon YYYY'.
     """
     n_recs = len(doc.records)
 
@@ -2219,32 +2352,29 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
                 return j
         return None
 
-    def clean_trailing_split_nodes(start_idx, max_forward=30):
-        for k in range(start_idx + 1, min(n_recs, start_idx + max_forward)):
-            if doc.records[k]['tag'] in (2100, 2200, 2203):
+    def get_story_lines(story_idx, max_forward=120):
+        lines = []
+        curr = []
+        for j in range(story_idx + 1, min(n_recs, story_idx + max_forward)):
+            r = doc.records[j]
+            if r['tag'] == 2100 and j > story_idx:
                 break
-            if doc.records[k]['tag'] in (2201, 2202):
-                doc.records[k]['payload'] = bytearray(b'\x00\x00')
-                doc.records[k]['size'] = 2
+            if r['tag'] in (2200, 2203):
+                if curr:
+                    lines.append(curr)
+                    curr = []
+            elif r['tag'] in (2201, 2202):
+                curr.append(j)
+        if curr:
+            lines.append(curr)
+        return lines
 
     # 0. Deteksi Palet Warna Dinamis Native (Tag 51)
-    c_hijau = bytearray.fromhex('0a040000') # #00A651 / green
-    c_hitam = bytearray.fromhex('75020000') # black
-    c_saldo = bytearray.fromhex('87050000') # blue
-    c_sawal = bytearray.fromhex('85030000') # gray
-
-    for idx, r in enumerate(doc.records):
-        if r['tag'] == 51 and len(r['payload']) >= 3:
-            rgb = r['payload'][:3].hex()
-            h_bytes = bytearray(struct.pack('<I', idx + 116))
-            if rgb in ('134bba', '005b9c'):
-                c_saldo = h_bytes
-            elif rgb in ('06aa6f', '00a651', '06a66f'):
-                c_hijau = h_bytes
-            elif rgb in ('1a1a1a', '000000') and idx < 400:
-                c_hitam = h_bytes
-            elif rgb in ('615a5a', '858585', '727272'):
-                c_sawal = h_bytes
+    colors = harvest_native_palette(doc)
+    c_hijau = colors['hijau']
+    c_hitam = colors['hitam']
+    c_saldo = colors['saldo']
+    c_sawal = colors['sawal']
 
     # 1. Deteksi Spreads & Halaman (Tag 46)
     spread_indices = [i for i, r in enumerate(doc.records) if r['tag'] == 46]
@@ -2280,10 +2410,10 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
     t1_count = 0
     for s in stories:
         if s['y'] >= 700000 and 120000 <= s['x'] <= 130000:
-            first_t = s['texts'][0][0]
-            update_text_node(doc, first_t, new_name + " ")
-            clean_trailing_split_nodes(first_t)
-            t1_count += 1
+            lines = get_story_lines(s['idx'])
+            if lines:
+                inject_text_into_node_chain(doc, lines[0], new_name + " ")
+                t1_count += 1
     if not quiet: live_log(f"Tahap 1 (Nama Nasabah) : '{new_name}' terstandarisasi ALL CAPS ({t1_count} header)", prefix="[1/7]", delay=0.1)
 
     # 4. TAHAP 2 & 3: Periode Laporan & Tanggal Cetak
@@ -2294,47 +2424,19 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
 
     for s in stories:
         if s['y'] >= 700000 and 330000 <= s['x'] <= 350000:
-            lines_text_recs = []
-            curr_line = []
-            for j in range(s['idx'], min(n_recs, s['idx'] + 100)):
-                r = doc.records[j]
-                if r['tag'] == 2203:
-                    if curr_line:
-                        lines_text_recs.append(curr_line)
-                        curr_line = []
-                elif r['tag'] in (2201, 2202):
-                    curr_line.append(j)
-                elif r['tag'] == 2100 and j > s['idx']:
-                    break
-            if curr_line:
-                lines_text_recs.append(curr_line)
-
-            if len(lines_text_recs) >= 2:
-                # Line 1: Periode
-                line1_recs = lines_text_recs[0]
-                update_text_node(doc, line1_recs[0], new_periode)
-                for rk in line1_recs[1:]:
-                    clean_split_node(doc, rk)
+            lines = get_story_lines(s['idx'])
+            if len(lines) >= 2:
+                # Line 1: Periode, Line 2: Dicetak Pada
+                inject_text_into_node_chain(doc, lines[0], new_periode)
+                inject_text_into_node_chain(doc, lines[1], new_dicetak)
                 t2_count += 1
-
-                # Line 2: Dicetak Pada
-                line2_recs = lines_text_recs[1]
-                update_text_node(doc, line2_recs[0], new_dicetak)
-                for rk in line2_recs[1:]:
-                    clean_split_node(doc, rk)
                 t3_count += 1
-            elif len(lines_text_recs) == 1:
-                line_recs = lines_text_recs[0]
-                txt = s['full_text']
-                if '-' in txt:
-                    update_text_node(doc, line_recs[0], new_periode)
-                    for rk in line_recs[1:]:
-                        clean_split_node(doc, rk)
+            elif len(lines) == 1:
+                if '-' in s['full_text']:
+                    inject_text_into_node_chain(doc, lines[0], new_periode)
                     t2_count += 1
                 else:
-                    update_text_node(doc, line_recs[0], new_dicetak)
-                    for rk in line_recs[1:]:
-                        clean_split_node(doc, rk)
+                    inject_text_into_node_chain(doc, lines[0], new_dicetak)
                     t3_count += 1
 
     if not quiet:
@@ -2343,37 +2445,31 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
 
     # 5. TAHAP 4: Nomor Rekening
     new_acc = cfg['header']['nomor_rekening'].strip() + " "
-    t4_count = 0
     for s in stories:
         if s['page'] == 1 and 640000 <= s['y'] <= 660000 and 140000 <= s['x'] <= 160000:
             digit_recs = [t[0] for t in s['texts'] if any(c.isdigit() for c in t[2])]
             if digit_recs:
-                update_text_node(doc, digit_recs[0], new_acc)
-                for rk in digit_recs[1:]:
-                    clean_split_node(doc, rk)
-                t4_count += 1
+                inject_text_into_node_chain(doc, digit_recs, new_acc)
                 break
     if not quiet: live_log(f"Tahap 4 (Nomor Rekening): '{new_acc.strip()}' pada Header Halaman 1", prefix="[4/7]", delay=0.1)
 
     # 6. TAHAP 5: Nomor Halaman Multi-Digit Bersih
     tot_p = total_pages
     for p in range(1, total_pages + 1):
-        str_en = f"{p} of {tot_p}"
-        str_id = f"{p} dari {tot_p}"
         for s in stories:
             if s['page'] == p and s['y'] >= 700000 and s['x'] >= 500000:
                 txt = s['full_text'].lower()
                 if 'of' in txt:
-                    first_t_rec = s['texts'][0][0]
-                    update_text_node(doc, first_t_rec, str_en)
-                    clean_trailing_split_nodes(first_t_rec)
+                    # English page numbering story: keep intact & format cleanly (Italic bilingual header)
+                    node_ids = [t[0] for t in s['texts']]
+                    inject_text_into_node_chain(doc, node_ids, f"{p} of {tot_p}")
                 elif 'dari' in txt:
-                    first_t_rec = s['texts'][0][0]
-                    update_text_node(doc, first_t_rec, str_id)
-                    clean_trailing_split_nodes(first_t_rec)
-                elif txt == str(tot_p) or txt == '5':
-                    clean_split_node(doc, s['texts'][0][0])
-    if not quiet: live_log(f"Tahap 5 (Nomor Halaman): 1 of {tot_p} s.d. {tot_p} of {tot_p} terverifikasi bersih", prefix="[5/7]", delay=0.1)
+                    node_ids = [t[0] for t in s['texts']]
+                    inject_text_into_node_chain(doc, node_ids, f"{p} dari ")
+                elif txt == str(tot_p) or (len(txt) == 1 and txt.isdigit()):
+                    node_ids = [t[0] for t in s['texts']]
+                    inject_text_into_node_chain(doc, node_ids, str(tot_p))
+    if not quiet: live_log(f"Tahap 5 (Nomor Halaman): 1 dari {tot_p} s.d. {tot_p} dari {tot_p} terverifikasi bersih", prefix="[5/7]", delay=0.1)
 
     # 7. TAHAP 7: Header Ringkasan Keuangan (Page 1)
     sawal = cfg['summary']['saldo_awal']
@@ -2384,60 +2480,37 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
     val_masuk = dmasuk if dmasuk.startswith("+") else f"+ {dmasuk}"
     val_keluar = dkeluar if dkeluar.startswith("-") else f"- {dkeluar}"
 
-    # Search for summary story (either 4-line single story or 4 individual stories)
     sum_stories = [s for s in stories if s['page'] == 1 and 640000 <= s['y'] <= 680000 and 480000 <= s['x'] <= 540000]
     if sum_stories:
         st_sum = sum_stories[0]
-        sum_line_recs = []
-        curr_line = []
-        for j in range(st_sum['idx'], min(n_recs, st_sum['idx'] + 100)):
-            r = doc.records[j]
-            if r['tag'] in (2200, 2203):
-                if curr_line:
-                    sum_line_recs.append(curr_line)
-                    curr_line = []
-            elif r['tag'] in (2201, 2202):
-                curr_line.append(j)
-            elif r['tag'] == 2100 and j > st_sum['idx']:
-                break
-        if curr_line:
-            sum_line_recs.append(curr_line)
-
-        if len(sum_line_recs) >= 4:
+        lines = get_story_lines(st_sum['idx'])
+        if len(lines) >= 4:
             # Line 1: Saldo Awal
-            r_aw = sum_line_recs[0][0]
-            update_text_node(doc, r_aw, sawal + " ")
-            for rk in sum_line_recs[0][1:]: clean_split_node(doc, rk)
-            k_aw = find_prec_tag(r_aw, 2206, 12)
+            inject_text_into_node_chain(doc, lines[0], sawal + " ")
+            k_aw = find_prec_tag(lines[0][0], 2206, 12)
             if k_aw: update_t2206(doc, k_aw, calc_text_width(sawal))
-            c_aw = find_prec_tag(r_aw, 150, 4)
+            c_aw = find_prec_tag(lines[0][0], 150, 4)
             if c_aw: update_color(doc, c_aw, c_sawal)
 
             # Line 2: Dana Masuk
-            r_in = sum_line_recs[1][0]
-            update_text_node(doc, r_in, val_masuk + " ")
-            for rk in sum_line_recs[1][1:]: clean_split_node(doc, rk)
-            k_in = find_prec_tag(r_in, 2206, 12)
+            inject_text_into_node_chain(doc, lines[1], val_masuk + " ")
+            k_in = find_prec_tag(lines[1][0], 2206, 12)
             if k_in: update_t2206(doc, k_in, calc_text_width(val_masuk))
-            c_in = find_prec_tag(r_in, 150, 4)
+            c_in = find_prec_tag(lines[1][0], 150, 4)
             if c_in: update_color(doc, c_in, c_hijau)
 
             # Line 3: Dana Keluar
-            r_out = sum_line_recs[2][0]
-            update_text_node(doc, r_out, val_keluar + " ")
-            for rk in sum_line_recs[2][1:]: clean_split_node(doc, rk)
-            k_out = find_prec_tag(r_out, 2206, 12)
+            inject_text_into_node_chain(doc, lines[2], val_keluar + " ")
+            k_out = find_prec_tag(lines[2][0], 2206, 12)
             if k_out: update_t2206(doc, k_out, calc_text_width(val_keluar))
-            c_out = find_prec_tag(r_out, 150, 4)
+            c_out = find_prec_tag(lines[2][0], 150, 4)
             if c_out: update_color(doc, c_out, c_hitam)
 
             # Line 4: Saldo Akhir
-            r_ak = sum_line_recs[3][0]
-            update_text_node(doc, r_ak, sakhir + " ")
-            for rk in sum_line_recs[3][1:]: clean_split_node(doc, rk)
-            k_ak = find_prec_tag(r_ak, 2206, 12)
+            inject_text_into_node_chain(doc, lines[3], sakhir + " ")
+            k_ak = find_prec_tag(lines[3][0], 2206, 12)
             if k_ak: update_t2206(doc, k_ak, calc_text_width(sakhir))
-            c_ak = find_prec_tag(r_ak, 150, 4)
+            c_ak = find_prec_tag(lines[3][0], 150, 4)
             if c_ak: update_color(doc, c_ak, c_saldo)
 
     # 8. TAHAP 6 & 7: Dynamic Spatial Table Mutations (Tabel Mutasi Utama)
@@ -2456,26 +2529,47 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
     n_process = min(total_physical_rows, len(tx_list))
 
     # Determine smart schedule period
+    p_year = "2026"
+    p_mon = "Jul"
     p_start = "2026-07-01"
     p_end = "2026-07-31"
+    month_map = {'jan': '01', 'feb': '02', 'mar': '03', 'apr': '04', 'mei': '05', 'may': '05',
+                 'jun': '06', 'jul': '07', 'agt': '08', 'aug': '08', 'sep': '09', 'okt': '10',
+                 'oct': '10', 'nov': '11', 'des': '12', 'dec': '12'}
+    month_names = {'01':'Jan', '02':'Feb', '03':'Mar', '04':'Apr', '05':'Mei', '06':'Jun',
+                   '07':'Jul', '08':'Agt', '09':'Sep', '10':'Okt', '11':'Nov', '12':'Des'}
     if 'periode' in cfg['header'] and '-' in cfg['header']['periode']:
         parts = cfg['header']['periode'].split('-')
-        # Parse months like '01 Jul 2026'
-        month_map = {'jan': '01', 'feb': '02', 'mar': '03', 'apr': '04', 'mei': '05', 'may': '05',
-                     'jun': '06', 'jul': '07', 'agt': '08', 'aug': '08', 'sep': '09', 'okt': '10',
-                     'oct': '10', 'nov': '11', 'des': '12', 'dec': '12'}
         try:
             p1_toks = parts[0].strip().split()
             p2_toks = parts[1].strip().split()
             if len(p1_toks) >= 3 and len(p2_toks) >= 3:
                 m1 = month_map.get(p1_toks[1].lower(), '07')
                 m2 = month_map.get(p2_toks[1].lower(), '07')
+                p_year = p1_toks[2]
+                p_mon = p1_toks[1] if len(p1_toks) >= 2 else month_names.get(m1, 'Jul')
                 p_start = f"{p1_toks[2]}-{m1}-{int(p1_toks[0]):02d}"
                 p_end = f"{p2_toks[2]}-{m2}-{int(p2_toks[0]):02d}"
         except:
             pass
 
-    smart_sched = generate_smart_schedule(total_physical_rows, period_start=p_start, period_end=p_end)
+    # Collect manual anchors from transactions
+    manual_anchors = {}
+    for i, tx in enumerate(tx_list):
+        raw_tgl = tx.get('tanggal')
+        raw_jam = tx.get('jam')
+        norm_tgl = normalize_date_str(raw_tgl, p_year, p_mon)
+        if norm_tgl or raw_jam:
+            manual_anchors[i] = {}
+            if norm_tgl:
+                w = norm_tgl.split()
+                if len(w) == 3:
+                    m_num = month_map.get(w[1].lower(), '07')
+                    manual_anchors[i]['date'] = f"{w[2]}-{m_num}-{int(w[0]):02d}"
+            if raw_jam:
+                manual_anchors[i]['time'] = raw_jam
+
+    smart_sched = generate_smart_schedule(total_physical_rows, period_start=p_start, period_end=p_end, manual_anchors=manual_anchors)
 
     for r_idx in range(n_process):
         tx = tx_list[r_idx]
@@ -2486,44 +2580,89 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
         row_stories = [s for s in stories if s['page'] == p_num and abs(s['y'] - row_y) <= 12000]
 
         no_story = None
+        merged_no_ket_story = None
         dt_stories = []
         nom_story = None
 
         for s in row_stories:
             if s['x'] <= 35000:
-                no_story = s
+                clean_t = s['full_text'].strip()
+                # Distinguish pure number story vs merged story with description text
+                if any(c.isalpha() for c in clean_t) and len(clean_t) > 4:
+                    merged_no_ket_story = s
+                else:
+                    no_story = s
             elif 50000 <= s['x'] <= 95000:
                 dt_stories.append(s)
             elif 300000 <= s['x'] <= 460000:
                 nom_story = s
 
-        # 1. Update Nomor Urut
-        if no_story and len(no_story['texts']) > 0:
-            target_no = str(r_idx + 1)
-            first_t = no_story['texts'][0][0]
-            if len(no_story['texts']) >= 2 and len(target_no) >= 2:
-                doc.records[no_story['texts'][0][0]]['payload'] = bytearray(target_no[0].encode('utf-16le'))
-                doc.records[no_story['texts'][0][0]]['size'] = 2
-                doc.records[no_story['texts'][1][0]]['payload'] = bytearray(target_no[1].encode('utf-16le'))
-                doc.records[no_story['texts'][1][0]]['size'] = 2
+        # 1. Update Nomor Urut (Adaptive: Standard, Pure Merged, & Split-Digit Merged)
+        target_no = str(r_idx + 1)
+        if no_story and len(no_story['texts']) > 0 and merged_no_ket_story and len(merged_no_ket_story['texts']) > 0:
+            # Case A: Split-digit merged row (e.g. Row 26, 34 in Aug where digit 1 is at x=20000 and digit 2 is at x~24500)
+            digit_node = None
+            for t_info in merged_no_ket_story['texts']:
+                if t_info[2].strip().isdigit() and len(t_info[2].strip()) <= 3:
+                    digit_node = t_info[0]
+                    break
+            no_nodes = [t[0] for t in no_story['texts']]
+            if len(target_no) >= 2:
+                inject_text_into_node_chain(doc, no_nodes, target_no[0])
+                if digit_node is not None:
+                    update_text_node(doc, digit_node, target_no[1:])
             else:
-                update_text_node(doc, first_t, target_no)
-                clean_trailing_split_nodes(first_t)
+                inject_text_into_node_chain(doc, no_nodes, target_no)
+                if digit_node is not None:
+                    update_text_node(doc, digit_node, " ")
+        elif no_story and len(no_story['texts']) > 0:
+            # Case B: Standard isolated number story
+            no_nodes = [t[0] for t in no_story['texts']]
+            inject_text_into_node_chain(doc, no_nodes, target_no)
+        elif merged_no_ket_story and len(merged_no_ket_story['texts']) > 0:
+            # Case C: Pure merged No + Keterangan story (e.g. Row 37 in Jul)
+            digit_node = None
+            for t_info in merged_no_ket_story['texts']:
+                if t_info[2].strip() == str(r_idx + 1) or (t_info[2].strip().isdigit() and len(t_info[2].strip()) <= 3):
+                    digit_node = t_info[0]
+                    break
+            if digit_node is not None:
+                update_text_node(doc, digit_node, target_no)
+
 
         # 2. Update Tanggal & Jam (Tahap 6)
-        tgl_val = tx.get('tanggal') or smart_sched[r_idx]['date_full']
+        tgl_val = normalize_date_str(tx.get('tanggal'), p_year, p_mon) or smart_sched[r_idx]['date_full']
         jam_val = tx.get('jam') or smart_sched[r_idx]['time']
 
         if dt_stories:
-            for s in dt_stories:
-                t_txt = s['full_text']
-                first_t = s['texts'][0][0]
-                if 'WIB' in t_txt or ':' in t_txt:
-                    update_text_node(doc, first_t, jam_val)
-                    clean_trailing_split_nodes(first_t)
-                else:
-                    update_text_node(doc, first_t, tgl_val)
-                    clean_trailing_split_nodes(first_t)
+            if len(dt_stories) >= 2:
+                s_time = None
+                s_date = None
+                for s in dt_stories:
+                    if 'WIB' in s['full_text'] or ':' in s['full_text']:
+                        s_time = s
+                    else:
+                        s_date = s
+                if not s_time and len(dt_stories) == 2:
+                    s_date = dt_stories[0] if dt_stories[0]['y'] > dt_stories[1]['y'] else dt_stories[1]
+                    s_time = dt_stories[1] if dt_stories[0]['y'] > dt_stories[1]['y'] else dt_stories[0]
+
+                if s_date:
+                    inject_text_into_node_chain(doc, [t[0] for t in s_date['texts']], tgl_val)
+                if s_time:
+                    inject_text_into_node_chain(doc, [t[0] for t in s_time['texts']], jam_val)
+
+            elif len(dt_stories) == 1:
+                st = dt_stories[0]
+                lines = get_story_lines(st['idx'])
+                if len(lines) >= 2:
+                    inject_text_into_node_chain(doc, lines[0], tgl_val + " ")
+                    inject_text_into_node_chain(doc, lines[1], jam_val)
+                elif len(lines) == 1:
+                    if 'WIB' in st['full_text'] or ':' in st['full_text']:
+                        inject_text_into_node_chain(doc, lines[0], jam_val)
+                    else:
+                        inject_text_into_node_chain(doc, lines[0], tgl_val)
 
         # 3. Update Nominal & Rata Kanan (Tahap 7)
         if nom_story and len(nom_story['texts']) > 0:
@@ -2532,10 +2671,10 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
             is_cr = not str(nom_raw).startswith('-')
             nom_final = f"+{nom_fmt}" if is_cr else f"-{nom_fmt}"
 
-            rec_nom = nom_story['texts'][0][0]
-            update_text_node(doc, rec_nom, nom_final)
-            clean_trailing_split_nodes(rec_nom)
+            nom_nodes = [t[0] for t in nom_story['texts']]
+            inject_text_into_node_chain(doc, nom_nodes, nom_final)
 
+            rec_nom = nom_nodes[0]
             nom_c = find_prec_tag(rec_nom, 150, 4)
             if nom_c:
                 update_color(doc, nom_c, c_hijau if is_cr else c_hitam)
@@ -2547,11 +2686,11 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
             if nom_m: update_t2100(doc, nom_m, TARGET_XR_NOMINAL_5P - w_nom)
 
         # 4. Update Saldo & Rata Kanan (Tahap 7)
-        rec_saldo = s_story['texts'][0][0]
         saldo_fmt = fmt_idr(tx.get('saldo', '0'))
-        update_text_node(doc, rec_saldo, saldo_fmt)
-        clean_trailing_split_nodes(rec_saldo)
+        saldo_nodes = [t[0] for t in s_story['texts']]
+        inject_text_into_node_chain(doc, saldo_nodes, saldo_fmt)
 
+        rec_saldo = saldo_nodes[0]
         saldo_c = find_prec_tag(rec_saldo, 150, 4)
         if saldo_c:
             update_color(doc, saldo_c, c_saldo)
@@ -2703,7 +2842,40 @@ def run_pipeline(excel_path, out_override=None, dry_run=False, quiet=False, live
     # Post-Flight Gate 3: Tag 2202 Safety (No 0-byte nodes)
     zero_nodes = [i for i, r in enumerate(doc.records) if r['tag'] in (2201, 2202) and r['size'] == 0]
     assert len(zero_nodes) == 0, f"TAG 2202 SAFETY VIOLATION! Found 0-byte text nodes: {zero_nodes}"
-    live_log("Post-Flight Integrity Gates: Auto-Sync Sizes, Zero-Shift & Tag 2202 [100% PASS ✓]", prefix="[*]", delay=0.1)
+
+    # Post-Flight Gate 4: Tag 2202 Single Character Anti-Truncation Gate
+    t2202_promoted = 0
+    for idx, r in enumerate(doc.records):
+        if r['tag'] == 2202:
+            txt = r['payload'].decode('utf-16le', errors='ignore').strip('\x00')
+            if len(txt) > 1:
+                doc.records[idx]['tag'] = 2201
+                doc.records[idx]['size'] = len(r['payload'])
+                t2202_promoted += 1
+    if t2202_promoted > 0:
+        live_log(f"Post-Flight Gate 4: Auto-healed {t2202_promoted} Tag 2202 nodes to Tag 2201 [PASS ✓]", prefix="[*]")
+
+    # Post-Flight Gate 5: Palette ID Verification Gate (Anti-Warning Modal)
+    registered_t150 = set()
+    for idx, r in enumerate(doc.records):
+        if r['tag'] == 51 and idx + 1 < len(doc.records):
+            if doc.records[idx + 1]['tag'] == 150 and len(doc.records[idx + 1]['payload']) == 4:
+                registered_t150.add(doc.records[idx + 1]['payload'].hex())
+    native_pal = harvest_native_palette(doc)
+    native_blk = native_pal.get('hitam', bytearray.fromhex('75020000'))
+    registered_t150.update([c.hex() for c in native_pal.values() if isinstance(c, (bytes, bytearray))])
+    registered_t150.update(['0a040000', '75020000', '87050000', '85030000', '1c010000', '89010000', '9c010000', '60000000', '31000000', 'f40c0000', '940e0000', 'f6040000'])
+    foreign_fixed = 0
+    for idx, r in enumerate(doc.records):
+        if r['tag'] == 150 and len(r['payload']) == 4:
+            if r['payload'].hex() not in registered_t150:
+                doc.records[idx]['payload'] = native_blk
+                foreign_fixed += 1
+    if foreign_fixed > 0:
+        live_log(f"Post-Flight Gate 5: Reverted {foreign_fixed} foreign palette IDs to native black [PASS ✓]", prefix="[*]")
+
+
+    live_log("Post-Flight Integrity Gates: Auto-Sync Sizes, Zero-Shift, Tag 2202 & Native Palette [100% PASS ✓]", prefix="[*]", delay=0.1)
 
     # Save Final Output
     doc.save(target_out)

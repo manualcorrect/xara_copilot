@@ -1,5 +1,17 @@
 import random
+import calendar
 from datetime import datetime, timedelta
+
+def safe_parse_date(d_str):
+    try:
+        return datetime.strptime(d_str, "%Y-%m-%d")
+    except ValueError:
+        parts = d_str.split('-')
+        if len(parts) == 3:
+            y, m, d = int(parts[0]), int(parts[1]), int(parts[2])
+            max_d = calendar.monthrange(y, m)[1]
+            return datetime(y, m, min(d, max_d))
+        raise
 
 def generate_smart_schedule(total_rows, period_start="2026-12-01", period_end="2026-12-31", manual_anchors=None):
     """
@@ -9,17 +21,18 @@ def generate_smart_schedule(total_rows, period_start="2026-12-01", period_end="2
     if manual_anchors is None:
         manual_anchors = {}
         
-    start_dt = datetime.strptime(period_start, "%Y-%m-%d")
-    end_dt = datetime.strptime(period_end, "%Y-%m-%d")
+    start_dt = safe_parse_date(period_start)
+    end_dt = safe_parse_date(period_end)
     total_days = (end_dt - start_dt).days + 1
     
     # 1. Establish anchor points
     anchors = {0: start_dt}
     for r_idx, val in manual_anchors.items():
         if 'date' in val and val['date']:
-            d_obj = datetime.strptime(val['date'], "%Y-%m-%d")
+            d_obj = safe_parse_date(val['date'])
             anchors[r_idx] = d_obj
     anchors[total_rows - 1] = end_dt
+
     
     sorted_anchor_rows = sorted(anchors.keys())
     

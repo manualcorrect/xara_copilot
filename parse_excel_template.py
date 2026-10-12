@@ -75,6 +75,27 @@ def parse_xara_excel_template(excel_path):
                 elif "Dana Masuk" in p_name: config["summary"]["dana_masuk"] = formatted_summary
                 elif "Dana Keluar" in p_name: config["summary"]["dana_keluar"] = formatted_summary
                 elif "Saldo Akhir" in p_name: config["summary"]["saldo_akhir"] = formatted_summary
+
+    # Auto-synchronize Periode with Target Bulan & Tahun if mismatched
+    target_my = config["dates"].get("target_month_year", "").strip()
+    periode_raw = config["header"].get("periode", "").strip()
+    if target_my and periode_raw:
+        t_parts = target_my.split()
+        if len(t_parts) == 2:
+            t_mon, t_yr = t_parts[0], t_parts[1]
+            if t_mon.lower() not in periode_raw.lower():
+                import calendar
+                month_to_num = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'mei': 5, 'may': 5,
+                                'jun': 6, 'jul': 7, 'agt': 8, 'aug': 8, 'sep': 9, 'okt': 10,
+                                'oct': 10, 'nov': 11, 'des': 12, 'dec': 12}
+                m_num = month_to_num.get(t_mon.lower(), 1)
+                try:
+                    yr_int = int(t_yr)
+                    max_d = calendar.monthrange(yr_int, m_num)[1]
+                    auto_per = f"01 {t_mon} {t_yr} - {max_d:02d} {t_mon} {t_yr}"
+                    config["header"]["periode"] = auto_per
+                except:
+                    pass
                 
     # 2. Parse Sheet 2: Tabel_Mutasi
     ws2 = wb["Tabel_Mutasi"]
@@ -129,7 +150,7 @@ def parse_xara_excel_template(excel_path):
         # Date & Time formatting
         from datetime import datetime as dt_type
         if isinstance(tgl_raw, dt_type):
-            tgl = tgl_raw.strftime("%d/%m")
+            tgl = tgl_raw.strftime("%d %b %Y")
         else:
             tgl = str(tgl_raw or "").strip()
         if tgl and '/' not in tgl and '-' not in tgl and ' ' not in tgl:
