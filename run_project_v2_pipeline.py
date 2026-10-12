@@ -2219,19 +2219,19 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
                 return j
         return None
 
-    def clean_trailing_split_nodes(start_idx, max_forward=10):
+    def clean_trailing_split_nodes(start_idx, max_forward=30):
         for k in range(start_idx + 1, min(n_recs, start_idx + max_forward)):
-            if doc.records[k]['tag'] == 2100:
+            if doc.records[k]['tag'] in (2100, 2200, 2203):
                 break
             if doc.records[k]['tag'] in (2201, 2202):
                 doc.records[k]['payload'] = bytearray(b'\x00\x00')
                 doc.records[k]['size'] = 2
 
     # 0. Deteksi Palet Warna Dinamis Native (Tag 51)
-    c_hijau = COLOR_HIJAU_CR
-    c_hitam = COLOR_HITAM_DB
-    c_saldo = COLOR_BIRU_SALDO
-    c_sawal = COLOR_ABU_AWAL
+    c_hijau = bytearray.fromhex('0a040000') # #00A651 / green
+    c_hitam = bytearray.fromhex('75020000') # black
+    c_saldo = bytearray.fromhex('87050000') # blue
+    c_sawal = bytearray.fromhex('85030000') # gray
 
     for idx, r in enumerate(doc.records):
         if r['tag'] == 51 and len(r['payload']) >= 3:
@@ -2258,7 +2258,7 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
             x, y = struct.unpack('<ii', rec['payload'][:8])
             page = sum(1 for sp in spread_indices if i >= sp) + 1
             texts = []
-            for j in range(i + 1, min(n_recs, i + 35)):
+            for j in range(i + 1, min(n_recs, i + 250)):
                 if doc.records[j]['tag'] == 2100:
                     break
                 if doc.records[j]['tag'] in (2201, 2202):
@@ -2277,134 +2277,170 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
 
     # 3. TAHAP 1: Nama Nasabah (ALL CAPS)
     new_name = cfg['header']['nama'].strip().upper()
-    p_name = bytearray((new_name + " \r\n").encode('utf-16le'))
     t1_count = 0
     for s in stories:
-        if s['y'] >= 680000 and 120000 <= s['x'] <= 126000 and ('Nama' not in s['full_text'] and 'Name' not in s['full_text']):
-            first_t_rec = s['texts'][0][0]
-            doc.records[first_t_rec]['payload'] = p_name
-            doc.records[first_t_rec]['size'] = len(p_name)
-            clean_trailing_split_nodes(first_t_rec)
+        if s['y'] >= 700000 and 120000 <= s['x'] <= 130000:
+            first_t = s['texts'][0][0]
+            update_text_node(doc, first_t, new_name + " ")
+            clean_trailing_split_nodes(first_t)
             t1_count += 1
     if not quiet: live_log(f"Tahap 1 (Nama Nasabah) : '{new_name}' terstandarisasi ALL CAPS ({t1_count} header)", prefix="[1/7]", delay=0.1)
 
-    # 4. TAHAP 2: Periode Laporan
+    # 4. TAHAP 2 & 3: Periode Laporan & Tanggal Cetak
     new_periode = cfg['header']['periode'].strip()
-    p_per = bytearray(new_periode.encode('utf-16le'))
-    t2_count = 0
-    for s in stories:
-        if s['y'] >= 650000 and (' - ' in s['full_text'] or any(yr in s['full_text'] for yr in ['202'])):
-            first_t_rec = s['texts'][0][0]
-            doc.records[first_t_rec]['payload'] = p_per
-            doc.records[first_t_rec]['size'] = len(p_per)
-            clean_trailing_split_nodes(first_t_rec)
-            c2150 = find_prec_tag(first_t_rec, 2150, min_size=4)
-            if c2150 is not None:
-                doc.records[c2150]['payload'] = bytearray(struct.pack('<ii', 180000, 1))
-                doc.records[c2150]['size'] = len(doc.records[c2150]['payload'])
-            t2_count += 1
-    if not quiet: live_log(f"Tahap 2 (Periode)      : '{new_periode}' pada seluruh header ({t2_count} node)", prefix="[2/7]", delay=0.1)
-
-    # 5. TAHAP 3: Tanggal Cetak (Issued On)
     new_dicetak = cfg['header']['dicetak_pada'].strip()
-    p_cetak = bytearray(new_dicetak.encode('utf-16le'))
+    t2_count = 0
     t3_count = 0
-    for s in stories:
-        if any(m in s['full_text'] for m in ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'May', 'Jun', 'Jul', 'Agt', 'Aug', 'Sep', 'Okt', 'Oct', 'Nov', 'Des', 'Dec']) and any(yr in s['full_text'] for yr in ['2024', '2025', '2026', '2027']):
-            if s['y'] < 60000 or s['y'] >= 700000:
-                if ' - ' not in s['full_text']:
-                    first_t_rec = s['texts'][0][0]
-                    doc.records[first_t_rec]['payload'] = p_cetak
-                    doc.records[first_t_rec]['size'] = len(p_cetak)
-                    clean_trailing_split_nodes(first_t_rec)
-                    t3_count += 1
-    if not quiet: live_log(f"Tahap 3 (Tanggal Cetak): '{new_dicetak}' tersinkronisasi ({t3_count} node)", prefix="[3/7]", delay=0.1)
 
-    # 6. TAHAP 4: Nomor Rekening
+    for s in stories:
+        if s['y'] >= 700000 and 330000 <= s['x'] <= 350000:
+            lines_text_recs = []
+            curr_line = []
+            for j in range(s['idx'], min(n_recs, s['idx'] + 100)):
+                r = doc.records[j]
+                if r['tag'] == 2203:
+                    if curr_line:
+                        lines_text_recs.append(curr_line)
+                        curr_line = []
+                elif r['tag'] in (2201, 2202):
+                    curr_line.append(j)
+                elif r['tag'] == 2100 and j > s['idx']:
+                    break
+            if curr_line:
+                lines_text_recs.append(curr_line)
+
+            if len(lines_text_recs) >= 2:
+                # Line 1: Periode
+                line1_recs = lines_text_recs[0]
+                update_text_node(doc, line1_recs[0], new_periode)
+                for rk in line1_recs[1:]:
+                    clean_split_node(doc, rk)
+                t2_count += 1
+
+                # Line 2: Dicetak Pada
+                line2_recs = lines_text_recs[1]
+                update_text_node(doc, line2_recs[0], new_dicetak)
+                for rk in line2_recs[1:]:
+                    clean_split_node(doc, rk)
+                t3_count += 1
+            elif len(lines_text_recs) == 1:
+                line_recs = lines_text_recs[0]
+                txt = s['full_text']
+                if '-' in txt:
+                    update_text_node(doc, line_recs[0], new_periode)
+                    for rk in line_recs[1:]:
+                        clean_split_node(doc, rk)
+                    t2_count += 1
+                else:
+                    update_text_node(doc, line_recs[0], new_dicetak)
+                    for rk in line_recs[1:]:
+                        clean_split_node(doc, rk)
+                    t3_count += 1
+
+    if not quiet:
+        live_log(f"Tahap 2 (Periode)      : '{new_periode}' pada seluruh header ({t2_count} node)", prefix="[2/7]", delay=0.1)
+        live_log(f"Tahap 3 (Tanggal Cetak): '{new_dicetak}' tersinkronisasi ({t3_count} node)", prefix="[3/7]", delay=0.1)
+
+    # 5. TAHAP 4: Nomor Rekening
     new_acc = cfg['header']['nomor_rekening'].strip() + " "
-    p_acc = bytearray(new_acc.encode('utf-16le'))
     t4_count = 0
     for s in stories:
-        if s['page'] == 1 and s['y'] >= 650000:
-            digits_only = ''.join(c for c in s['full_text'] if c.isdigit())
-            if len(digits_only) >= 10 and not any(c in s['full_text'] for c in (':', '-')):
-                first_t_rec = s['texts'][0][0]
-                doc.records[first_t_rec]['payload'] = p_acc
-                doc.records[first_t_rec]['size'] = len(p_acc)
-                clean_trailing_split_nodes(first_t_rec)
+        if s['page'] == 1 and 640000 <= s['y'] <= 660000 and 140000 <= s['x'] <= 160000:
+            digit_recs = [t[0] for t in s['texts'] if any(c.isdigit() for c in t[2])]
+            if digit_recs:
+                update_text_node(doc, digit_recs[0], new_acc)
+                for rk in digit_recs[1:]:
+                    clean_split_node(doc, rk)
                 t4_count += 1
                 break
     if not quiet: live_log(f"Tahap 4 (Nomor Rekening): '{new_acc.strip()}' pada Header Halaman 1", prefix="[4/7]", delay=0.1)
 
-    # 7. TAHAP 5: Nomor Halaman Multi-Digit Bersih
+    # 6. TAHAP 5: Nomor Halaman Multi-Digit Bersih
     tot_p = total_pages
     for p in range(1, total_pages + 1):
         str_en = f"{p} of {tot_p}"
         str_id = f"{p} dari {tot_p}"
         for s in stories:
-            if s['page'] == p:
-                txt = s['full_text']
-                if ' of ' in txt or txt.startswith('of '):
+            if s['page'] == p and s['y'] >= 700000 and s['x'] >= 500000:
+                txt = s['full_text'].lower()
+                if 'of' in txt:
                     first_t_rec = s['texts'][0][0]
-                    doc.records[first_t_rec]['payload'] = bytearray(str_en.encode('utf-16le'))
-                    doc.records[first_t_rec]['size'] = len(doc.records[first_t_rec]['payload'])
+                    update_text_node(doc, first_t_rec, str_en)
                     clean_trailing_split_nodes(first_t_rec)
-                elif ' dari' in txt or txt.startswith('dari '):
+                elif 'dari' in txt:
                     first_t_rec = s['texts'][0][0]
-                    doc.records[first_t_rec]['payload'] = bytearray(str_id.encode('utf-16le'))
-                    doc.records[first_t_rec]['size'] = len(doc.records[first_t_rec]['payload'])
+                    update_text_node(doc, first_t_rec, str_id)
                     clean_trailing_split_nodes(first_t_rec)
+                elif txt == str(tot_p) or txt == '5':
+                    clean_split_node(doc, s['texts'][0][0])
     if not quiet: live_log(f"Tahap 5 (Nomor Halaman): 1 of {tot_p} s.d. {tot_p} of {tot_p} terverifikasi bersih", prefix="[5/7]", delay=0.1)
 
-    # 8. TAHAP 7: Header Ringkasan Keuangan (Page 1)
+    # 7. TAHAP 7: Header Ringkasan Keuangan (Page 1)
     sawal = cfg['summary']['saldo_awal']
     dmasuk = cfg['summary']['dana_masuk']
     dkeluar = cfg['summary']['dana_keluar']
     sakhir = cfg['summary']['saldo_akhir']
 
-    sum_stories = [s for s in stories if s['page'] == 1 and 540000 <= s['y'] <= 650000 and (',' in s['full_text'] or '.' in s['full_text'])]
-    sum_stories.sort(key=lambda s: s['x'])
+    val_masuk = dmasuk if dmasuk.startswith("+") else f"+ {dmasuk}"
+    val_keluar = dkeluar if dkeluar.startswith("-") else f"- {dkeluar}"
 
-    if len(sum_stories) >= 4:
-        st_sawal = sum_stories[0]
-        rec_sawal = st_sawal['texts'][0][0]
-        update_text_node(doc, rec_sawal, sawal + " ")
-        clean_trailing_split_nodes(rec_sawal)
-        k_sawal = find_prec_tag(rec_sawal, 2206, 12)
-        if k_sawal: update_t2206(doc, k_sawal, calc_text_width(sawal))
-        c_sw = find_prec_tag(rec_sawal, 150, 4)
-        if c_sw: update_color(doc, c_sw, c_sawal)
+    # Search for summary story (either 4-line single story or 4 individual stories)
+    sum_stories = [s for s in stories if s['page'] == 1 and 640000 <= s['y'] <= 680000 and 480000 <= s['x'] <= 540000]
+    if sum_stories:
+        st_sum = sum_stories[0]
+        sum_line_recs = []
+        curr_line = []
+        for j in range(st_sum['idx'], min(n_recs, st_sum['idx'] + 100)):
+            r = doc.records[j]
+            if r['tag'] in (2200, 2203):
+                if curr_line:
+                    sum_line_recs.append(curr_line)
+                    curr_line = []
+            elif r['tag'] in (2201, 2202):
+                curr_line.append(j)
+            elif r['tag'] == 2100 and j > st_sum['idx']:
+                break
+        if curr_line:
+            sum_line_recs.append(curr_line)
 
-        st_masuk = sum_stories[1]
-        rec_masuk = st_masuk['texts'][0][0]
-        val_masuk = dmasuk if dmasuk.startswith("+") else f"+ {dmasuk}"
-        update_text_node(doc, rec_masuk, val_masuk + " ")
-        clean_trailing_split_nodes(rec_masuk)
-        k_masuk = find_prec_tag(rec_masuk, 2206, 12)
-        if k_masuk: update_t2206(doc, k_masuk, calc_text_width(val_masuk))
-        c_ms = find_prec_tag(rec_masuk, 150, 4)
-        if c_ms: update_color(doc, c_ms, c_hijau)
+        if len(sum_line_recs) >= 4:
+            # Line 1: Saldo Awal
+            r_aw = sum_line_recs[0][0]
+            update_text_node(doc, r_aw, sawal + " ")
+            for rk in sum_line_recs[0][1:]: clean_split_node(doc, rk)
+            k_aw = find_prec_tag(r_aw, 2206, 12)
+            if k_aw: update_t2206(doc, k_aw, calc_text_width(sawal))
+            c_aw = find_prec_tag(r_aw, 150, 4)
+            if c_aw: update_color(doc, c_aw, c_sawal)
 
-        st_keluar = sum_stories[2]
-        rec_keluar = st_keluar['texts'][0][0]
-        val_keluar = dkeluar if dkeluar.startswith("-") else f"- {dkeluar}"
-        update_text_node(doc, rec_keluar, val_keluar + " ")
-        clean_trailing_split_nodes(rec_keluar)
-        k_keluar = find_prec_tag(rec_keluar, 2206, 12)
-        if k_keluar: update_t2206(doc, k_keluar, calc_text_width(val_keluar))
-        c_kl = find_prec_tag(rec_keluar, 150, 4)
-        if c_kl: update_color(doc, c_kl, c_hitam)
+            # Line 2: Dana Masuk
+            r_in = sum_line_recs[1][0]
+            update_text_node(doc, r_in, val_masuk + " ")
+            for rk in sum_line_recs[1][1:]: clean_split_node(doc, rk)
+            k_in = find_prec_tag(r_in, 2206, 12)
+            if k_in: update_t2206(doc, k_in, calc_text_width(val_masuk))
+            c_in = find_prec_tag(r_in, 150, 4)
+            if c_in: update_color(doc, c_in, c_hijau)
 
-        st_akhir = sum_stories[3]
-        rec_akhir = st_akhir['texts'][0][0]
-        update_text_node(doc, rec_akhir, sakhir + " ")
-        clean_trailing_split_nodes(rec_akhir)
-        k_akhir = find_prec_tag(rec_akhir, 2206, 12)
-        if k_akhir: update_t2206(doc, k_akhir, calc_text_width(sakhir))
-        c_ak = find_prec_tag(rec_akhir, 150, 4)
-        if c_ak: update_color(doc, c_ak, c_saldo)
+            # Line 3: Dana Keluar
+            r_out = sum_line_recs[2][0]
+            update_text_node(doc, r_out, val_keluar + " ")
+            for rk in sum_line_recs[2][1:]: clean_split_node(doc, rk)
+            k_out = find_prec_tag(r_out, 2206, 12)
+            if k_out: update_t2206(doc, k_out, calc_text_width(val_keluar))
+            c_out = find_prec_tag(r_out, 150, 4)
+            if c_out: update_color(doc, c_out, c_hitam)
 
-    # 9. TAHAP 6 & 7: Dynamic Spatial Table Mutations (Tabel Mutasi Utama)
+            # Line 4: Saldo Akhir
+            r_ak = sum_line_recs[3][0]
+            update_text_node(doc, r_ak, sakhir + " ")
+            for rk in sum_line_recs[3][1:]: clean_split_node(doc, rk)
+            k_ak = find_prec_tag(r_ak, 2206, 12)
+            if k_ak: update_t2206(doc, k_ak, calc_text_width(sakhir))
+            c_ak = find_prec_tag(r_ak, 150, 4)
+            if c_ak: update_color(doc, c_ak, c_saldo)
+
+    # 8. TAHAP 6 & 7: Dynamic Spatial Table Mutations (Tabel Mutasi Utama)
     saldo_stories_table = []
     for s in stories:
         is_table_y = (s['y'] <= 520000) if s['page'] == 1 else (s['y'] <= 660000)
@@ -2418,6 +2454,28 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
 
     tx_list = cfg.get('transactions', [])
     n_process = min(total_physical_rows, len(tx_list))
+
+    # Determine smart schedule period
+    p_start = "2026-07-01"
+    p_end = "2026-07-31"
+    if 'periode' in cfg['header'] and '-' in cfg['header']['periode']:
+        parts = cfg['header']['periode'].split('-')
+        # Parse months like '01 Jul 2026'
+        month_map = {'jan': '01', 'feb': '02', 'mar': '03', 'apr': '04', 'mei': '05', 'may': '05',
+                     'jun': '06', 'jul': '07', 'agt': '08', 'aug': '08', 'sep': '09', 'okt': '10',
+                     'oct': '10', 'nov': '11', 'des': '12', 'dec': '12'}
+        try:
+            p1_toks = parts[0].strip().split()
+            p2_toks = parts[1].strip().split()
+            if len(p1_toks) >= 3 and len(p2_toks) >= 3:
+                m1 = month_map.get(p1_toks[1].lower(), '07')
+                m2 = month_map.get(p2_toks[1].lower(), '07')
+                p_start = f"{p1_toks[2]}-{m1}-{int(p1_toks[0]):02d}"
+                p_end = f"{p2_toks[2]}-{m2}-{int(p2_toks[0]):02d}"
+        except:
+            pass
+
+    smart_sched = generate_smart_schedule(total_physical_rows, period_start=p_start, period_end=p_end)
 
     for r_idx in range(n_process):
         tx = tx_list[r_idx]
@@ -2434,7 +2492,7 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
         for s in row_stories:
             if s['x'] <= 35000:
                 no_story = s
-            elif 50000 <= s['x'] <= 85000:
+            elif 50000 <= s['x'] <= 95000:
                 dt_stories.append(s)
             elif 300000 <= s['x'] <= 460000:
                 nom_story = s
@@ -2453,18 +2511,18 @@ def execute_universal_spatial_pipeline(doc, cfg, quiet=False):
                 clean_trailing_split_nodes(first_t)
 
         # 2. Update Tanggal & Jam (Tahap 6)
-        tgl_val = tx.get('tanggal', '')
-        jam_val = tx.get('jam', '')
+        tgl_val = tx.get('tanggal') or smart_sched[r_idx]['date_full']
+        jam_val = tx.get('jam') or smart_sched[r_idx]['time']
+
         if dt_stories:
-            dt_stories.sort(key=lambda s: s['x'])
             for s in dt_stories:
                 t_txt = s['full_text']
                 first_t = s['texts'][0][0]
-                if ('WIB' in t_txt or ':' in t_txt) and jam_val:
+                if 'WIB' in t_txt or ':' in t_txt:
                     update_text_node(doc, first_t, jam_val)
                     clean_trailing_split_nodes(first_t)
-                elif tgl_val:
-                    update_text_node(doc, first_t, f"{tgl_val} {cfg['dates'].get('target_month_year', 'Aug 2026')}" if len(tgl_val) <= 5 else tgl_val)
+                else:
+                    update_text_node(doc, first_t, tgl_val)
                     clean_trailing_split_nodes(first_t)
 
         # 3. Update Nominal & Rata Kanan (Tahap 7)
